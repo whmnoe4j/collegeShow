@@ -1,0 +1,136 @@
+{% extends 'admins/adminBase.html' %}
+{% block title %}用户资料中心{% endblock %}
+{% block content %}
+<script type="text/javascript">
+  $(function() {
+
+     //ajax向后台传送数据
+       function ajax_data(username,nickname,password,biography,address,business){
+            $.ajax({
+                  type:"POST",
+                  data: {'username':username,'nickname':nickname,'password':password,'biography':biography,'address':address,'business':business},
+                  url: "/updateUser/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                  cache: false,
+                  dataType: "html",
+                  success: function(auc, statues, xml){
+                     $("input[name='nickname']").val(nickname);
+                     $("input[name='password']").val(password);
+                     $("input[name='biography']").val(biography);
+                     $("input[name='address']").val(address);
+                     $("input[name='business']").val(business);
+                     $('.flah_error').text("修改成功！");
+                  },
+                  error: function(){
+                      $('.flah_error').text("修改失败！");
+                  }
+
+            });
+       }
+      $('.btn-primary').click(function(){
+        var username = $("input[name='username']").val();
+          var nickname = $("input[name='nickname']").val();
+          var password = $("input[name='password']").val();
+          var biography = $("input[name='biography']").val();
+          var address = $("input[name='address']").val();
+          var business = $("input[name='business']").val();
+          
+
+          if(nickname ==  null || nickname == ''){
+               $('.flah_error').text("昵称不能为空");
+               return false;
+          }else if(password==null ||password==""){
+            $('.flah_error').text("密码不能为空");
+               return false;
+           }else if(password.length<6){
+            $('.flah_error').text("密码不能小于6位数");
+               return false;
+           }
+           
+           ajax_data(username,nickname,password,biography,address,business)
+           
+          return true;
+          })
+})
+  
+ 
+</script>
+    
+    <div class="content">
+        
+        <div class="header">
+            
+            <h1 class="page-title">修改资料</h1>
+        </div>
+                <ul class="breadcrumb">
+            <li><a href="/adminIndex">首页</a> <span class="divider">/</span></li>
+            <li><a href="/users">用户中心</a> <span class="divider">/</span></li>
+            <li class="active">用户</li>
+        </ul>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                  
+<div class="btn-toolbar">
+    <button class="btn btn-primary"><i class="icon-save"></i> 保存</button>
+
+
+  <div class="btn-group">
+
+  </div>
+</div>
+<div class="well">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#home" data-toggle="tab">用户资料</a></li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <div class="tab-pane active in" id="home">
+
+    <form id="tab">
+         
+        <label>用户名</label>
+        <input type="text" disabled="disabled" value="{{user.personid}}" class="input-xlarge" name="username">
+        <label>用户昵称</label>
+        <input type="text" value="{{user.personname}}" class="input-xlarge" name="nickname">
+        <label>用户密码</label>
+        <input type="password" value="{{user.password}}" class="input-xlarge" name="password">
+        <label>用户简介</label>
+        <input type="text" value="{{user.personbiography}}" class="input-xlarge" name="biography">
+        <label>用户地址</label>
+        <input type="text" value="{{user.personaddress}}" class="input-xlarge" name="address">
+        <label>所在公司</label>
+        <input type="text" value="{{user.personbusiness}}" class="input-xlarge" name="business">
+
+    </form>
+     <span class="flah_error" style="color:red;font-weight:800;height:40px; float:left;"></span> 
+      </div>
+     
+  </div>
+
+</div>
+                    
+              <footer>
+                        <hr>
+
+                        <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                        <p class="pull-right"><a href="javascript:void();" target="_blank">Design by </a> by <a href="https://github.com/zuoakang" target="_blank">zuoakang</a></p>
+
+                        <p>&copy; 2017 <a href="/index" target="_blank">知乎数据</a></p>
+               </footer>
+      
+  </div>
+    </div>
+</div>
+    
+
+
+    <script src="../static/lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+        $(function() {
+            $('.demo-cancel-click').click(function(){return false;});
+        });
+    </script>
+    
+
+
+{% endblock %}

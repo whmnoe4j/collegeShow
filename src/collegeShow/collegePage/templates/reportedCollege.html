@@ -1,0 +1,272 @@
+{% extends 'base.html' %}
+{% block title %}院校推荐{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="../static/css/reportedCollege.css">
+<style type="text/css">
+	
+	.collegeSearch {
+	    display: inline-block;
+	    width: 20px;
+	    height: 20px;
+	    content: "";
+	    vertical-align: middle;
+	    overflow: hidden;
+	    background: url(../static/images/search.png) no-repeat center center;
+	    background-size: 100% 100%;
+	    cursor: pointer;
+
+	}
+
+	.collegeSearchPng {
+		background: url(../static/images/search_g.png) no-repeat center center;
+
+	}
+
+	.sortPng {
+	    /* width: 150px; */
+	    background: url(../static/images/down.png) no-repeat right center;
+	
+	}
+	.cover .cover_text {
+    width: 604px;
+    margin: 0 auto;
+    height: 226px;
+    background: url(../static/images/vip_ad.jpg) center no-repeat;
+	}
+
+</style>
+
+<script>window.jQuery || document.write('<script src="../static/js/jquery-1.11.0.min.js"><\/script>')</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+
+		// 院校推荐样式更换
+		lpointClass(".lpointer","mySelected")
+
+		//省份选项样式
+		mySelectedClass("#district .pull-left",".pull-left","mySelected")
+		mySelectedClass("#subject .pull-left",".pull-left","mySelected")
+		mySelectedClass("#collegeNature .pull-left",".pull-left","mySelected")
+		
+		//全选
+		$('.selectAll').click(function(){
+			$(this).addClass("mySelected");
+			$('.headTab').addClass('prob');
+
+		})
+
+		
+		probClass(".headTab","prob")
+
+		//输入框改变border颜色
+		
+		$('.sortByCollege').focusin(function(){
+
+			$(this).addClass('iptfocus');
+			$('.collegeSearch').addClass('collegeSearchPng');
+		})
+
+		$('.sortByCollege').focusout(function(){
+
+			$(this).removeClass('iptfocus');
+			$('.collegeSearch').removeClass('collegeSearchPng');
+
+		})
+		function probClass(name,clasName){
+
+			
+
+			$(name).each(function(){
+				$(this).click(function(){
+					//移除全选按钮样式
+					$('.selectAll').removeClass('mySelected')
+					$(name).removeClass(clasName);
+					$(this).addClass(clasName);
+
+				})
+				
+			})
+		}
+		function lpointClass(name,clasName){
+
+            //判断是否存在父节点
+            $(name).each(function(){
+                $(this).click(function(){
+
+                    $(name).removeClass(clasName);
+                    $(this).addClass(clasName);
+                    $('#bread_nav2').html($(this).html())
+                    
+                })
+            
+            })
+        }
+		function mySelectedClass(node,name,clasName){
+			//判断是否存在父节点
+			if (node==""){
+				$(name).each(function(){
+					$(this).click(function(){
+						$(name).removeClass(clasName);
+						$(this).addClass(clasName);
+
+					})
+				
+				})
+			}else{
+				$(node).each(function(){
+					$(this).click(function(){
+						$(node).removeClass(clasName);
+						$(this).addClass(clasName);
+
+					})
+				
+				})
+			}
+		}
+	});
+
+</script>
+
+<div class="head_height"></div>
+<div id="reportedCollege-container">
+    <div id="reportedCollege_content" >
+      
+		{# 左边窗口 #}
+		<div class="lFrame lt">
+		    <div class="mynav nav2_bar breadUserInfoBox ">
+		        <ul class="breadcrumb breadNav">
+		            <li><a class="index" href="/">首页</a></li>
+		            <li><a id="bread_nav1" href="#">院校推荐</a></li>
+		            <li id="bread_nav2">按分推荐大学</li>
+		        </ul>
+		    </div>
+
+		    <div>
+		        <div class="changeNav_school"><i class="icon iconfont icon-xueshimao"></i>院校推荐</div>
+		        <ul class="changeNav">
+		            <li class="lpointer mySelected">按分推荐大学</li>
+		            <li class="lpointer">大学录取概率</li>
+		            <li class="lpointer">同分考生去向</li>
+		            <li class="lpointer">专业匹配测评</li>
+		            <li class="lpointer">模拟志愿填报</li>
+
+		        </ul>
+		    </div>
+        </div>
+       {# 右侧内容 #}
+     	<div class="rFrame lt">
+	        <div class="no_userinfo">
+			    <div class="rFrame_userInfo">
+			        <ul class="userInfo" id="searchOrUserInfo">
+			            <li id="userInfo"><span id="userInfo_district">北京</span><span id="userInfo_category">理科</span><span id="userInfo_score">分数：123</span><a class="changeUserInfo"><img src="../static/images/write.png" alt="修改分数"></a></li>
+			        </ul>
+			    </div>
+	   		 </div>
+         	<div class="partLine_top">
+		        <div id="row_district">
+		            <div class="select_title fl">
+		                <div class="select_inputDom">院校位置：</div>
+		            </div>
+		            <ul class="select_items fl mul" id="district">
+		                <li class="pull-left mySelected" data_value="不限">不限</li>
+		                <li class="pull-left" data_value="安徽">安徽</li>
+		                <li class="pull-left" data_value="北京">北京</li>
+		                <li class="pull-left" data_value="重庆">重庆</li>
+		                <li class="pull-left" data_value="福建">福建</li>
+		                <li class="pull-left" data_value="广东">广东</li>
+		                <li class="pull-left" data_value="广西">广西</li>
+		                <li class="pull-left" data_value="甘肃">甘肃</li>
+		                <li class="pull-left" data_value="贵州">贵州</li>
+		                <li class="pull-left" data_value="海南">海南</li>
+		                <li class="pull-left" data_value="河南">河南</li>
+		                <li class="pull-left" data_value="河北">河北</li>
+		                <li class="pull-left" data_value="黑龙江">黑龙江</li>
+		                <li class="pull-left" data_value="湖北">湖北</li>
+		                <li class="pull-left" data_value="湖南">湖南</li>
+		                <li class="pull-left" data_value="吉林">吉林</li>
+		                <li class="pull-left" data_value="江苏">江苏</li>
+		                <li class="pull-left" data_value="江西">江西</li>
+		                <li class="pull-left" data_value="辽宁">辽宁</li>
+		                <li class="pull-left" data_value="内蒙古">内蒙古</li>
+		                <li class="pull-left" data_value="宁夏">宁夏</li>
+		                <li class="pull-left" data_value="青海">青海</li>
+		                <li class="pull-left" data_value="山东">山东</li>
+		                <li class="pull-left" data_value="山西">山西</li>
+		                <li class="pull-left" data_value="陕西">陕西</li>
+		                <li class="pull-left" data_value="上海">上海</li>
+		                <li class="pull-left" data_value="四川">四川</li>
+		                <li class="pull-left" data_value="天津">天津</li>
+		                <li class="pull-left" data_value="新疆">新疆</li>
+		                <li class="pull-left" data_value="西藏">西藏</li>
+		                <li class="pull-left" data_value="云南">云南</li>
+		                <li class="pull-left" data_value="浙江">浙江</li>
+		            </ul>
+		        </div>
+		        <div id="row_subject">
+		            <div class="select_title fl">
+		                <div class="select_inputDom">院校类型：</div>
+		            </div>
+		            <ul class="select_items fl mul" id="subject">
+		                <li class="pull-left mySelected" data_value="不限">不限</li>
+		                <li class="pull-left" data_value="综合">综合</li>
+		                <li class="pull-left" data_value="理工">理工</li>
+		                <li class="pull-left" data_value="农林">农林</li>
+		                <li class="pull-left" data_value="医药">医药</li>
+		                <li class="pull-left" data_value="政法">政法</li>
+		                <li class="pull-left" data_value="师范">师范</li>
+		                <li class="pull-left" data_value="财经">财经</li>
+		                <li class="pull-left" data_value="民族">民族</li>
+		                <li class="pull-left" data_value="语言">语言</li>
+		                <li class="pull-left" data_value="艺术">艺术</li>
+		                <li class="pull-left" data_value="军事">军事</li>
+		                <li class="pull-left" data_value="体育">体育</li>
+		                <li class="pull-left" data_value="其他">其他</li>
+		            </ul>
+		        </div>
+		        <div id="row_collegeNature mul">
+		            <div class="select_title fl">
+		                <div class="select_inputDom">院校层次：</div>
+		            </div>
+		            <ul class="select_items fl mul" id="collegeNature">
+		                <li class="pull-left mySelected" data_value="不限">不限</li>
+		                <li class="pull-left" data_value="本科">本科</li>
+		                <li class="pull-left" data_value="专科">专科</li>
+		            </ul>
+		        </div>
+		    </div>
+			<div class="boxHeader partLine_bottom">
+			       
+			        <div class="headTitle lt">录取概率：</div>
+			        <div class="lt selectAll">全选</div>
+			        <div class="headTab prob lt">90%以上(0)</div>
+			        <div class="headTab prob lt">90%~70%(0)</div>
+			        <div class="headTab lt">70%~50%(0)</div>
+			        <div class="headTab lt">50%以下(0)</div>
+		    </div>
+		    <div class="sortBar">
+		        <div class="fl searchTitle">搜索结果列表：</div>
+		        <div class="sortByCollege lt">
+		            <input type="text" placeholder="请输入学校名" class="inputCollege" id="inputCollege">
+		            <span class="collegeSearch"></span>
+		            
+		        </div>
+		        <div class="sortItem lt">综合排名</div>
+		        <div class="sortItem lt sortChecked sortPng">录取概率</div>
+		        <div class="sortItem lt">毕业收入</div>
+		    </div>
+
+    
+		    <div class="noData noBd"><div class="mc"><span class="dataLine"></span> <span>抱歉，暂无相关数据</span> <span class="dataLine"></span></div></div>
+		    <div class="cover">
+		        <div class="cover_text">
+		            <!--开通VIP，查看全部，为梦想投资-->
+		        </div>
+		        <a href="buyVip.html" class="cover_btn pointer btn_tran">开通VIP</a>
+		    </div>
+        </div>
+
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,268 @@
+{% extends 'admins/adminBase.html' %}
+{% block title %}用户资料中心{% endblock %}
+{% block content %}
+
+<script type="text/javascript">
+  $(function() {
+
+     //ajax向后台传送数据
+       function ajax_delete(id,element){
+            $.ajax({
+                  type:"POST",
+                  data: {'id':id},
+                  url: "/deleteUser/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                  cache: false,
+                  dataType: "html",
+                  success: function(auc, statues, xml){
+                    //静态刷新页面  将删除的数据移除
+                    element.remove();
+
+                  },
+                  error: function(){
+                  }
+
+            });
+       }
+
+       function ajax_add(username,nickname,password,biography,address,business){
+            $.ajax({
+                  type:"POST",
+                  data: {'username':username,'nickname':nickname,'password':password,'biography':biography,'address':address,'business':business},
+                  url: "/addUser/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                  cache: false,
+                  dataType: "html",
+                  success: function(error, statues, xml){
+                      
+                     $("input[name='nickname']").val(nickname);
+                     $("input[name='password']").val(password);
+                     $("input[name='biography']").val(biography);
+                     $("input[name='address']").val(address);
+                     $("input[name='business']").val(business);
+                     $('.flah_error').text("添加成功！");
+                     window.location.reload();//刷新当前页面.
+                      error=JSON.parse(error)
+                        if (error!=null){
+                          alert(error)  
+                      }
+                  },
+                  error: function(){
+                      $('.flah_error').text("添加失败！");
+                  }
+
+            });
+       }
+       $('.addUser').click(function(){
+
+             $('#myModal').modal('show').css({
+              width: 'auto',
+              'margin-left': function () {
+                  return -($(this).width() / 2);
+              }
+           });
+       })
+      
+      $('#addUser').click(function(){
+
+
+          var username = $("input[name='username']").val();
+          var nickname = $("input[name='nickname']").val();
+          var password = $("input[name='password']").val();
+          var biography = $("input[name='biography']").val();
+          var address = $("input[name='address']").val();
+          var business = $("input[name='business']").val();
+          
+          
+
+          if(nickname ==  null || nickname == ''){
+               $('.flah_error').text("昵称不能为空");
+               return false;
+          }else if(password==null ||password==""){
+            $('.flah_error').text("密码不能为空");
+               return false;
+           }else if(password.length<6){
+            $('.flah_error').text("密码不能小于6位数");
+               return false;
+           }
+           
+           ajax_add(username,nickname,password,biography,address,business)
+          
+          return true;
+      })
+
+      $('.delete').click(function(){
+          
+          var userId=$(this).parent().parent().children().first().text()
+          var element=$(this).parent().parent().children()
+           
+             $('#delete').click(function(){
+                ajax_delete(userId,element)
+
+            })
+             
+          })
+})
+  
+ 
+</script>    
+    <div class="content">
+        
+        <div class="header">
+            
+            <h1 class="page-title">用户中心</h1>
+        </div>
+        
+                <ul class="breadcrumb">
+            <li><a href="/adminIndex">首页</a> <span class="divider">/</span></li>
+            <li class="active">用户中心</li>
+        </ul>
+
+        <div class="container-fluid">
+            <div class="row-fluid">
+                    
+<div class="btn-toolbar">
+
+    <button class="btn btn-primary addUser"  data-toggle="modal"><i class="icon-plus">添加</i> </button>
+  <div class="btn-group">
+  </div>
+</div>
+<div class="well">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>用户编号</th>
+          <th>用户名</th>
+          <th>用户昵称</th>
+          <th>用户密码</th>
+          <th>用户性别</th>
+          <th>简介</th>
+           <th style="width: 40px;">操作</th>
+        </tr>
+      </thead>
+     
+      <tbody>
+
+         {%if users%}
+           {%for user in users%}
+                <tr>
+                  <td>{{user.id}}</td>
+                  <td>{{user.personid}}</td>
+                  <td>{{user.personname}}</td>
+                  <td>{{user.password}}</td>
+                  <td>{{user.persongender}}</td>
+                  <td>{{user.personbiography}}</td>
+                  <td>
+                    <a href="/user/?id={{user.id}}"><i class="icon-pencil"></i></a>
+                    <!--删除提示框改回来就是了myModal -->
+                    {%if user.personid != 'admin'%}
+                    <a href="#myModal2" class="delete" role="button" data-toggle="modal" ><i class="icon-remove"></i></a>
+                    {%endif%}
+                   
+                  </td>
+                </tr>
+
+           {%endfor%}
+         {%endif%}
+       
+      </tbody>
+    </table>
+</div>
+<div class="pagination">
+    <ul>
+
+        <li><a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageFirst">首页</a></li>
+         {% ifnotequal curPage 1 %}  
+            <li> <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageUp" > 上一页  </a>  </li>
+         {% endifnotequal %}
+        <li><a href="javascript:void();" >第{{ curPage }}/{{ allPage }}页 </a></li>
+         {% ifnotequal curPage allPage %} 
+            <li > <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageDown">下一页 </a> </li>
+         {% endifnotequal %}
+         <li><a href="?curPage={{ allPage }}&&allPage={{ allPage }}&&pageType=pageLast">尾页  </a></li>
+    </ul>
+</div>
+
+
+<div class="modal small hide fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="myModalLabel">删除提示</h3>
+    </div>
+    <div class="modal-body">
+        <p class="error-text"><i class="icon-warning-sign modal-icon"></i>你确定要删除该用户吗</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
+        <button class="btn btn-danger" id="delete" data-dismiss="modal">删除</button>
+    </div>
+</div>
+
+
+<div class="modal  hide fade"  id="myModal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+
+   <div class="well">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">添加用户</a></li>
+      </ul>
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane active in" id="home">
+
+            <form id="tab">
+                 
+                <label>用户名</label>
+                <input type="text" placeholder="用户名将不能修改" class="input-xlarge" name="username">
+                <label>用户昵称</label>
+                <input type="text" placeholder="请输入用户名"  class="input-xlarge" name="nickname">
+                <label>用户密码</label>
+                <input type="password" placeholder="请输入大于6位数的密码"  class="input-xlarge" name="password">
+                <label>用户简介</label>
+                <input type="text" placeholder="请输入用户简介"  class="input-xlarge" name="biography">
+                <label>用户地址</label>
+                <input type="text" placeholder="请输入用户地址"  class="input-xlarge" name="address">
+                <label>所在公司</label>
+                <input type="text" placeholder="请输入所在公司"  class="input-xlarge" name="business">
+
+            </form>
+            <span class="flah_error" style="color:red;font-weight:800;height:20px; float:left;"></span> 
+        </div>
+        <div style="clear:both;"></div>
+       <div class="btn-toolbar">
+         <button class="btn btn-primary" data-dismiss="modal" aria-hidden="true">取消</button>
+        <button class="btn btn-primary" id="addUser" data-dismiss="modal" aria-hidden="true"><i class="icon-save"></i> 添加</button>
+       </div>
+     </div>
+
+  </div>
+    
+     
+  
+</div>
+                    
+                   <footer>
+                        <hr>
+
+                        <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
+                        <p class="pull-right"><a href="javascript:void();" target="_blank">Design by </a> by <a href="https://github.com/zuoakang" target="_blank">zuoakang</a></p>
+
+                        <p>&copy; 2017 <a href="/index" target="_blank">知乎数据</a></p>
+                    </footer>
+                    
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script src="../static/lib/bootstrap/js/bootstrap.js"></script>
+    <script type="text/javascript">
+        $("[rel=tooltip]").tooltip();
+        $(function() {
+            $('.demo-cancel-click').click(function(){return false;});
+        });
+
+      
+    </script>
+    
+ 
+{% endblock %}
+

@@ -1,0 +1,17 @@
+<div id='next_pre'>  
+             <div id='next_pre_content'>
+                <span id="next_pre_box">
+                     <!-- 如果当前是第一页，就不显示【上一页】链接 --> 
+                    <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageFirst">首页  </a>
+                    {% ifnotequal curPage 1 %}  
+                        <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageUp" > 上一页  </a>  
+                    {% endifnotequal %}
+                                     第<label style="color:red;">{{ curPage }}</label>/{{ allPage }}页   
+                     <!-- 如果当前是最后一页，就不显示【下一页】链接 -->  
+                    {% ifnotequal curPage allPage %} 
+                        <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageDown">下一页  </a>  
+                    {% endifnotequal %}
+                    <a href="?curPage={{ allPage }}&&allPage={{ allPage }}&&pageType=pageLast">尾页  </a>
+                </span> 
+            </div>
+</div>

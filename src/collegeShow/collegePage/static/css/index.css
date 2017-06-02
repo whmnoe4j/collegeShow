@@ -1,0 +1,371 @@
+
+.width-container{
+	width:1140px;
+	margin: 0px auto;
+}
+.cls{
+	clear: both;
+}
+.flexslider{
+	height: 500px;
+	
+}
+/*悬浮框*/
+.suspend {
+    width: 390px;
+    height: 410px;
+    position: absolute;
+    /* left: 30px; */
+    right: 0;
+    top: 130px;
+    bottom: 0px;
+    z-index: 99;
+    border: 1px solid white;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 15px -5px #000;
+    background: #FFFFFF;
+}
+.suspendBox {
+    width: 1140px;
+    position: absolute;
+    height: 500px;
+    top: 0px;
+    text-align: center;
+    left: 50%;
+    margin-left: -670px;
+    /* margin: 0 auto; */
+}
+.suspend label {
+    font-weight: 500;
+}
+/*大学智能推荐系统*/
+.labelTitle {
+	padding-bottom: 20px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 28px;
+    /* font-weight: 700 !important; */
+    color: #000033;
+    margin: 35px auto 10px;
+}
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: 700;
+}
+/*选择省份框*/
+.district #district {
+	cursor: pointer;
+    width: 146px;
+    color: black!important;
+    height: 40px!important;
+    line-height: 40px;
+    float: left;
+    text-indent: 20px;
+    border: 1px solid #9d9d9d;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+}
+/*高考分数和排名*/
+.changing_over input{
+	margin-bottom: 30px;
+
+}
+.scores_all{
+	padding-top:36px;
+}
+.score,.ranking{
+	font-size: 16px;
+	/*border-color: red;*/
+	border: none;
+    outline: none;
+	border-style:none;
+	padding: 2px;
+		
+	background:transparent;
+	text-align: center;
+
+}
+.year_rank, .year_score {
+	cursor: pointer;
+	border-style:none;
+    width: 312px;
+    height: 46px!important;
+    border: 1px solid #9d9d9d;
+    margin-left: 0px!important;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+}
+/*文理分科*/
+#category input[type=radio] {
+    vertical-align: middle;
+    margin-top: -2px;
+    margin-left: 15px;
+    font-size: 16px;
+}
+.form-horizontal .category {
+    position: absolute;
+    top: 95px;
+    right: 30px;
+}
+/*文理分科单选框*/
+.category {
+	font-size: 18px;
+    width: 144px;
+    height: 40px;
+    line-height: 40px;
+}
+
+/*竖线*/
+.gkscores {
+    border-right: 2px solid #B0B0B0;
+}
+.gkscores, .district_rank {
+	cursor: pointer;
+    width: 155px;
+    height: 20px;
+    /* background: #E7E5E2; */
+    float: left;
+    font-size: 16px;
+}
+
+.mySelected{
+	color: #00BFEC;
+}
+.district {
+    width: 146px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    margin-left: 38px;
+}
+/*悬浮框中间部分*/
+.refer_other {
+    display: block;
+    width: 312px;
+    height: 100px;
+    margin: 40px 0 0px 38px;
+}
+
+
+input, select, textarea {
+    outline: none;
+    border: none;
+    background: none;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    background-image: -webkit-linear-gradient(transparent, transparent);
+    background-image: linear-gradient(transparent, transparent);
+    font-family: "Helvetica", "Arial";
+}
+/*开始推荐按钮*/
+.go-refer{
+	cursor: pointer;
+	 width: 312px;
+    height: 50px;
+    background-color: #52ca7a;
+    display: inline-block;
+    line-height: 40px;
+    text-align: center;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    margin-top: 30px;
+    color: #fff;
+    font-size: 18px;
+
+     /*font-weight: 600; */
+}
+/*高考数据查询导航功能*/
+
+.indexmain {
+    width:100%;
+	margin: 0px auto;
+
+}
+.school_key {
+    height: 400px;
+    margin-top:30px;
+    padding-top: 30px;
+}
+.fl {
+    float: left;
+}
+.school_probability {
+    width: 300px;
+    height: 400px;
+    
+    position: relative;
+
+}
+.right_probability{
+	width:200px;
+}
+.btn_status {
+    background: #00BFED;
+    color: #fff;
+    -webkit-transition: background 0.3s;
+    -moz-transition: background 0.3s;
+    -ms-transition: background 0.3s;
+    -o-transition: background 0.3s;
+    transition: background 0.3s;
+}
+.start_use p {
+    width: 130px;
+    height: 44px;
+    line-height: 44px;
+    -webkit-border-radius: 22px;
+    -moz-border-radius: 22px;
+    border-radius: 22px;
+    text-align: center;
+}
+.start_use {
+    width: 100%;
+    height: 44px;
+    line-height: 44px;
+    font-weight: 400;
+    font-size: 16px;
+    color: #0033CC;
+    margin: 35px auto 25px;
+}
+.data_text {
+    width: 200px;
+    height: 100px;
+    font-size: 14px;
+    color: #919191;
+    line-height: 25px;
+}
+
+p {
+    margin: 0 0 10px;
+}
+.data_title {
+    font-size: 22px;
+    /* font-weight: 700; */
+    color: #282828;
+    margin: 80px 0 30px;
+}
+.data_logo {
+    width: 112px;
+    height: 112px;
+    position: absolute;
+    top: -70px;
+    /* background-color: #fff; */
+    /* -webkit-border-radius: 50%; */
+    /* -moz-border-radius: 50%; */
+    /* border-radius: 50%; */
+    /* border: 1px solid #000; */
+    /* background-color: #efefef; */
+}
+.index_yxtj {
+    width: 264px;
+    height: 350px;
+    position: absolute;
+    top: 70px;
+}
+
+
+
+/*数据查询，院校推荐*/
+.indexArea_search,.index_Datasearch {
+    height: 728px;
+
+}
+.index_Datasearch {
+    position: relative;
+    /*background: #F7F8FA;*/
+    background: white;
+    width: 100%;
+    
+}
+
+.indexArea_text {
+	padding-top: 60px;
+    width: 1140px;
+    height: 600px;
+    margin: 0px auto;
+}
+.dataSearch_title {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    font-size: 32px;
+    color: #3D3C3C;
+    text-align: center;
+    margin-bottom: 40px;
+}
+/*鼠标经过效果*/
+.dataSearch_text {
+    width: 340px;
+    height: 460px;
+    transition: all .2s;
+	box-sizing: border-box;
+}
+.moveTop:hover{
+	/*background: #efefef;*/
+	box-shadow: 0px 4px 20px rgba(0,0,0,.3);
+	border-radius: 10px;
+	transform: scale(1.1);
+	-webkit-transform: scale(1.1);
+	border: none;
+	/*border: 1px solid #ccc;*/
+	background: #fff;
+}
+
+.dataSearch_img img{
+
+	width: 340px;
+}
+
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+
+.datasearch_dxlqgl{
+	 width: 112px;
+    height: 112px;
+}
+
+.ml30 {
+    margin-left: 45px;
+}
+.data_dxfsx a {
+    color: #282828;
+}
+.hc {
+    -webkit-transition: color .3s;
+    -moz-transition: color .3s;
+    -ms-transition: color .3s;
+    -o-transition: color .3s;
+    transition: color .3s;
+}
+.data_dxfsx {
+    width: 264px;
+    font-size: 28px;
+    text-align: left;
+    padding: 30px 30px 0;
+}
+.data_introduce {
+    width: 300px;
+    line-height: 26px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: #919191;
+    text-align: left;
+}
+.hc:hover{
+	color:#00BFEC;
+}
+.data_introduce:hover{
+	color:#333;
+}

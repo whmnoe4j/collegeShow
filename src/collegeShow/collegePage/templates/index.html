@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+{% block title %}高考填报志愿{% endblock %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="../static/css/index.css">
+<script>window.jQuery || document.write('<script src="../static/js/jquery-1.11.0.min.js"><\/script>')</script>
+	<script type="text/javascript" src="../static/js/jquery.flexslider-min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			// 轮播图js
+			$('.flexslider').flexslider({
+				directionNav: true,
+				pauseOnAction: false
+			});
+
+			// 输入高考分数和排名的js控制
+			$('.gkscores').addClass('mySelected');	
+			$('.year_rank').css('display','none');
+			$('.gkscores').click(function(){
+				$('.gkscores').addClass('mySelected');	
+				$('.district_rank').removeClass('mySelected');
+
+				
+				$('.year_score').css('display','block');	
+				$('.year_rank').val()
+				$('.year_rank').css('display','none');	
+			})
+			$('.district_rank').click(function(){
+				$('.district_rank').addClass('mySelected');	
+				$('.gkscores').removeClass('mySelected');
+				$('.year_rank').css('display','block');	
+				$('.year_score').val()
+				$('.year_score').css('display','none');
+				
+			})
+
+
+			
+			// div跳动效果
+       		//  $(".moveTop").hover(function(){
+
+		       //   $(this).animate({top:"40px"},250);
+		       //  },function(){
+		       //    $(this).animate({top:"150px"},250);
+		       // });
+
+
+
+
+	});
+
+
+
+</script>
+<style type="text/css">
+		/* flexslider */
+		.flexslider{position:relative;height:500px;overflow:hidden;background:url(../static/images/loading.gif) 50% no-repeat;}
+		.slides{position:relative;z-index:1;}
+		.slides li{height:500px;}
+		.flex-control-nav{position:absolute;bottom:10px;z-index:2;width:100%;text-align:center;}
+		.flex-control-nav li{display:inline-block;width:14px;height:14px;margin:0 5px;*display:inline;zoom:1;}
+		.flex-control-nav a{display:inline-block;width:14px;height:14px;line-height:40px;overflow:hidden;background:url(../static/images/dot.png) right 0 no-repeat;cursor:pointer;}
+		.flex-control-nav .flex-active{background-position:0 0;}
+
+		.flex-direction-nav{position:absolute;z-index:3;width:100%;top:45%;}
+		.flex-direction-nav li a{display:block;width:50px;height:50px;overflow:hidden;cursor:pointer;position:absolute;}
+		.flex-direction-nav li a.flex-prev{left:40px;background:url(../static/images/prev.png) center center no-repeat;}
+		.flex-direction-nav li a.flex-next{right:40px;background:url(../static/images/next.png) center center no-repeat;}
+</style>
+
+<div class="head_height"></div>
+<div id="index-contain">
+    <div id="contain_content" >
+        <div class="flexslider-container">
+			{# 轮播图 #}
+			<div class="flexslider">
+				<ul class="slides">
+					<li style="background:url(../static/images/img1.jpg) "></li>
+					<li style="background:url(../static/images/img2.jpg) "></li>
+
+					<li style="background:url(../static/images/img3.jpg) "></li>
+					{# <li style="background:url(../static/images/img4.jpg)"></li> #}
+					{# <li style="background:url(../static/images/img5.jpg)"></li> #}
+				</ul>
+			</div>
+		
+		</div>
+		{# 悬浮框 #}
+		<div class="suspendBox">
+                <div class="suspend">
+                    <form class="form-horizontal goform">
+                        <div>
+                            <label class="labelTitle">大学智能推荐系统</label>
+                        </div>
+                       
+                        <div class="district">
+                            <div class="coverBox"></div>
+                            <select id="district" name="district">
+                                <option value="安徽">A 安徽</option>
+                                <option selected="selected" value="北京">B 北京</option>
+                                <option value="重庆">C 重庆</option>
+                                <option value="福建">F 福建</option>
+                                <option value="广东">G 广东</option>
+                                <option value="广西">G 广西</option>
+                                <option value="甘肃">G 甘肃</option>
+                                <option value="贵州">G 贵州</option>
+                                <option value="海南">H 海南</option>
+                                <option value="河南">H 河南</option>
+                                <option value="河北">H 河北</option>
+                                <option value="黑龙江">H 黑龙江</option>
+                                <option value="湖北">H 湖北</option>
+                                <option value="湖南">H 湖南</option>
+                                <option value="吉林">J 吉林</option>
+                                <option value="江苏">J 江苏</option>
+                                <option value="江西">J 江西</option>
+                                <option value="辽宁">L 辽宁</option>
+                                <option value="内蒙古">N 内蒙古</option>
+                                <option value="宁夏">N 宁夏</option>
+                                <option value="青海">Q 青海</option>
+                                <option value="陕西">S 陕西</option>
+                                <option value="山西">S 山西</option>
+                                <option value="山东">S 山东</option>
+                                <option value="上海">S 上海</option>
+                                <option value="四川">S 四川</option>
+                                <option value="天津">T 天津</option>
+                                <!--<option value="西藏">X 西藏</option>-->
+                                <option value="新疆">X 新疆</option>
+                                <option value="云南">Y 云南</option>
+                                <option value="浙江">Z 浙江</option>
+                            </select>
+                        </div>
+                        <div class="refer_other">
+                            <div id="category" class="category">
+                                <label>
+                                    <input type="radio" name="category" class="obj labelItem" id="inlineRadio1" value="文科"> 文科
+                                </label>
+                                <label>
+                                    <input type="radio" name="category" class="obj labelItem" id="inlineRadio2" checked="checked" value="理科"> 理科
+                                </label>
+                            </div>
+                            <div class="changing_over">
+                                <input type="button" class="gkscores" data_scorekey="score" value="高考分数">
+                                <input type="button" class="district_rank" data_scorekey="score_rank" value="省/市排名">
+                            </div>
+                            <div class="scores_all">
+                                <div class="year_score" >
+                                    <input type="text" name="score" class="score" maxlength="3" onkeyup="this.value=this.value.replace(/\D/g,'')" >
+                                    <!--<label class="text-right">分</label>-->
+                                </div>
+                                <div class="year_rank" >
+                                    <input type="text" name="ranking" class="ranking" maxlength="6"onkeyup="this.value=this.value.replace(/\D/g,'')" >
+                                    <!--<label class="text-right">名</label>-->
+                                </div>
+                       	     </div>
+                        </div>
+                        
+                        <div class="goform_bottom">
+                            <input type="button" class="go-refer" value="开始智能推荐">
+                        </div>
+                    </form>
+                    <div class="tips"></div>
+            </div>
+
+        </div>
+        {# 高考数据查询导航功能=================== #}
+        <div class="width-container">
+	        <div class="indexmain school_key mb90">
+
+			    <div class="school_probability fl">
+			        <div class="index_yxtj">
+			            <div class="data_logo"><img class="datasearch_dxlqgl" src="../static/images/index_icon1.png" alt=""></div>
+			                <p class="data_title">大学录取概率</p>
+			                <p class="data_text">大学心仪已久，却不知道能否被录取？输入理想大学和你的高考成绩，发现你与梦想的距离。</p>
+			            <div class="start_use">
+			                <p class="btn_status pointer" onclick="document.location='reportedVoluntary.html?nav_1=yxtj&amp;nav_2=dxlqgl';">立刻体验</p>
+			                </div>
+			        </div>
+			    </div>
+
+			    <div class="school_probability fl">
+			        <div class="index_yxtj">
+			            <div class="data_logo"><img class="datasearch_zyppcp" src="../static/images/index_icon2.png" alt=""></div>
+			            <p class="data_title">专业匹配测评</p>
+			            <p class="data_text">适合自己的才是最好的专业，从这里开始，发现内心的渴望与选择，让未来充满激情与乐趣。</p>
+			            <div class="start_use">
+			                    <p class="btn_status pointer" onclick="document.location='reportedVoluntary.html?nav_1=yxtj&amp;nav_2=zyppdcp';">立刻体验</p>
+			                </div>
+			        </div>
+			    </div>
+
+			    <div class="school_probability fl">
+			        <div class="index_yxtj">
+			            <div class="data_logo"><img class="datasearch_tfksqx" src="../static/images/index_icon3.png" alt=""></div>
+			            <p class="data_title">同分考生去向</p>
+			            <p class="data_text">同分学长、学姐们都读了那些大学和专业？输入你的成绩，探索他们的填报经验与志愿选择。</p>
+			                <div class="start_use">
+			                    <p class="btn_status pointer" onclick="document.location='reportedVoluntary.html?nav_1=yxtj&amp;nav_2=tfksqx';">立刻体验</p>
+			                </div>
+			        </div>
+			    </div>
+
+			    <div class="school_probability right_probability fl">
+			        <div class="index_yxtj">
+			            <div class="data_logo"><img class="datasearch_mnzytb" src="../static/images/index_icon4.png" alt=""></div>
+			            <p class="data_title">模拟志愿填报</p>
+			            <p class="data_text">如何快速完成一份靠谱志愿表？30秒，易高考帮你处理千万招录数据，找到最优志愿组合。</p>
+			            <!--<a href="" class="pointer">-->
+			            <div class="start_use">
+			                    <p class="btn_status pointer" onclick="document.location='reportedVoluntary.html?nav_1=yxtj&amp;nav_2=mnzytb&amp;tbnav_3=gxsz';">立刻体验</p>
+			                </div>
+			            <!--</a>-->
+			        </div>
+			    </div>
+			</div>	
+			 </div>
+			<div class="cls"></div>
+
+			{#数据查询，院校推荐=================  #}
+			<div class="index_Datasearch">
+				<div class="indexArea_text">
+			   		<div class="dataSearch_title">数据查询</div>
+			   		 <!--<div class="level_line"></div>-->
+			    
+				    <div class="dataSearch_text moveTop fl">
+				            <a class="dataSearch_img" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cdx"><img class="pointer" src="../static/images/index_img1.jpg" alt=""></a>
+				        <div class="dataSearch_report">
+				            <p class="data_dxfsx pointer"><a class="hc" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cdx">大学分数线</a></p>
+				            <p class="data_introduce">2008--2016年，2500多所大学，在全国31个省市自治区（除西藏外）的录取分数。与当地考试院同步。</p>
+				        </div>
+				    </div>
+
+				    <div class="dataSearch_text moveTop fl ml30">
+				            <a class="dataSearch_img" href="dataSearch.html?nav_1=sjcx&amp;nav_2=zyfsx"><img class="pointer" src="../static/images/index_img2.jpg" alt=""></a>
+				            <div class="dataSearch_report">
+				            <p class="data_dxfsx pointer"><a class="hc" href="dataSearch.html?nav_1=sjcx&amp;nav_2=zyfsx">专业分数线</a></p>
+				            <p class="data_introduce">2008-2016年，2500多所大学的1300种大学专业在31个省市自治区（除西藏外）的录取分数。与当地考试院同步。</p>
+				        </div>
+				    </div>
+
+				    <div class="dataSearch_text moveTop fl ml30">
+				            <a class="dataSearch_img" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cfsx"><img class="pointer" src="../static/images/index_img3.jpg" alt=""></a>
+				            <div class="dataSearch_report">
+				            <p class="data_dxfsx pointer"><a class="hc" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cfsx">地区批次线</a></p>
+				            <p class="data_introduce">2008--2016年，全国各地所有考生类别，所有层次（本专科）的地区最低控制线。与当地考试院同步。</p>
+				    </div>
+				    </div>
+				</div>
+			</div>
+
+
+	   
+	</div>
+</div>
+
+{% endblock %}
