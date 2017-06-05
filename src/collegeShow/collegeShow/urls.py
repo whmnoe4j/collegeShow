@@ -1,3 +1,4 @@
+# coding=UTF-8
 """collegeShow URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -16,6 +17,7 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 from collegePage import views
+from collegePage import API
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -23,4 +25,21 @@ urlpatterns = [
    
     url(r'^dataSearch/', views.dataSearch, name = 'dataSearch'),
     url(r'^reportedCollege/', views.reportedCollege, name = 'reportedCollege'),
+    
+    
+    #API
+    #大学分数线
+    url(r'^collegescoreline/',API.showCollegeSchoolScoreLine, name = 'collegescoreList'),
+    #地区批次线
+    url(r'^areascoreline/',API.showAreaScoreLine,name = "areascoreList"),
+    #专业大类
+    url(r'^subjectgroup/',API.showSubjectGroup,name = "subjectgroup"),
+    #ר专业细分类
+    url(r'^majorgroup/',API.showMajorGroupList,name = "majorgroup"),
+    #ר专业信息
+    url(r'^profession/',API.showProfession,name = "profession"),
+    #专业排名
+    url(r'^professionrank/',API.showProfessionRank,name = "professionrank"),
+    #同分考生去向
+    url(r'^samescore/',API.sameScore,name = "sameScore")
 ]
