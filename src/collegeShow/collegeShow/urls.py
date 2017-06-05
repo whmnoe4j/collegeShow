@@ -28,15 +28,19 @@ urlpatterns = [
     
     
     #API
+    #院校信息
+    url(r"^college/",API.showCollege,name = "college"),
     #大学分数线
     url(r'^collegescoreline/',API.showCollegeSchoolScoreLine, name = 'collegescoreList'),
     #地区批次线
     url(r'^areascoreline/',API.showAreaScoreLine,name = "areascoreList"),
+    #一分一段表
+    url(r'^scoreparm/',API.showScoreParm,name = "scoreparm"),
     #专业大类
     url(r'^subjectgroup/',API.showSubjectGroup,name = "subjectgroup"),
-    #ר专业细分类
+    #专业细分类
     url(r'^majorgroup/',API.showMajorGroupList,name = "majorgroup"),
-    #ר专业信息
+    #专业信息
     url(r'^profession/',API.showProfession,name = "profession"),
     #专业排名
     url(r'^professionrank/',API.showProfessionRank,name = "professionrank"),
