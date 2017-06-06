@@ -6,6 +6,7 @@ Created on 2017年6月4日
 '''
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponse
+from django.shortcuts import render, render_to_response, redirect
 
 from models import *
 
@@ -69,7 +70,7 @@ def showCollege(request):
         if page:
             start,end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["Length"] = ListLength
+            SuccessResponse["Length"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse,encoding='utf8',ensure_ascii=False))
@@ -109,7 +110,7 @@ def showCollegeSchoolScoreLine(request):
         if page:
             start,end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["Length"] = ListLength
+            SuccessResponse["Length"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse,encoding='utf8',ensure_ascii=False))
@@ -316,11 +317,52 @@ def sameScore(request):
         if page:
             start,end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["Length"] = ListLength
+            SuccessResponse["Length"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse,encoding='utf8',ensure_ascii=False))
     except:
         return HttpResponse(json.dumps(ErrorResponse))
 
-    
+def login(request):
+    if request.method == "POST":
+        Name= request.POST.get("username")
+        PassWd = request.POST.get("password")
+        if Name and PassWd:
+            try:
+                loginUser = Users.objects.get(username = Name,password = PassWd)
+            except:
+                return HttpResponse({"Result":"False","Msg":"用户不存在"})
+            else:
+                if loginUser.password == PassWd:
+                    request.session["loginUser"] = loginUser
+                    return HttpResponse({"Result":"True","Msg":"登录成功"})
+                else:
+                    return HttpResponse({"Result":"False","Msg":"密码错误"})
+    else:
+        return HttpResponse({"Result":"False","Msg":"请使用POST请求"})
+
+def logout(request):
+    del request.session["loginUser"]  #删除session
+    return redirect("/index")
+
+def register(request):
+    if request.method == "POST":
+        Name = request.POST.get("username")
+        PassWd = request.POST.get("password")
+        Sex = request.POST.get("sex")
+        stuProvince = request.POST.get("stuProvince")
+        stuType = request.POST.get("stuType")
+        Tel = request.POST.get("tel")
+        School = request.POST.get("school")
+        try:
+            user = Users.objects.get(username = Name)
+            if user:
+                return HttpResponse({"Result":"False","Msg":"用户已存在"})
+        except:
+            user = Users(username=Name,password=PassWd,sex=Sex,stuprovince=stuProvince,stutype=stuType,tel=Tel,school=School)
+            user.save()
+            request.session["loginUser"] = user
+            return HttpResponse({"Result":"True","Msg":"注册成功"})
+    else:
+        return HttpResponse({"Result":"False","Msg":"请使用POST请求"})

@@ -375,3 +375,17 @@ class ProfessionRank(models.Model):
     class Meta:
         managed = False
         db_table = 'profession_rank'
+
+
+class Users(models.Model):
+    username = models.CharField(max_length=10)
+    password = models.CharField(max_length=10)
+    sex = models.CharField(max_length=2)
+    stuprovince = models.CharField(max_length=10)
+    stutype = models.CharField(max_length=2)
+    tel = models.CharField(max_length=11)
+    school = models.CharField(max_length=20, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'users'

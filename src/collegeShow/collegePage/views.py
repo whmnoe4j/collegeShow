@@ -1,7 +1,8 @@
 #coding=utf-8 
 from django.shortcuts import render, render_to_response, redirect
 
-# from collegePage.models import *
+from models import *
+from django.http.response import HttpResponse
 
 #跳转到主页面
 def index(request):
@@ -16,10 +17,7 @@ def reportedCollege(request):
     return render_to_response("reportedCollege.html")
 
 
-# def Search(studentProvince):
-#     if studentProvince == "江西":
-#         dataList = EwtNewJiangxi.objects.all()
-#     print dataList[0].schoolname
+
 
 
 
