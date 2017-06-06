@@ -12,9 +12,9 @@ from models import *
 import json
 
 SchoolTypeList = ["综合", "工科", "农业", "林业", "医药", "政法", "师范", "财经", "民族", "语言", "艺术", "军事", "体育", "其他"]
-BatchList = ["本科提前批", "本科一批", "本科二批", "本科三批", "专科提前批", "专科批", "专科一批", "专科二批"]
-StudentTypeList = ["文科", "理科", "综合", "其他"]
-SubjectTypeList = ["本科", "高职专科"]
+# BatchList = ["本科提前批","本科一批","本科二批","本科三批","专科提前批","专科批","专科一批","专科二批"]
+# StudentTypeList =["文科","理科","综合","其他"]
+# SubjectTypeList = ["本科","高职专科"]
 ProvinceDict = {"安徽":EwtNewAnhui, "甘肃":EwtNewGansu, "河南":EwtNewHenan, "湖南":EwtNewHunan, "江西":EwtNewJiangxi, "吉林":EwtNewJilin, "山东":EwtNewShandong, "山西":EwtNewShanxi, "四川":EwtNewSichuan}
 spcProvinceDict = {"江苏":EwtNewJiangsu, "浙江":EwtNewZhejiang}
 
@@ -87,14 +87,14 @@ def showCollegeSchoolScoreLine(request):
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
         #从get中提取参数
-        studentProvice = request.GET.get("stuProvince")
+        studentProvine = request.GET.get("stuProvince")
         studentType = request.GET.get("stuType")
         studentBatch = request.GET.get("batch")
         studentYear = request.GET.get("year")
         page = int(request.GET.get("page"))
         
         #使用参数过滤数据
-        collegeList = CollegeSchoolscoreline.objects.filter(area_student = studentProvice, batch = studentBatch, studentclass = studentType, dateyear = studentYear)
+        collegeList = CollegeSchoolscoreline.objects.filter(area_student = studentProvine, batch = studentBatch, studentclass = studentType, dateyear = studentYear)
         ListLength = len(collegeList)
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
@@ -128,7 +128,7 @@ def showAreaScoreLine(request):
     try:
         #从get中提取参数
         studentProvine = request.GET.get("stuProvince")
-        studentType = StudentTypeList[int(request.GET.get("stuType")) - 1]
+        studentType = request.GET.get("stuType")
         studentYear = request.GET.get("year")
         areaList = CollegeAreascoreline.objects.filter(provincearea = studentProvine, studentclass = studentType, dateyear = studentYear)
         if len(areaList) == 0:
@@ -153,7 +153,7 @@ def showScoreParm(request):
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     studentProvine = request.GET.get("stuProvince")
-    studentType = StudentTypeList[int(request.GET.get("stuType")) - 1]
+    studentType = request.GET.get("stuType")
     studentYear = request.GET.get("year")
 #     try:
     parmList = CollegeScoreparm.objects.filter(province = studentProvine, category = studentType, years = studentYear)
@@ -180,7 +180,7 @@ def showSubjectGroup(request):
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
-        subjectType = SubjectTypeList[int(request.GET.get("subjectType")) - 1]
+        subjectType = request.GET.get("subjectType")
         subjectQuery = Profession.objects.filter(subject_type = subjectType).query
         subjectQuery.group_by = ['subject_name']
         SubjectGroupList = QuerySet(query = subjectQuery, model = Profession)
@@ -205,7 +205,7 @@ def showMajorGroupList(request):
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
-        subjectType = SubjectTypeList[int(request.GET.get("subjectType")) - 1]
+        subjectType = request.GET.get("subjectType")
         subjectName = request.GET.get("subjectName")
         MajorGroupQuery = Profession.objects.filter(subject_type = subjectType, subject_name = subjectName).query
         MajorGroupQuery.group_by = ['major_class']
@@ -231,7 +231,7 @@ def showProfession(request):
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
-        subjectType = SubjectTypeList[int(request.GET.get("subjectType")) - 1]
+        subjectType = request.GET.get("subjectType")
         subjectName = request.GET.get("subjectName")
         majorClass = request.GET.get("majorClass")
         ProfessionList = Profession.objects.filter(subject_type = subjectType, subject_name = subjectName, major_class = majorClass) 
@@ -292,7 +292,7 @@ def sameScore(request):
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
         studentProvine = request.GET.get("stuProvince")
-        studentType = StudentTypeList[int(request.GET.get("stuType")) - 1]
+        studentType = request.GET.get("stuType")
         Score = int(request.GET.get("score"))
         page = int(request.GET.get("page"))
         if ProvinceDict[studentProvine.encode("utf8")]:

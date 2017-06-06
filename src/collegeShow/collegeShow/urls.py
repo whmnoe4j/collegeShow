@@ -1,6 +1,5 @@
 # coding=UTF-8
 """collegeShow URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.10/topics/http/urls/
 Examples:
@@ -25,22 +24,30 @@ urlpatterns = [
    
     url(r'^dataSearch/', views.dataSearch, name = 'dataSearch'),
     url(r'^reportedCollege/', views.reportedCollege, name = 'reportedCollege'),
+    url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreList'),
     
+    #登录注册
+    url(r'^login/', API.login, name = "login"),
+    url(r'^logout/', API.logout, name = "logout"),
+    url(r'^register/', API.register, name = "register"),
     
     #API
+    #院校信息
+    url(r"^api_college/", API.showCollege, name = "college"),
     #大学分数线
-    url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreList'),
     url(r'^api_collegescoreline/', API.showCollegeSchoolScoreLine, name = 'collegescoreList'),
     #地区批次线
-    url(r'^areascoreline/', API.showAreaScoreLine, name = "areascoreList"),
+    url(r'^api_areascoreline/', API.showAreaScoreLine, name = "areascoreList"),
+    #一分一段表
+    url(r'^api_scoreparm/', API.showScoreParm, name = "scoreparm"),
     #专业大类
-    url(r'^subjectgroup/', API.showSubjectGroup, name = "subjectgroup"),
+    url(r'^api_subjectgroup/', API.showSubjectGroup, name = "subjectgroup"),
     #专业细分类
-    url(r'^majorgroup/', API.showMajorGroupList, name = "majorgroup"),
+    url(r'^api_majorgroup/', API.showMajorGroupList, name = "majorgroup"),
     #专业信息
-    url(r'^profession/', API.showProfession, name = "profession"),
+    url(r'^api_profession/', API.showProfession, name = "profession"),
     #专业排名
-    url(r'^professionrank/', API.showProfessionRank, name = "professionrank"),
+    url(r'^api_professionrank/', API.showProfessionRank, name = "professionrank"),
     #同分考生去向
-    url(r'^samescore/', API.sameScore, name = "sameScore")
+    url(r'^api_samescore/', API.sameScore, name = "sameScore")
 ]
