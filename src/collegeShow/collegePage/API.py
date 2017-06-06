@@ -39,10 +39,12 @@ def showCollege(request):
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
         schoolProvince = request.GET.get("schoolProvince")
-        schoolType = SchoolTypeList[int(request.GET.get("schoolType")) - 1]
+        schoolType = request.GET.get("schoolType")
+        #levels = request.GET.get("levels")
+        character = request.GET.get("character")
         page = int(request.GET.get("page"))
         
-        SchoolList = CollegeDetailEwt.objects.filter(address = schoolProvince, schooltype = schoolType).order_by("school_rank")
+        SchoolList = CollegeDetailEwt.objects.filter(character = character, address = schoolProvince, schooltype = schoolType).order_by("school_rank")
         ListLength = len(SchoolList)
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
@@ -50,15 +52,15 @@ def showCollege(request):
         for school in SchoolList:
             SchoolData = {}
             SchoolData["SchoolName"] = school.schoolname
-            SchoolData["985"] = "True" if school.f985 else "False"
-            SchoolData["211"] = "True" if school.f211 else "False"
-            SchoolData["研"] = "True" if school.fyan else "False"
+            SchoolData["f985"] = school.f985
+            SchoolData["f211"] = school.f211 
+            SchoolData["fyan"] = school.fyan 
             SchoolData["Province"] = school.address if school.address else "暂无"
             SchoolData["Levels"] = school.levels if school.levels else "暂无"
-            SchoolData["隶属单位"] = school.attach_to if school.attach_to else "暂无"
+            SchoolData["attach_to"] = school.attach_to if school.attach_to else "暂无"
             SchoolData["Rank"] = school.school_rank 
-            SchoolData["Type"] = schoolType
-            SchoolData["Class"] = school.character if school.character else "不详"
+            SchoolData["schoolType"] = school.schooltype 
+            SchoolData["character"] = school.character if school.character else "不详"
             SchoolData["Code"] = school.schoolid if school.schoolid else "00000"
             SchoolData["Address"] = school.postal_address.replace("\r", "") if school.postal_address else "暂无"
             SchoolData["Tel"] = school.tel.replace("\r", "") if school.tel else "暂无"
