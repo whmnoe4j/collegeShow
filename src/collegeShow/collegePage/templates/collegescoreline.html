@@ -17,9 +17,7 @@
 	    cursor: pointer;
 
 	}
-	.keyword{
-		color:red;
-	}
+
 	.collegeSearchPng {
 		background: url(../static/images/search_g.png) no-repeat center center;
 
@@ -51,9 +49,38 @@
 	    background: url(../static/images/star_b.png) no-repeat 25px center;
 	    /* background-size: auto 100%; */
 	}
+	.hidden{
+		display: none;
+	}
+	.bar_word{
+	    font-family: '微软雅黑 Bold', '微软雅黑';
+	    /* font-weight: 700; */
+	    font-size: 16px;
+	    height: 52px;
+	    line-height: 52px;
+	    float: left;
+	    color: #333;
+	    /* background: #00D0FF; */
+	    text-indent: 24px;
+	   
+	
+	}
+
+	caption span {
+    font-weight: 700;
+    font-size: 20px;
+	}
+	.rt{
+		float: right;
+	}
+	.lable_key{
+		color: red;
+	}
+	
 </style>
 
-<script type="text/javascript" src="../static/js/jquery-1.9.1.min.js"></script>
+<link href="../static/css/page.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="../static/js/page.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -62,8 +89,11 @@
 
 		//省份选项样式
 		mySelectedClass("#district .pull-left",".pull-left","mySelected")
-		mySelectedClass("#subject .pull-left",".pull-left","mySelected")
-		mySelectedClass("#collegeNature .pull-left",".pull-left","mySelected")
+		mySelectedClass("#sch_province .pull-left",".pull-left","mySelected")
+		mySelectedClass("#round .pull-left",".pull-left","mySelected")
+		mySelectedClass("#category .pull-left",".pull-left","mySelected")
+		mySelectedClass("#year .pull-left",".pull-left","mySelected")
+
 		
 		//全选
 		$('.selectAll').click(function(){
@@ -143,48 +173,77 @@
 		}
 
 
-
-		
+		 //大学分数线
 		// ajax 传数据获取院校数据
 		function ajax_data(url){
+			$('.data-tbody').remove();
+			$('.data_table').append('<tbody class="data-tbody"></tbody>')
+
 			$.getJSON(url,function(data){
-				
-				
-				for (var i=0;i<data.Data.length;i++)
-				{
-					//alert(data.Data[i][0])
+				if (data.Data.length!=0){
+					$('.noData').addClass("hidden");
 					
-					$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td><td class="pointer hc tst3">大学录取概率</td></tr>')
+						for (var i=0;i<data.Data.length;i++)
+						{
+							//alert(data.Data[i][0])
+
+							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+						}
+					
+				}else{
+					$('.noData').removeClass("hidden");
 				}
 			})
-
 	    }
-
-	    province=''
-
-	    
+	
+	 
 	    //根据点击显示不同省份的内容
 		$('.pull-left').each(function(){
 
-
 			$(this).click(function(){
-				province=$(this).attr("data_value")
+				var sel_district = $("#district li.mySelected").html(),
+				//sch_province = $("#sch_province li.mySelected").html(),
+	            // sel_subject = $("#subject li.mySelected").html(),
+	            sel_round = $("#round li.mySelected").html(),
+	            // sel_collegeNature = $("#collegeNature li.mySelected").html(),
+	            sel_category = $("#category li.mySelected").html(),
+	            sel_year = $("#year li.mySelected").html();
+	            // sel_zydl = $("#zydl li.mySelected").html(),
+	            // sel_xklb=$("#xklb li.mySelected").html(),
+	            // sel_mClass = $("#mclass li.mySelected").html()
+	            // sel_mClass2 = $("#mclass2 li.mySelected").html(),
+	            // sel_mClassold = $("#mclassold li.mySelected").html()
+	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
 
-				url="/collegescoreline/?stuProvince="+province+"&batch=3&stuType=1&year=2014&start=0"
-				alert(url)
-				//alert($(this).attr("data_value"))
+				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
+				url="/api_collegescoreline/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
+				
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年'+'<lable class="lable_key">'+sel_round+'</lable>高校在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
 			})
 		
 		})
 	  
-	    //大学分数线
-		$('.ajax_li:eq(1)').click(function(){
-			province='北京'
-			url="/collegescoreline/?stuProvince="+province+"&batch=3&stuType=1&year=2014&start=0"
-			ajax_data(url)
-			
-		})
+		
+		// 分页
+	
+	 	totalPage=0
+	    var GG = {
+	        "kk":function(page){
+
+	            var sel_district = $("#district li.mySelected").html(),
+		        sel_round = $("#round li.mySelected").html(),
+		        sel_category = $("#category li.mySelected").html(),
+		        sel_year = $("#year li.mySelected").html();
+		        url="/api_collegescoreline/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="
+				
+				url=url+page
+				ajax_data(url)
+	        }
+	    }
+	  
+	
+	    $("#page").initPage(300,1,GG.kk);
 	});
 	
 	
@@ -200,7 +259,7 @@
 		        <ul class="breadcrumb breadNav">
 		            <li><a class="index" href="/">首页</a></li>
 		            <li><a id="bread_nav1" href="/dataSearch">数据查询</a></li>
-		            <li id="bread_nav2">院校大全</li>
+		            <li id="bread_nav2">大学分数线</li>
 		        </ul>
 		    </div>
 
@@ -208,9 +267,8 @@
 		        <div class="changeNav_school"><i class="icon iconfont icon-xueshimao"></i>院校数据</div>
 		        <ul class="changeNav">
 
-		            
-		             <a href="/dataSearch"><li class="lpointer mySelected">院校大全</li></a>
-		            <a href="/collegescoreline"><li class="lpointer">大学分数线</li></a>
+		            <a href="/dataSearch"><li class="lpointer ">院校大全</li></a>
+		            <a href="/collegescoreline"><li class="lpointer  mySelected">大学分数线</li></a>
 		            <a href="#"><li class="lpointer">地区批次线</li></a>
 		            <a href="#"><li class="lpointer">专业匹配测评</li></a> 
 		        </ul>
@@ -237,11 +295,10 @@
          	<div class="partLine_top">
 		        <div id="row_district">
 		            <div class="select_title fl">
-		                <div class="select_inputDom"><span style='color:red;'>院校</span>位置：</div>
+		                <div class="select_inputDom"><lable class='.keyword'>考生</label>位置：</div>
 		            </div>
 		            <ul class="select_items fl mul" id="district">
-		                <li class="pull-left mySelected" data_value="不限">不限</li>
-		                <li class="pull-left" data_value="北京">北京</li>
+		                <li class="pull-left mySelected" data_value="北京">北京</li>
 		                <li class="pull-left" data_value="安徽">安徽</li>
 		                <li class="pull-left" data_value="重庆">重庆</li>
 		                <li class="pull-left" data_value="福建">福建</li>
@@ -274,35 +331,68 @@
 		                <li class="pull-left" data_value="浙江">浙江</li>
 		            </ul>
 		        </div>
-		        <div id="row_subject">
+
+			<div class="partLine">
+		      
+		        <div id="row_round">
 		            <div class="select_title fl">
-		                <div class="select_inputDom">院校类型：</div>
+		                <div class="select_inputDom">录取批次：</div>
 		            </div>
-		            <ul class="select_items fl mul" id="subject">
-		                <li class="pull-left mySelected" data_value="不限">不限</li>
+		            <ul class="select_items fl" id="round">
+		            	
+		            	<li class="pull-left mySelected" data_value="本科提前批">本科提前批</li>
+		                <li class="pull-left" data_value="本科一批">本科一批</li>
+		                <li class="pull-left" data_value="本科二批">本科二批</li>
+		                <li class="pull-left" data_value="本科三批">本科三批</li>
+		                <li class="pull-left" data_value="专科提前批">专科提前批</li>
+		                <li class="pull-left" data_value="专科批">专科批</li>
+		                <li class="pull-left" data_value="专科一批">专科一批</li>
+		                <li class="pull-left" data_value="专科二批">专科二批</li>
+		               
+		            </ul>
+		        </div>
+		       
+		        <div id="row_category">
+		            <div class="select_title fl">
+		                <div class="select_inputDom">考生类型：</div>
+		            </div>
+		            <ul class="select_items fl" id="category">
+		                <li class="pull-left mySelected" data_value="理科">理科</li>
+		                <li class="pull-left" data_value="文科">文科</li>
 		                <li class="pull-left" data_value="综合">综合</li>
-		                <li class="pull-left" data_value="理工">理工</li>
-		                <li class="pull-left" data_value="农林">农林</li>
-		                <li class="pull-left" data_value="医药">医药</li>
-		                <li class="pull-left" data_value="政法">政法</li>
-		                <li class="pull-left" data_value="师范">师范</li>
-		                <li class="pull-left" data_value="财经">财经</li>
-		                <li class="pull-left" data_value="民族">民族</li>
-		                <li class="pull-left" data_value="语言">语言</li>
-		                <li class="pull-left" data_value="艺术">艺术</li>
-		                <li class="pull-left" data_value="军事">军事</li>
-		                <li class="pull-left" data_value="体育">体育</li>
 		                <li class="pull-left" data_value="其他">其他</li>
 		            </ul>
 		        </div>
+
+		        <div id="row_year">
+		            <div class="select_title fl">
+		                <div class="select_inputDom">高考年份：</div>
+		            </div>
+		            <ul class="select_items fl" id="year">
+		                {# <li class="pull-left mySelected" data_value="2016">2016</li> #}
+		                <li class="pull-left mySelected"  data_value="2015">2015</li>
+		                <li class="pull-left" data_value="2014">2014</li>
+		                <li class="pull-left" data_value="2013">2013</li>
+		                <li class="pull-left" data_value="2012">2012</li>
+		                <li class="pull-left" data_value="2011">2011</li>
+		                <li class="pull-left" data_value="2010">2010</li>
+		                <li class="pull-left" data_value="2009">2009</li>
+		                <li class="pull-left" data_value="2008">2008</li>
+		            </ul>
+		        </div>
 		        
+		       
 		    </div>
-			
-		  
+	 </div>	  
+	 	<div class="data_conts" style="height:720px;">
 		    <table class="data_table">
 			    <caption >
+			    	
 		            <div class="sortBar">
-				        <div class="sortByCollege lt">
+		            	<span class="bar_word">
+	                   	 2016年本科一批高校在北京的录取分数线（理科）
+	                	</span>
+				        <div class="sortByCollege rt">
 				            <input type="text" placeholder="在结果中搜索学校" class="inputCollege" id="inputCollege">
 				            <span class="collegeSearch"></span>
 				            
@@ -310,38 +400,48 @@
 				       
 				    </div>
 	        	</caption>
-			    <thead>
-			        <tr>
-			            <td>院校名称</td>
-			            <td>院校位置</td>
-			            <td class="pointer sort">年份</td>
-			            <td class="pointer">最高分</td>
-			            <td class="pointer">平均分</td>
-			            <td>院校收藏</td>
-			            <td>VIP特权</td>
-			        </tr>
-		        </thead>
+			  
+		        <thead>
+		            <tr>
+		                <td style="width:180px;">院校名称</td>
+		                <td style="width:100px;">高校位置</td>
+		                <td style="width:100px;">年份</td>
+		                <td style="width:100px;">录取最高分</td>
+		                <td style="width:100px;">录取平均分</td>
+		                <td style="width:100px;">收藏</td>
+		                <!--<td>平均分线差</td>-->
+		                <!--<td>录取平均概率</td>-->
+		            </tr>
+            	</thead>
 		        <tbody class="data-tbody">
-			        {# <tr> #}
-			            {# <td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">北京大学</a> #}
-			            {# </td> #}
-			            {# <td>北京-北京</td> #}
-			            {# <td>1</td> #}
-			            {# <td>2</td> #}
-			            {# <td>12400元</td> #}
-			            {# <td class="collectBox collect pointer" data_college_name="北京大学"> #}
-			            {# </td> #}
-			            {# <td class="pointer hc tst3">大学录取概率</td> #}
-	      			{# </tr> #}
+		        			{# <tr> #}
+					            {# <td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">{{data.0}}</a> #}
+					            {# </td> #}
+					            {# <td>{{data.1}}</td> #}
+					            {# <td>{{data.2}}</td> #}
+					            {# <td>{{data.3}}</td> #}
+					            {# <td>{{data.4}}</td> #}
+					            {# <td class="collectBox collect pointer" > #}
+					            {# </td> #}
+					            {# <td class="pointer hc tst3">大学录取概率</td> #}
+			      			{# </tr> #}
 	      		</tbody>
     		</table>
-		    <div class="noData noBd"><div class="mc"><span class="dataLine"></span> <span>抱歉，暂无相关数据</span> <span class="dataLine"></span></div></div>
-		    <div class="cover">
+    		
+    	
+		    <div class="noData hidden">
+		    	<div class="mc"><span class="dataLine"></span> <span>抱歉，暂无相关数据</span> <span class="dataLine"></span></div>
+		    </div>
+		    <div class="cover hidden">
 		        <div class="cover_text">
-		            <!--开通VIP，查看全部，为梦想投资-->
+		            {# 开通VIP，查看全部，为梦想投资 #}
 		        </div>
 		        <a href="buyVip.html" class="cover_btn pointer btn_tran">开通VIP</a>
 		    </div>
+		</div>	
+
+		    {# <div id="pager" class="pager clearfix"></div>	 #}
+		    <div ><ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page"></ul></div>
         </div>
 
 	</div>

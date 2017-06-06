@@ -6,7 +6,9 @@
     margin: 0px auto;
     background: red;
 }
-
+.rt{
+	float:right;
+}
 .head_height{
         height:100px;
 }
@@ -181,7 +183,7 @@ li {
 }
 .select_inputDom {
     width: 80px;
-    font-size: 14px;
+    font-size: 16px;
     position: relative;
     color: #333;
     height: 30px;
@@ -225,14 +227,6 @@ li {
     color: #fff!important;
 }
 
-.select_inputDom {
-    width: 80px;
-    font-size: 14px;
-    position: relative;
-    color: #333;
-    height: 30px;
-    line-height: 30px;
-}
 .rFrame .select_items {
     width: 790px;
     z-index: 1997;
@@ -461,14 +455,6 @@ div > .headTab:before {
     -o-transition: background .3s;
     transition: background .3s;
 }
-.select_inputDom {
-    width: 80px;
-    font-size: 14px;
-    position: relative;
-    color: #333;
-    height: 30px;
-    line-height: 30px;
-}
 
 .iptfocus{
     border:1px solid #00BFED;
@@ -489,7 +475,9 @@ table tr {
 thead td {
     font-weight: 400 !important;
 }
-
+.data_table>thead>tr>td:nth-child(1) {
+    width: 202px;
+}
 td {
     text-align: center;
     height: 60px;
@@ -503,6 +491,7 @@ td {
 
 .data_table{
     width: 100%;
+    height: 800px;
 }
 .collect:after {
     content: "收藏";

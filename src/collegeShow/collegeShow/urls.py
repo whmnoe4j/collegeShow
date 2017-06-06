@@ -29,17 +29,18 @@ urlpatterns = [
     
     #API
     #大学分数线
-    url(r'^collegescoreline/',API.showCollegeSchoolScoreLine, name = 'collegescoreList'),
+    url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreList'),
+    url(r'^api_collegescoreline/', API.showCollegeSchoolScoreLine, name = 'collegescoreList'),
     #地区批次线
-    url(r'^areascoreline/',API.showAreaScoreLine,name = "areascoreList"),
+    url(r'^areascoreline/', API.showAreaScoreLine, name = "areascoreList"),
     #专业大类
-    url(r'^subjectgroup/',API.showSubjectGroup,name = "subjectgroup"),
-    #ר专业细分类
-    url(r'^majorgroup/',API.showMajorGroupList,name = "majorgroup"),
-    #ר专业信息
-    url(r'^profession/',API.showProfession,name = "profession"),
+    url(r'^subjectgroup/', API.showSubjectGroup, name = "subjectgroup"),
+    #专业细分类
+    url(r'^majorgroup/', API.showMajorGroupList, name = "majorgroup"),
+    #专业信息
+    url(r'^profession/', API.showProfession, name = "profession"),
     #专业排名
-    url(r'^professionrank/',API.showProfessionRank,name = "professionrank"),
+    url(r'^professionrank/', API.showProfessionRank, name = "professionrank"),
     #同分考生去向
-    url(r'^samescore/',API.sameScore,name = "sameScore")
+    url(r'^samescore/', API.sameScore, name = "sameScore")
 ]

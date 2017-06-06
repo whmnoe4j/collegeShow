@@ -1,6 +1,7 @@
 .head_height{
         height:100px;
 }
+
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0;}
 body { background: white;color:#555; font-size:14px; font-family: Verdana, Arial, Helvetica, sans-serif; font: 14px/1.2 微软雅黑, Arial, 宋体, sans-serif;}
 td,th,caption {
