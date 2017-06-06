@@ -70,7 +70,7 @@ def showCollege(request):
         if page:
             start,end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["Length"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse,encoding='utf8',ensure_ascii=False))
@@ -110,7 +110,7 @@ def showCollegeSchoolScoreLine(request):
         if page:
             start,end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["Length"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse,encoding='utf8',ensure_ascii=False))
@@ -317,7 +317,7 @@ def sameScore(request):
         if page:
             start,end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["Length"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse,encoding='utf8',ensure_ascii=False))
