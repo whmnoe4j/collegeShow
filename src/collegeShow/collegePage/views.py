@@ -6,8 +6,14 @@ from django.http.response import HttpResponse
 
 #跳转到主页面
 def index(request):
-    
-    return render_to_response("index.html")
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id=loginUserID)
+        if loginUser:
+            return render_to_response("index.html", {"loginUser":loginUser})
+    except:
+        return render_to_response("index.html")
+
 
 def dataSearch(request):
 #     Search("江西")

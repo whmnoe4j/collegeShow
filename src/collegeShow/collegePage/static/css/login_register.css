@@ -1,0 +1,82 @@
+.mask {
+    position: absolute;
+    background-color: #000;
+    z-index: 1200;
+    left: 0px;
+    opacity: 0.8;
+    filter: alpha(opacity=50);
+    -moz-opacity: 0.8;
+}
+
+.NullDiv {
+    width: 100%;
+    height: 50px;
+}
+
+.NullDiv2 {
+    width: 100%;
+    height: 20px;
+}
+
+.login_register {
+    position: absolute;
+    z-index: 3000;
+    width: 20%;
+    height: 500px;
+    left: 40%;
+    top: 200px;
+    background-color: #fff;
+    align-content: center;
+    text-align: center;
+    opacity: 1;
+    filter: alpha(opacity=100);
+    -moz-opacity: 1;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.login {
+    display: none;
+}
+
+.register {
+    display: none;
+}
+
+.log_Div {
+    width: 80%;
+    height: 50px;
+    text-align: center;
+    margin-left: 10%;
+    font-size: 14px;
+    -webkit-box-sizing: border-box;
+}
+
+.inputDiv {
+    top: 20%;
+}
+
+.ClickDiv {
+    background-color: #03a9f4;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+}
+
+.inputText {
+    /*color: #03a9f4;*/
+    -webkit-transition: all 0.3s ease-out;
+    position: relative;
+    line-height: 48px;
+    width: 100%;
+    height: 100%;
+    padding-left: 10px;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+.huise {
+    background-color: #dadada;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+}
