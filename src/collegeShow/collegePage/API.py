@@ -325,45 +325,48 @@ def sameScore(request):
     except:
         return HttpResponse(json.dumps(ErrorResponse))
 
+
 def login(request):
     if request.method == "POST":
-        Name = request.POST.get("username")
+        Name= request.POST.get("username")
         PassWd = request.POST.get("password")
         if Name and PassWd:
             try:
-                loginUser = Users.objects.get(username = Name, password = PassWd)
+                loginUser = Users.objects.get(username = Name,password = PassWd)
+                print loginUser.username
             except:
-                return HttpResponse({"Result":"False", "Msg":"用户不存在"})
+                return HttpResponse(json.dumps({"Result":"False","Msg":"用户不存在或密码错误"}))
             else:
-                if loginUser.password == PassWd:
-                    request.session["loginUser"] = loginUser
-                    return HttpResponse({"Result":"True", "Msg":"登录成功"})
-                else:
-                    return HttpResponse({"Result":"False", "Msg":"密码错误"})
+                request.session["loginUser"] = loginUser.id
+#                     request.session["loginUser"] = loginUser
+                return HttpResponse(json.dumps({"Result":"True","Msg":"登录成功"}))
     else:
-        return HttpResponse({"Result":"False", "Msg":"请使用POST请求"})
+        return HttpResponse(json.dumps({"Result":"False","Msg":"请使用POST请求"}))
 
 def logout(request):
-    del request.session["loginUser"]  #删除session
-    return redirect("/index")
+    try: 
+        del request.session["loginUser"]  #删除session
+        return render_to_response("index.html")
+    except:
+        return render_to_response("index.html")
 
 def register(request):
     if request.method == "POST":
         Name = request.POST.get("username")
         PassWd = request.POST.get("password")
-        Sex = request.POST.get("sex")
         stuProvince = request.POST.get("stuProvince")
         stuType = request.POST.get("stuType")
-        Tel = request.POST.get("tel")
-        School = request.POST.get("school")
-        try:
-            user = Users.objects.get(username = Name)
-            if user:
-                return HttpResponse({"Result":"False", "Msg":"用户已存在"})
-        except:
-            user = Users(username = Name, password = PassWd, sex = Sex, stuprovince = stuProvince, stutype = stuType, tel = Tel, school = School)
-            user.save()
-            request.session["loginUser"] = user
-            return HttpResponse({"Result":"True", "Msg":"注册成功"})
+        if Name and PassWd and stuProvince and stuType:
+            try:
+                user = Users.objects.get(username = Name)
+                if user:
+                    return HttpResponse(json.dumps({"Result":"False","Msg":"用户已存在"}))
+            except:
+                user = Users(username=Name,password=PassWd,stuprovince=stuProvince,stutype=stuType)
+                user.save()
+                request.session["loginUser"] = user.id
+                return HttpResponse(json.dumps({"Result":"True","Msg":"注册成功"}))
+        else:
+            return HttpResponse(json.dumps({"Result":"False","Msg":"请完整填写信息"}))
     else:
-        return HttpResponse({"Result":"False", "Msg":"请使用POST请求"})
+        return HttpResponse(json.dumps({"Result":"False","Msg":"请使用POST请求"}))

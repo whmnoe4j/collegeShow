@@ -133,21 +133,75 @@
           
          
           {# 搜索框 #}
-          <div id="nav-bottom-menu">  
-            <form method="get" id="searchform" action="#">  
-               <label for="s" class="assistive-text">搜索</label>  
-               <input type="text" class="field" name="s" id="search" placeholder="搜索" />  
-               <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />  
-            </form> 
-          </div>   
-
-           {# 登入注册按钮 #}
-         <div id='unlogin'>
-             <form method="post" id="searchform" action="#">  
-                <span onclick="CJ.modalLogin()" class="btn-login btn-color">登录</span>
-                <span onclick="CJ.modalRegister()" class="btn-register">注册</span>
-             </form> 
-          </div>
+            <div id="nav-bottom-menu">
+                <form method="get" id="searchform" action="#">
+                    <label for="s" class="assistive-text">搜索</label>
+                    <input type="text" class="field" name="s" id="search" placeholder="搜索" />
+                    <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
+                </form>
+            </div>
+            <link rel="stylesheet" href="./../static/css/login_register.css">
+            <script type="text/javascript" src="./../static/js/login_register.js"></script>
+            {# 登入注册按钮 #} {% if loginUser %}
+            <div id='unlogin'>
+                <form method="post" id="searchform" action="#">
+                    <span class="btn-login btn-color">{{loginUser.username}}</span>
+                    <span onclick="logout()" class="btn-register">登出</span>
+                </form>
+            </div>
+            {% else %}
+            <div id='unlogin'>
+                <form method="post" id="searchform" action="#">
+                    <span onclick="show_login()" class="btn-login btn-color">登录</span>
+                    <span onclick="show_register()" class="btn-register">注册</span>
+                </form>
+            </div>
+            {% endif %}
+            <!--<div>
+            </div>-->
+            <div>
+                <div class="mask" onclick="hideMask()"></div>
+                <div class="login login_register">
+                    <div class="NullDiv"></div>
+                    <div class="NullDiv"></div>
+                    <div class="inputDiv log_Div"><input id="login_username" class="inputText huise" type="text" placeholder="用户名"></div>
+                    <div class="NullDiv"></div>
+                    <div class="inputDiv log_Div"><input id="login_password" class="inputText huise" type="text" placeholder="密码"></div>
+                    <div class="NullDiv"></div>
+                    <div class="ClickDiv log_Div"><a class="inputText" onclick="login()">登录</a></div>
+                    <div class="NullDiv"></div>
+                    <div class="inputDiv log_Div"><a class="inputText" onclick="show_register()">没有账号？请注册</a></div>
+                    <div class="NullDiv"></div>
+                </div>
+                <div class="register login_register">
+                    <div class="NullDiv"></div>
+                    <div class="NullDiv2"></div>
+                    <div class="inputDiv log_Div"><input id="register_username" class="inputText  huise" type="text" placeholder="用户名"></div>
+                    <div class="NullDiv2"></div>
+                    <div class="inputDiv log_Div"><input id="register_password" class="inputText  huise" type="text" placeholder="密码"></div>
+                    <div class="NullDiv2"></div>
+                    <div class="inputDiv log_Div">
+                        <select name="" id="register_stuprovince" class="inputText  huise">
+                            <option value="江西">江西</option>
+                            <option value="山西">山西</option>
+                            <option value="四川">四川</option>
+                            <option value="湖南">湖南</option>
+                        </select>
+                    </div>
+                    <div class="NullDiv2"></div>
+                    <div class="inputDiv log_Div">
+                        <select name="" id="register_stutype" class="inputText  huise">
+                            <option value="文科">文科</option>
+                            <option value="理科">理科</option>
+                        </select>
+                    </div>
+                    <div class="NullDiv2"></div>
+                    <div class="ClickDiv log_Div"><a class="inputText" onclick="register()">注册</a></div>
+                    <div class="NullDiv2"></div>
+                    <div class="inputDiv log_Div"><a class="inputText" onclick="show_login()">已有账号？请登录</a></div>
+                    <div class="NullDiv"></div>
+                </div>
+            </div>
           
         </nav>
       </div>

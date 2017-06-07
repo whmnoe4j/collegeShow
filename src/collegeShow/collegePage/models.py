@@ -1,4 +1,5 @@
 # This is an auto-generated Django model module.
+# This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
 #   * Make sure each model has one field with primary_key=True
@@ -11,12 +12,12 @@ from django.db import models
 
 
 class CollegeAreascoreline(models.Model):
-    id = models.AutoField(db_column = 'ID', primary_key = True)  # Field name made lowercase.
-    dateyear = models.IntegerField(db_column = 'DateYear')  # Field name made lowercase.
-    provincearea = models.CharField(db_column = 'ProvinceArea', max_length = 20)  # Field name made lowercase.
-    studentclass = models.CharField(db_column = 'StudentClass', max_length = 50)  # Field name made lowercase.
-    batch = models.CharField(db_column = 'Batch', max_length = 50)  # Field name made lowercase.
-    scoreline = models.IntegerField(db_column = 'ScoreLine')  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    dateyear = models.IntegerField(db_column='DateYear')  # Field name made lowercase.
+    provincearea = models.CharField(db_column='ProvinceArea', max_length=20)  # Field name made lowercase.
+    studentclass = models.CharField(db_column='StudentClass', max_length=50)  # Field name made lowercase.
+    batch = models.CharField(db_column='Batch', max_length=50)  # Field name made lowercase.
+    scoreline = models.IntegerField(db_column='ScoreLine')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -24,22 +25,22 @@ class CollegeAreascoreline(models.Model):
 
 
 class CollegeDetailEwt(models.Model):
-    schoolname = models.CharField(max_length = 50, blank = True, null = True)
-    f985 = models.CharField(max_length = 4, blank = True, null = True)
-    f211 = models.CharField(max_length = 4, blank = True, null = True)
-    fyan = models.CharField(max_length = 4, blank = True, null = True)
-    address = models.CharField(max_length = 15, blank = True, null = True)
-    levels = models.CharField(max_length = 15, blank = True, null = True)
-    attach_to = models.CharField(max_length = 20, blank = True, null = True)
-    school_rank = models.CharField(max_length = 4, blank = True, null = True)
-    schooltype = models.CharField(max_length = 15, blank = True, null = True)
-    character = models.CharField(max_length = 15, blank = True, null = True)
-    schoolid = models.CharField(max_length = 10, blank = True, null = True)
-    postal_address = models.TextField(blank = True, null = True)
-    tel = models.TextField(blank = True, null = True)
-    key_discipline = models.CharField(max_length = 15, blank = True, null = True)
-    faculty = models.CharField(max_length = 50, blank = True, null = True)
-    official_website = models.CharField(max_length = 100, blank = True, null = True)
+    schoolname = models.CharField(max_length=50, blank=True, null=True)
+    f985 = models.CharField(max_length=4, blank=True, null=True)
+    f211 = models.CharField(max_length=4, blank=True, null=True)
+    fyan = models.CharField(max_length=4, blank=True, null=True)
+    address = models.CharField(max_length=15, blank=True, null=True)
+    levels = models.CharField(max_length=15, blank=True, null=True)
+    attach_to = models.CharField(max_length=20, blank=True, null=True)
+    school_rank = models.CharField(max_length=4, blank=True, null=True)
+    schooltype = models.CharField(max_length=15, blank=True, null=True)
+    character = models.CharField(max_length=15, blank=True, null=True)
+    schoolid = models.CharField(max_length=10, blank=True, null=True)
+    postal_address = models.TextField(blank=True, null=True)
+    tel = models.TextField(blank=True, null=True)
+    key_discipline = models.CharField(max_length=15, blank=True, null=True)
+    faculty = models.CharField(max_length=50, blank=True, null=True)
+    official_website = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -47,12 +48,12 @@ class CollegeDetailEwt(models.Model):
 
 
 class CollegeDetailTel(models.Model):
-    schoolname = models.CharField(max_length = 50, blank = True, null = True)
-    key_disciplines = models.IntegerField(blank = True, null = True)
-    academician = models.IntegerField(blank = True, null = True)
-    doctor_station = models.IntegerField(blank = True, null = True)
-    master = models.IntegerField(blank = True, null = True)
-    tel = models.TextField(blank = True, null = True)
+    schoolname = models.CharField(max_length=50, blank=True, null=True)
+    key_disciplines = models.IntegerField(blank=True, null=True)
+    academician = models.IntegerField(blank=True, null=True)
+    doctor_station = models.IntegerField(blank=True, null=True)
+    master = models.IntegerField(blank=True, null=True)
+    tel = models.TextField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -60,15 +61,15 @@ class CollegeDetailTel(models.Model):
 
 
 class CollegeSchoolscoreline(models.Model):
-    id = models.AutoField(db_column = 'ID', primary_key = True)  # Field name made lowercase.
-    name_school = models.CharField(db_column = 'Name_School', max_length = 50)  # Field name made lowercase.
-    area_school = models.CharField(db_column = 'Area_School', max_length = 20)  # Field name made lowercase.
-    dateyear = models.IntegerField(db_column = 'DateYear')  # Field name made lowercase.
-    area_student = models.CharField(db_column = 'Area_Student', max_length = 20)  # Field name made lowercase.
-    studentclass = models.CharField(db_column = 'StudentClass', max_length = 50)  # Field name made lowercase.
-    batch = models.CharField(db_column = 'Batch', max_length = 50)  # Field name made lowercase.
-    maxscore = models.IntegerField(db_column = 'MaxScore')  # Field name made lowercase.
-    meanscore = models.IntegerField(db_column = 'MeanScore')  # Field name made lowercase.
+    id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
+    name_school = models.CharField(db_column='Name_School', max_length=50)  # Field name made lowercase.
+    area_school = models.CharField(db_column='Area_School', max_length=20)  # Field name made lowercase.
+    dateyear = models.IntegerField(db_column='DateYear')  # Field name made lowercase.
+    area_student = models.CharField(db_column='Area_Student', max_length=20)  # Field name made lowercase.
+    studentclass = models.CharField(db_column='StudentClass', max_length=50)  # Field name made lowercase.
+    batch = models.CharField(db_column='Batch', max_length=50)  # Field name made lowercase.
+    maxscore = models.IntegerField(db_column='MaxScore')  # Field name made lowercase.
+    meanscore = models.IntegerField(db_column='MeanScore')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -76,11 +77,11 @@ class CollegeSchoolscoreline(models.Model):
 
 
 class CollegeScoreparm(models.Model):
-    province = models.CharField(max_length = 20, blank = True, null = True)
-    category = models.CharField(max_length = 20, blank = True, null = True)
-    years = models.CharField(max_length = 10, blank = True, null = True)
-    score = models.CharField(max_length = 10, blank = True, null = True)
-    num = models.IntegerField(blank = True, null = True)
+    province = models.CharField(max_length=20, blank=True, null=True)
+    category = models.CharField(max_length=20, blank=True, null=True)
+    years = models.CharField(max_length=10, blank=True, null=True)
+    score = models.CharField(max_length=10, blank=True, null=True)
+    num = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
@@ -88,8 +89,8 @@ class CollegeScoreparm(models.Model):
 
 
 class DjangoMigrations(models.Model):
-    app = models.CharField(max_length = 255)
-    name = models.CharField(max_length = 255)
+    app = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
     applied = models.DateTimeField()
 
     class Meta:
@@ -98,17 +99,17 @@ class DjangoMigrations(models.Model):
 
 
 class EwtNewAnhui(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 100, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -116,17 +117,17 @@ class EwtNewAnhui(models.Model):
 
 
 class EwtNewGansu(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 30, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -134,17 +135,17 @@ class EwtNewGansu(models.Model):
 
 
 class EwtNewHenan(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 30, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -152,17 +153,17 @@ class EwtNewHenan(models.Model):
 
 
 class EwtNewHunan(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 100, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -170,18 +171,18 @@ class EwtNewHunan(models.Model):
 
 
 class EwtNewJiangsu(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 100, blank = True, null = True)
-    subjects_level = models.CharField(max_length = 10, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    subjects_level = models.CharField(max_length=10, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -189,17 +190,17 @@ class EwtNewJiangsu(models.Model):
 
 
 class EwtNewJiangxi(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 30, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -207,17 +208,17 @@ class EwtNewJiangxi(models.Model):
 
 
 class EwtNewJilin(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 100, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -225,18 +226,18 @@ class EwtNewJilin(models.Model):
 
 
 class EwtNewJxzk(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 30, blank = True, null = True)
-    min_score = models.IntegerField(blank = True, null = True)
-    beyond_score = models.IntegerField(blank = True, null = True)
-    min_rank = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    mean_score = models.IntegerField(blank = True, null = True)
-    mean_rank = models.IntegerField(blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    min_score = models.IntegerField(blank=True, null=True)
+    beyond_score = models.IntegerField(blank=True, null=True)
+    min_rank = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    mean_score = models.IntegerField(blank=True, null=True)
+    mean_rank = models.IntegerField(blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -244,17 +245,17 @@ class EwtNewJxzk(models.Model):
 
 
 class EwtNewShandong(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 100, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -262,17 +263,17 @@ class EwtNewShandong(models.Model):
 
 
 class EwtNewShanxi(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 30, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -280,17 +281,17 @@ class EwtNewShanxi(models.Model):
 
 
 class EwtNewSichuan(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 30, blank = True, null = True)
-    rank = models.IntegerField(blank = True, null = True)
-    score = models.IntegerField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    rank = models.IntegerField(blank=True, null=True)
+    score = models.IntegerField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -298,17 +299,17 @@ class EwtNewSichuan(models.Model):
 
 
 class EwtNewZhejiang(models.Model):
-    schoolname = models.CharField(max_length = 30, blank = True, null = True)
-    profession = models.CharField(max_length = 100, blank = True, null = True)
-    mean_score_rank = models.IntegerField(blank = True, null = True)
-    mean_score = models.FloatField(blank = True, null = True)
-    admission_number = models.IntegerField(blank = True, null = True)
-    studenttype = models.CharField(max_length = 10, blank = True, null = True)
-    levels = models.CharField(max_length = 10, blank = True, null = True)
-    batch = models.CharField(max_length = 10, blank = True, null = True)
-    year = models.IntegerField(blank = True, null = True)
-    school_province = models.CharField(max_length = 10, blank = True, null = True)
-    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=100, blank=True, null=True)
+    mean_score_rank = models.IntegerField(blank=True, null=True)
+    mean_score = models.FloatField(blank=True, null=True)
+    admission_number = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(max_length=10, blank=True, null=True)
+    levels = models.CharField(max_length=10, blank=True, null=True)
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    school_province = models.CharField(max_length=10, blank=True, null=True)
+    province = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -316,17 +317,17 @@ class EwtNewZhejiang(models.Model):
 
 
 class Gaokao(models.Model):
-    studentprovince = models.CharField(max_length = 5)
+    studentprovince = models.CharField(max_length=5)
     years = models.IntegerField()
-    studenttype = models.CharField(max_length = 2)
-    levels = models.CharField(max_length = 2)
-    batch = models.CharField(max_length = 10)
+    studenttype = models.CharField(max_length=2)
+    levels = models.CharField(max_length=2)
+    batch = models.CharField(max_length=10)
     rank = models.IntegerField()
     score = models.IntegerField()
     admission_number = models.IntegerField()
-    schoolprovince = models.CharField(max_length = 5)
-    schoolname = models.CharField(max_length = 20)
-    profession = models.CharField(max_length = 20)
+    schoolprovince = models.CharField(max_length=5)
+    schoolname = models.CharField(max_length=20)
+    profession = models.CharField(max_length=20)
 
     class Meta:
         managed = False
@@ -335,16 +336,16 @@ class Gaokao(models.Model):
 
 class JiangxiWlZk1415(models.Model):
     years = models.IntegerField()
-    name_province = models.CharField(max_length = 10)
-    name_school = models.CharField(max_length = 50)
+    name_province = models.CharField(max_length=10)
+    name_school = models.CharField(max_length=50)
     min_score = models.IntegerField()
     out_score = models.IntegerField()
     min_score_weici = models.IntegerField()
-    wl = models.CharField(max_length = 5)
-    pici = models.CharField(max_length = 10)
+    wl = models.CharField(max_length=5)
+    pici = models.CharField(max_length=10)
     mean_score = models.IntegerField()
     mean_score_weici = models.IntegerField()
-    diff = models.CharField(max_length = 10)
+    diff = models.CharField(max_length=10)
 
     class Meta:
         managed = False
@@ -352,14 +353,14 @@ class JiangxiWlZk1415(models.Model):
 
 
 class Profession(models.Model):
-    subject_type = models.CharField(max_length = 10)
-    subject_name = models.CharField(max_length = 30)
-    major_class = models.CharField(max_length = 50)
-    major_name = models.CharField(max_length = 50)
-    major_code = models.CharField(max_length = 10)
-    major_degree = models.CharField(max_length = 30, blank = True, null = True)
-    major_time = models.CharField(max_length = 30)
-    major_course = models.CharField(max_length = 400)
+    subject_type = models.CharField(max_length=10)
+    subject_name = models.CharField(max_length=30)
+    major_class = models.CharField(max_length=50)
+    major_name = models.CharField(max_length=50)
+    major_code = models.CharField(max_length=10)
+    major_degree = models.CharField(max_length=30, blank=True, null=True)
+    major_time = models.CharField(max_length=30)
+    major_course = models.CharField(max_length=400)
 
     class Meta:
         managed = False
@@ -367,10 +368,10 @@ class Profession(models.Model):
 
 
 class ProfessionRank(models.Model):
-    major_code = models.CharField(max_length = 10)
-    major_name = models.CharField(max_length = 50)
+    major_code = models.CharField(max_length=10)
+    major_name = models.CharField(max_length=50)
     rank_num = models.IntegerField()
-    rank_school = models.CharField(max_length = 50)
+    rank_school = models.CharField(max_length=50)
 
     class Meta:
         managed = False
@@ -378,13 +379,10 @@ class ProfessionRank(models.Model):
 
 
 class Users(models.Model):
-    username = models.CharField(max_length = 10)
-    password = models.CharField(max_length = 10)
-    sex = models.CharField(max_length = 2)
-    stuprovince = models.CharField(max_length = 10)
-    stutype = models.CharField(max_length = 2)
-    tel = models.CharField(max_length = 11)
-    school = models.CharField(max_length = 20, blank = True, null = True)
+    username = models.CharField(max_length=10)
+    password = models.CharField(max_length=10)
+    stuprovince = models.CharField(max_length=10)
+    stutype = models.CharField(max_length=2)
 
     class Meta:
         managed = False
