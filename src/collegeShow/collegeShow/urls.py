@@ -24,8 +24,8 @@ urlpatterns = [
    
     url(r'^dataSearch/', views.dataSearch, name = 'dataSearch'),
     url(r'^reportedCollege/', views.reportedCollege, name = 'reportedCollege'),
-    url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreList'),
-    
+    url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreline'),
+    url(r'^areascoreline/', views.areascoreline, name = 'areascoreline'),
     #登录注册
     url(r'^login/', API.login, name = "login"),
     url(r'^logout/', API.logout, name = "logout"),
@@ -39,7 +39,7 @@ urlpatterns = [
     #地区批次线
     url(r'^api_areascoreline/', API.showAreaScoreLine, name = "areascoreList"),
     #一分一段表
-    url(r'^api_scoreparm/', API.showScoreParm, name = "scoreparm"),
+    url(r'^api_scoreparam/', API.showScoreParm, name = "scoreparm"),
     #专业大类
     url(r'^api_subjectgroup/', API.showSubjectGroup, name = "subjectgroup"),
     #专业细分类
@@ -49,5 +49,16 @@ urlpatterns = [
     #专业排名
     url(r'^api_professionrank/', API.showProfessionRank, name = "professionrank"),
     #同分考生去向
-    url(r'^api_samescore/', API.sameScore, name = "sameScore")
+    url(r'^api_samescore/', API.sameScore, name = "sameScore"),
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    url(r'^scoreparam/', views.scoreparam, name = 'scoreparam'),
+    url(r'^professionrank/', views.professionrank, name = 'professionrank'),
 ]

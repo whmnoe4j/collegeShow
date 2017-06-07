@@ -204,7 +204,7 @@
 				var sel_district = $("#district li.mySelected").html(),
 				//sch_province = $("#sch_province li.mySelected").html(),
 	            // sel_subject = $("#subject li.mySelected").html(),
-	            sel_round = $("#round li.mySelected").html(),
+	            // sel_round = $("#round li.mySelected").html(),
 	            // sel_collegeNature = $("#collegeNature li.mySelected").html(),
 	            sel_category = $("#category li.mySelected").html(),
 	            sel_year = $("#year li.mySelected").html();
@@ -216,9 +216,9 @@
 	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
 
 				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
-				url="/api_collegescoreline/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
+				url="/api_areascoreline/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
 				
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年'+'<lable class="lable_key">'+sel_round+'</lable>高校在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
 			})
 		
@@ -227,24 +227,21 @@
 		
 		// 分页
 	
-	 	totalPage=0
-	    var GG = {
-	        "kk":function(page){
+	 
+	    function startUp(){
 
 	            var sel_district = $("#district li.mySelected").html(),
 		        sel_round = $("#round li.mySelected").html(),
 		        sel_category = $("#category li.mySelected").html(),
 		        sel_year = $("#year li.mySelected").html();
-		        url="/api_collegescoreline/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="
-
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年'+'<lable class="lable_key">'+sel_round+'</lable>高校在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
-				url=url+page
+		      	 url="/api_areascoreline/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
+				
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
-	        }
-	    }
+	     }
 	  
-	
-	    $("#page").initPage(300,1,GG.kk);
+		startUp()
+	   
 	});
 	
 	
@@ -260,7 +257,7 @@
 		        <ul class="breadcrumb breadNav">
 		            <li><a class="index" href="/">首页</a></li>
 		            <li><a id="bread_nav1" href="/dataSearch">数据查询</a></li>
-		            <li id="bread_nav2">大学分数线</li>
+		            <li id="bread_nav2">地区批次线</li>
 		        </ul>
 		    </div>
 
@@ -269,8 +266,8 @@
 		        <ul class="changeNav">
 
 		            <a href="/dataSearch"><li class="lpointer ">院校大全</li></a>
-		            <a href="/collegescoreline"><li class="lpointer  mySelected">大学分数线</li></a>
-		            <a href="/areascoreline"><li class="lpointer">地区批次线</li></a>
+		            <a href="/collegescoreline"><li class="lpointer  ">大学分数线</li></a>
+		            <a href="/areascoreline"><li class="lpointer mySelected">地区批次线</li></a>
 		            <a href="/scoreparam"><li class="lpointer">一分一段表</li></a> 
 		        </ul>
 		    </div>
@@ -293,7 +290,17 @@
 			        </ul>
 			    </div>
 	   		 </div>
+	   		 <div class="partLine">
          	<div class="partLine_top">
+         		<div id="row_category">
+		            <div class="select_title fl">
+		                <div class="select_inputDom">考生类型：</div>
+		            </div>
+		            <ul class="select_items fl" id="category">
+		                <li class="pull-left mySelected" data_value="理科">理科</li><li class="pull-left" data_value="文科">文科</li>
+		            </ul>
+		        </div>
+
 		        <div id="row_district">
 		            <div class="select_title fl">
 		                <div class="select_inputDom"><lable class='.keyword'>考生</label>位置：</div>
@@ -330,38 +337,6 @@
 		                <li class="pull-left" data_value="西藏">西藏</li>
 		                <li class="pull-left" data_value="云南">云南</li>
 		                <li class="pull-left" data_value="浙江">浙江</li>
-		            </ul>
-		        </div>
-
-			<div class="partLine">
-		      
-		        <div id="row_round">
-		            <div class="select_title fl">
-		                <div class="select_inputDom">录取批次：</div>
-		            </div>
-		            <ul class="select_items fl" id="round">
-		            	
-		            	<li class="pull-left mySelected" data_value="本科提前批">本科提前批</li>
-		                <li class="pull-left" data_value="本科一批">本科一批</li>
-		                <li class="pull-left" data_value="本科二批">本科二批</li>
-		                <li class="pull-left" data_value="本科三批">本科三批</li>
-		                <li class="pull-left" data_value="专科提前批">专科提前批</li>
-		                <li class="pull-left" data_value="专科批">专科批</li>
-		                <li class="pull-left" data_value="专科一批">专科一批</li>
-		                <li class="pull-left" data_value="专科二批">专科二批</li>
-		               
-		            </ul>
-		        </div>
-		       
-		        <div id="row_category">
-		            <div class="select_title fl">
-		                <div class="select_inputDom">考生类型：</div>
-		            </div>
-		            <ul class="select_items fl" id="category">
-		                <li class="pull-left mySelected" data_value="理科">理科</li>
-		                <li class="pull-left" data_value="文科">文科</li>
-		                <li class="pull-left" data_value="综合">综合</li>
-		                <li class="pull-left" data_value="其他">其他</li>
 		            </ul>
 		        </div>
 
@@ -404,12 +379,12 @@
 			  
 		        <thead>
 		            <tr>
-		                <td style="width:180px;">院校名称</td>
-		                <td style="width:100px;">高校位置</td>
-		                <td style="width:100px;">年份</td>
-		                <td style="width:100px;">录取最高分</td>
-		                <td style="width:100px;">录取平均分</td>
-		                <td style="width:100px;">收藏</td>
+		                <td >考生位置</td>
+		                <td >考生类型</td>
+		                <td >年份</td>
+		                <td >录取批次</td>
+		                <td >分数</td>
+		                <td>收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->
 		            </tr>

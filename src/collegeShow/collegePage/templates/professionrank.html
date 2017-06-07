@@ -65,9 +65,7 @@
 	   
 	
 	}
-	.data-tbody td{
-		/*text-align: left;*/
-	}
+
 	caption span {
     font-weight: 700;
     font-size: 20px;
@@ -90,9 +88,8 @@
 		lpointClass(".lpointer","mySelected")
 
 		//省份选项样式
-		mySelectedClass("#sch_province .pull-left",".pull-left","mySelected")
-		mySelectedClass("#subject .pull-left",".pull-left","mySelected")
-		mySelectedClass("#collegeCharacter .pull-left",".pull-left","mySelected")
+		mySelectedClass("#mclass .pull-left",".pull-left","mySelected")
+		mySelectedClass("#mclass2 .pull-left",".pull-left","mySelected")
 
 		
 		//全选
@@ -186,9 +183,8 @@
 						for (var i=0;i<data.Data.length;i++)
 						{
 							//alert(data.Data[i][0])
-							//alert(data.Data.SchoolName)
-							//console.log(data.Data[i].SchoolName)
-							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" ></td></tr>')	
+
+							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td></tr>')	
 						}
 					
 				}else{
@@ -202,59 +198,97 @@
 		$('.pull-left').each(function(){
 
 			$(this).click(function(){
-				//院校位置
-				var sch_province = $("#sch_province li.mySelected").html(),
-				// sel_district = $("#district li.mySelected").html(),
-				//院校类型 师范工科
-	            sel_subject = $("#subject li.mySelected").html(),
-	            //公办民办
-	            sel_collegeCharacter = $("#collegeCharacter li.mySelected").html(),
-	            // sel_round = $("#round li.mySelected").html(),
-	            //院校层次 本科专科
-	            //sel_collegeNature = $("#collegeNature li.mySelected").html(),
-	            // sel_category = $("#category li.mySelected").html(),
-	            // sel_year = $("#year li.mySelected").html();
-	            // sel_zydl = $("#zydl li.mySelected").html(),
-	            // sel_xklb=$("#xklb li.mySelected").html(),
-	            // sel_mClass = $("#mclass li.mySelected").html()
-	            // sel_mClass2 = $("#mclass2 li.mySelected").html(),
-	            // sel_mClassold = $("#mclassold li.mySelected").html()
-	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
+				var big_majoy = $("#mclass li.mySelected").html(),
+	            small_majoy = $("#mclass2 li.mySelected").html();
 
 				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
-				url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page=1"
-
-				// alert(url)
-		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
+				url="/api_professionrank/?stuProvince="+big_majoy+"&stuType="+small_majoy
+				
+			
 				ajax_data(url)
 			})
 		
 		})
-	  
+
+		//点击专业大类显示专业小类
+		$('#mclass .pull-left').each(function(){
+
+			$(this).click(function(){
+				var big_majoy = $("#mclass li.mySelected").html();
+
+				url="/api_majorgroup/?subjectType=本科&subjectName="+big_majoy
+				
+				$.getJSON(url,function(data){
+					// alert(data.Data)	
+					if (data.Data.length!=0){
+							$('.noData').addClass("hidden");
+							$('#mclass2 li').remove()
+							for (var i=0;i<data.Data.length;i++)
+							{
+								//alert(data.Data[i][0])
+								if (i==0){
+									$('#mclass2').append('<li class="pull-left mySelected" data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}else{
+									$('#mclass2').append('<li class="pull-left " data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}
+
+								//alert()	
+
+							}
+						
+					}else{
+						$('.noData').removeClass("hidden");
+					}
+				})
+				
+	            
+			})
 		
+		})
+	  
+		function startMajoy(){
+			var big_majoy = $("#mclass li.mySelected").html();
+
+				url="/api_majorgroup/?subjectType=本科&subjectName="+big_majoy
+				
+				$.getJSON(url,function(data){
+					// alert(data.Data)	
+					if (data.Data.length!=0){
+							$('.noData').addClass("hidden");
+							$('#mclass2 li').remove()
+							for (var i=0;i<data.Data.length;i++)
+							{
+								//alert(data.Data[i][0])
+								if (i==0){
+									$('#mclass2').append('<li class="pull-left mySelected" data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}else{
+									$('#mclass2').append('<li class="pull-left " data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}
+
+								//alert()	
+
+							}
+						
+					}else{
+						$('.noData').removeClass("hidden");
+					}
+				})
+		}
 		// 分页
-	
-	 	totalPage=0
-	    var GG = {
-	        "kk":function(page){
+		startMajoy()
+	 
+	    function startUp(){
 
-	           var sch_province = $("#sch_province li.mySelected").html(),
-				//院校类型 师范工科
-	            sel_subject = $("#subject li.mySelected").html(),
-	            //院校 公办民办
-	            sel_collegeCharacter = $("#collegeCharacter li.mySelected").html(),
+	            var big_majoy = $("#mclass li.mySelected").html(),
+	            small_majoy = $("#mclass2 li.mySelected").html();
 
-		        url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page="+page
-
-		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
-				//alert(url)
-				//console.log(url)
+		      	 url="/api_scoreparam/?stuProvince="+big_majoy+"&stuType="+small_majoy
+				
 				ajax_data(url)
-	        }
-	    }
+	     }
 	  
-		
-	    $("#page").initPage(30,1,GG.kk);
+		startUp()
+	   
 	});
 	
 	
@@ -270,7 +304,7 @@
 		        <ul class="breadcrumb breadNav">
 		            <li><a class="index" href="/">首页</a></li>
 		            <li><a id="bread_nav1" href="/dataSearch">数据查询</a></li>
-		            <li id="bread_nav2">院校大全</li>
+		            <li id="bread_nav2">专业学科排名</li>
 		        </ul>
 		    </div>
 
@@ -278,10 +312,10 @@
 		        <div class="changeNav_school"><i class="icon iconfont icon-xueshimao"></i>院校数据</div>
 		        <ul class="changeNav">
 
-		            <a href="/dataSearch"><li class="lpointer mySelected">院校大全</li></a>
-		            <a href="/collegescoreline"><li class="lpointer ">大学分数线</li></a>
-		            <a href="/areascoreline"><li class="lpointer">地区批次线</li></a>
-		            <a href="/scoreparam"><li class="lpointer">一分一段表</li></a> 
+		            <a href="/dataSearch"><li class="lpointer ">院校大全</li></a>
+		            <a href="/collegescoreline"><li class="lpointer  ">大学分数线</li></a>
+		            <a href="/areascoreline"><li class="lpointer ">地区批次线</li></a>
+		            <a href="/scoreparam"><li class="lpointer ">一分一段表</li></a> 
 		        </ul>
 		    </div>
 
@@ -290,7 +324,7 @@
 		        <ul class="changeNav">
 		            <a href="/subjectgroup"><li class="lpointer ">专业大全</li></a>
 		            <a href="/professionscore"><li class="lpointer ">专业分数线</li></a>
-		            <a href="/professionrank"><li class="lpointer ">专业学科排名</li></a>
+		            <a href="/professionrank"><li class="lpointer  mySelected">专业学科排名</li></a>
 		        </ul>
    			</div>
         </div>
@@ -303,50 +337,56 @@
 			        </ul>
 			    </div>
 	   		 </div>
-   <div class="partLine">
-
-   		 <div id="row_collegeNature" style="border-top:3px #00BFED solid;">
-            <div class="select_title fl">
-                <div class="select_inputDom">院校层次：</div>
-            </div>
-            <ul class="select_items fl" id="collegeCharacter">
-                <li class="pull-left mySelected" data_value="公办">公办</li><li class="pull-left" data_value="民办">民办</li>
-            </ul>
-        </div>
-        <div id="row_district">
-            <div class="select_title fl">
-                <div class="select_inputDom">院校位置</div>
-            </div>
-            <ul class="select_items fl" id="sch_province">
-                <li class="pull-left mySelected" data_value="北京">北京</li><li class="pull-left" data_value="安徽">安徽</li><li class="pull-left" data_value="重庆">重庆</li><li class="pull-left" data_value="福建">福建</li><li class="pull-left" data_value="广东">广东</li><li class="pull-left" data_value="广西">广西</li><li class="pull-left" data_value="甘肃">甘肃</li><li class="pull-left" data_value="贵州">贵州</li><li class="pull-left" data_value="海南">海南</li><li class="pull-left" data_value="河南">河南</li><li class="pull-left" data_value="河北">河北</li><li class="pull-left" data_value="黑龙江">黑龙江</li><li class="pull-left" data_value="湖北">湖北</li><li class="pull-left" data_value="湖南">湖南</li><li class="pull-left" data_value="吉林">吉林</li><li class="pull-left" data_value="江苏">江苏</li><li class="pull-left" data_value="江西">江西</li><li class="pull-left" data_value="辽宁">辽宁</li><li class="pull-left" data_value="内蒙古">内蒙古</li><li class="pull-left" data_value="宁夏">宁夏</li><li class="pull-left" data_value="青海">青海</li><li class="pull-left" data_value="山东">山东</li><li class="pull-left" data_value="山西">山西</li><li class="pull-left" data_value="陕西">陕西</li><li class="pull-left" data_value="上海">上海</li><li class="pull-left" data_value="四川">四川</li><li class="pull-left" data_value="天津">天津</li><li class="pull-left" data_value="新疆">新疆</li><li class="pull-left" data_value="西藏">西藏</li><li class="pull-left" data_value="云南">云南</li><li class="pull-left" data_value="浙江">浙江</li>
-            </ul>
-        </div>
-      
-        <div id="row_subject">
-            <div class="select_title fl">
-                <div class="select_inputDom">院校类型：</div>
-            </div>
-            <ul class="select_items fl" id="subject">
-			    <li class="pull-left mySelected" data_value="综合">综合</li>
-			    <li class="pull-left" data_value="理工">工科</li>
-			    <li class="pull-left" data_value="农林">农林</li>
-			    <li class="pull-left" data_value="林业">林业</li>
-			    <li class="pull-left" data_value="医药">医药</li>
-			    <li class="pull-left" data_value="政法">政法</li>
-			    <li class="pull-left" data_value="师范">师范</li>
-			    <li class="pull-left" data_value="财经">财经</li>
-			    <li class="pull-left" data_value="民族">民族</li>
-			    <li class="pull-left" data_value="语言">语言</li>
-			    <li class="pull-left" data_value="艺术">艺术</li>
-			    <li class="pull-left" data_value="军事">军事</li>
-			    <li class="pull-left" data_value="体育">体育</li>
-			    <li class="pull-left" data_value="其他">其他</li>
-			</ul>
-        </div>
-       
-        
-    </div>
-	 
+	   		 <div class="partLine">
+         	<div class="partLine_top">
+         		<div id="row_mclass">
+				    <div class="select_title fl">
+				        <div class="select_inputDom">学科类别：</div>
+				    </div>
+				    <ul class="select_items fl" id="mclass">
+				        <li class="pull-left mySelected" data_value="人文社科类">历史学</li>
+				        <li class="pull-left" data_value="理学">管理学</li>
+				        <li class="pull-left" data_value="工学">艺术学</li>
+				        <li class="pull-left" data_value="工学">工学</li>
+				        <li class="pull-left" data_value="工学">教育学</li>
+				        <li class="pull-left" data_value="工学">经济学</li>
+				        <li class="pull-left" data_value="农学">农学</li>
+				        <li class="pull-left" data_value="医学">文学</li>
+				        <li class="pull-left" data_value="管理学">哲学</li>
+				        <li class="pull-left" data_value="艺术学">医学</li>
+				        <li class="pull-left" data_value="艺术学">理学</li>
+				        <li class="pull-left" data_value="艺术学">法学</li>
+				    </ul>
+				</div>
+		       	
+		        <div id="row_mclass2">
+				    <div class="select_title fl">
+				        <div class="select_inputDom">学科大类：</div>
+				    </div>
+				    <ul class="select_items fl" id="mclass2">
+				        <!-- <li class="pull-left mySelected" data_value="哲学">哲学</li>
+				        <li class="pull-left" data_value="理论经济学">理论经济学</li>
+				        <li class="pull-left" data_value="应用经济学">应用经济学</li>
+				        <li class="pull-left" data_value="法学">法学</li>
+				        <li class="pull-left" data_value="政治学">政治学</li>
+				        <li class="pull-left" data_value="社会学">社会学</li>
+				        <li class="pull-left" data_value="民族学">民族学</li>
+				        <li class="pull-left" data_value="马克思主义理论">马克思主义理论</li>
+				        <li class="pull-left" data_value="教育学">教育学</li>
+				        <li class="pull-left" data_value="心理学">心理学</li>
+				        <li class="pull-left" data_value="体育学">体育学</li>
+				        <li class="pull-left" data_value="中国语言文学">中国语言文学</li>
+				        <li class="pull-left" data_value="外国语言文学">外国语言文学</li>
+				        <li class="pull-left" data_value="新闻传播学">新闻传播学</li>
+				        <li class="pull-left" data_value="考古学">考古学</li>
+				        <li class="pull-left" data_value="中国史">中国史</li>
+				        <li class="pull-left" data_value="世界史">世界史</li> -->
+				    </ul>
+				</div>
+		        
+		       
+		    </div>
+	 </div>	  
 	 	<div class="data_conts" >
 		    <table class="data_table">
 			    <caption >
@@ -365,15 +405,13 @@
 	        	</caption>
 			  
 		        <thead>
-		            <tr >
-		                <td style="width:100px;">院校名称</td>
-		                <td style="width:50px;">985</td>
-		                <td style="width:50px;">211</td>
-		                <td style="width:50px;">研究生</td>
-		                <td style="width:50px;">公/民办</td>
-		                <td style="width:80px;">高校排名</td>
-		                <td style="width:100px;">隶属部门</td>
-		                <td style="width:70px;">收藏</td>
+		            <tr>
+		                <td >考生位置</td>
+		                <td >考生类型</td>
+		                <td >年份</td>
+		                <td >分数</td>
+		                <td >本段人数</td>
+		                <td>收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->
 		            </tr>
@@ -404,11 +442,11 @@
 		        <a href="buyVip.html" class="cover_btn pointer btn_tran">开通VIP</a>
 		    </div>
 		</div>	
-	 
+
 		    {# <div id="pager" class="pager clearfix"></div>	 #}
 		    <div ><ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page"></ul></div>
         </div>
- </div>
+
 	</div>
 </div>
 
