@@ -15,20 +15,15 @@
 	    background: url(../static/images/search.png) no-repeat center center;
 	    background-size: 100% 100%;
 	    cursor: pointer;
-
 	}
-
 	.collegeSearchPng {
 		background: url(../static/images/search_g.png) no-repeat center center;
-
 	}
-
 	.sortPng {
 	    /* width: 150px; */
 	    background: url(../static/images/down.png) no-repeat right center;
 	
 	}
-
 	.sort {
 	    background: url(../static/images/down.png) no-repeat right center;
 	}
@@ -38,7 +33,6 @@
     height: 226px;
     background: url(../static/images/vip_ad.jpg) center no-repeat;
 	}
-
 	.collect {
 	    display: block;
 	    /* float: left; */
@@ -85,56 +79,42 @@
 <script type="text/javascript" src="../static/js/page.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-
 		// 院校推荐样式更换
 		lpointClass(".lpointer","mySelected")
-
 		//省份选项样式
 		mySelectedClass("#sch_province .pull-left",".pull-left","mySelected")
 		mySelectedClass("#subject .pull-left",".pull-left","mySelected")
 		mySelectedClass("#collegeCharacter .pull-left",".pull-left","mySelected")
-
 		
 		//全选
 		$('.selectAll').click(function(){
 			$(this).addClass("mySelected");
 			$('.headTab').addClass('prob');
-
 		})
-
 		
 		probClass(".headTab","prob")
-
 		//输入框改变border颜色
 		
 		$('.sortByCollege').focusin(function(){
-
 			$(this).addClass('iptfocus');
 			$('.collegeSearch').addClass('collegeSearchPng');
 		})
-
 		$('.sortByCollege').focusout(function(){
-
 			$(this).removeClass('iptfocus');
 			$('.collegeSearch').removeClass('collegeSearchPng');
-
 		})
 		function probClass(name,clasName){
-
 			
-
 			$(name).each(function(){
 				$(this).click(function(){
 					//移除全选按钮样式
 					$('.selectAll').removeClass('mySelected')
 					$(name).removeClass(clasName);
 					$(this).addClass(clasName);
-
 				})
 				
 			})
 		}
-
 		function mySelectedClass(node,name,clasName){
 			//判断是否存在父节点
 			if (node==""){
@@ -142,7 +122,6 @@
 					$(this).click(function(){
 						$(name).removeClass(clasName);
 						$(this).addClass(clasName);
-
 					})
 				
 				})
@@ -151,18 +130,15 @@
 					$(this).click(function(){
 						$(node).removeClass(clasName);
 						$(this).addClass(clasName);
-
 					})
 				
 				})
 			}
 		}
 		function lpointClass(name,clasName){
-
 			//判断是否存在父节点
 			$(name).each(function(){
 				$(this).click(function(){
-
 					$(name).removeClass(clasName);
 					$(this).addClass(clasName);
 					$('#bread_nav2').html($(this).html())
@@ -171,14 +147,11 @@
 			
 			})
 		}
-
-
 		 //大学分数线
 		// ajax 传数据获取院校数据
 		function ajax_data(url){
 			$('.data-tbody').remove();
 			$('.data_table').append('<tbody class="data-tbody"></tbody>')
-
 			$.getJSON(url,function(data){
 				if (data.Data.length!=0){
 					$('.noData').addClass("hidden");
@@ -200,7 +173,6 @@
 	 
 	    //根据点击显示不同省份的内容
 		$('.pull-left').each(function(){
-
 			$(this).click(function(){
 				//院校位置
 				var sch_province = $("#sch_province li.mySelected").html(),
@@ -220,12 +192,10 @@
 	            // sel_mClass2 = $("#mclass2 li.mySelected").html(),
 	            // sel_mClassold = $("#mclassold li.mySelected").html()
 	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
-
 				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
 				url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page=1"
-
 				// alert(url)
-		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校--院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>--院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
+		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
 				ajax_data(url)
 			})
 		
@@ -237,16 +207,13 @@
 	 	totalPage=0
 	    var GG = {
 	        "kk":function(page){
-
 	           var sch_province = $("#sch_province li.mySelected").html(),
 				//院校类型 师范工科
 	            sel_subject = $("#subject li.mySelected").html(),
 	            //院校 公办民办
 	            sel_collegeCharacter = $("#collegeCharacter li.mySelected").html(),
-
 		        url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page="+page
-
-		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校--院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>--院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
+		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
 				//alert(url)
 				//console.log(url)
 				ajax_data(url)
@@ -279,18 +246,18 @@
 		        <ul class="changeNav">
 
 		            <a href="/dataSearch"><li class="lpointer mySelected">院校大全</li></a>
-		            <a href="/collegescoreline"><li class="lpointer  ">大学分数线</li></a>
-		            <a href="#"><li class="lpointer">地区批次线</li></a>
-		            <a href="#"><li class="lpointer">专业匹配测评</li></a> 
+		            <a href="/collegescoreline"><li class="lpointer ">大学分数线</li></a>
+		            <a href="/areascoreline"><li class="lpointer">地区批次线</li></a>
+		            <a href="/scoreparam"><li class="lpointer">一分一段表</li></a> 
 		        </ul>
 		    </div>
 
 		    <div>
 		        <div class="changeNav_major"><i class="icon iconfont icon-shu"></i>专业数据</div>
 		        <ul class="changeNav">
-		            <li class="lpointer ajax_li">专业大全</li>
-		            <li class="lpointer ajax_li">专业分数线</li>
-		            <li class="lpointer ajax_li">专业学科排名</li>
+		            <a href="/subjectgroup"><li class="lpointer ">专业大全</li></a>
+		            <a href="/professionscore"><li class="lpointer ">专业分数线</li></a>
+		            <a href="/professionrank"><li class="lpointer ">专业学科排名</li></a>
 		        </ul>
    			</div>
         </div>
@@ -347,7 +314,7 @@
         
     </div>
 	 
-	 	<div class="data_conts" style="height:720px;">
+	 	<div class="data_conts" >
 		    <table class="data_table">
 			    <caption >
 			    	
@@ -367,7 +334,6 @@
 		        <thead>
 		            <tr >
 		                <td style="width:100px;">院校名称</td>
-		                
 		                <td style="width:50px;">985</td>
 		                <td style="width:50px;">211</td>
 		                <td style="width:50px;">研究生</td>
@@ -379,7 +345,7 @@
 		                <!--<td>录取平均概率</td>-->
 		            </tr>
             	</thead>
-		        <tbody class="data-tbody">
+		       <!--  <tbody class="data-tbody">
 		        			{# <tr> #}
 					            {# <td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">{{data.0}}</a> #}
 					            {# </td> #}
@@ -391,7 +357,7 @@
 					            {# </td> #}
 					            {# <td class="pointer hc tst3">大学录取概率</td> #}
 			      			{# </tr> #}
-	      		</tbody>
+	      		</tbody> -->
     		</table>
     		
     	
