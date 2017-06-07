@@ -172,30 +172,6 @@
 			
 			})
 		}
-
-
-		 //大学分数线
-		// ajax 传数据获取院校数据
-		function ajax_data(url){
-			$('.data-tbody').remove();
-			$('.data_table').append('<tbody class="data-tbody"></tbody>')
-
-			$.getJSON(url,function(data){
-				if (data.Data.length!=0){
-					$('.noData').addClass("hidden");
-					
-						for (var i=0;i<data.Data.length;i++)
-						{
-							//alert(data.Data[i][0])
-
-							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td></tr>')	
-						}
-					
-				}else{
-					$('.noData').removeClass("hidden");
-				}
-			})
-	    }
 	
 	 
 	    //根据点击显示不同省份的内容
@@ -361,8 +337,14 @@
 						for (var i=0;i<data.Data.length;i++)
 						{
 							//alert(data.Data[i][0])
-
-							$('.data-tbody').append('<tr><td>'+mclass+'</td><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+							if(i%2==0){
+								
+									$('.data-tbody').append('<tr><td>'+mclass+'</td><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+							}else{
+								
+									$('.data-tbody').append('<tr style="background:#EBFBFF;"><td>'+mclass+'</td><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+							}
+							
 						}
 					
 				}else{
