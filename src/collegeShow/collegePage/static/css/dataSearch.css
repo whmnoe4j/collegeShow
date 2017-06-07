@@ -478,8 +478,7 @@ thead td {
 
 td {
     text-align: center;
-    height: 60px;
-    line-height: 60px;
+    /* line-height: 60px; */
     font-size: 14px;
     color: #333333;
 }
@@ -491,15 +490,26 @@ td {
     width: 100%;
 
 }
+.collect {
+
+    display: block;
+    /* float: left; */
+    /* position: relative; */
+     margin-left: 35px; 
+     width: 65px; 
+     height: 60px;
+}
 .collect:after {
     content: "收藏";
     position: absolute;
+    line-height: 60px;
+
     /* left: 20px; */
     width: 50px;
     height: 60px;
     font-size: 14px;
     color: #00BFEC;
-    text-align: left;
+    text-align: center;
 }
 :after, :before {
     -webkit-box-sizing: border-box;
@@ -532,4 +542,23 @@ td {
 
 .collegeId{
     overflow: hidden;
+    width: 100px;
+}
+.collegeLink{
+	width:100%;
+	overflow: hidden;
+}
+.table_head{
+    font-size: 16px;
+    color: #333333;
+    width: 140px;
+   /* height: 30px; */
+    line-height: 60px;
+    cursor: pointer;
+}
+.table_head tr{
+    background: red;
+}
+.lable_key{
+    color: #00BFED;
 }

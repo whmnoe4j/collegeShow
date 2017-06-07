@@ -73,9 +73,7 @@
 	.rt{
 		float: right;
 	}
-	.lable_key{
-		color: red;
-	}
+	
 	
 </style>
 
@@ -186,8 +184,13 @@
 						for (var i=0;i<data.Data.length;i++)
 						{
 							//alert(data.Data[i][0])
-
-							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+                            if(i%2==0){
+                                
+                            	$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td></tr>')  
+                            }else{
+                            	$('.data-tbody').append('<tr style="background:#EBFBFF;"><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td>'+data.Data[i][3]+'</td><td>'+data.Data[i][4]+'</td><td class="collectBox collect pointer" ></td></tr>')
+                            }
+								
 						}
 					
 				}else{
@@ -404,12 +407,12 @@
 			  
 		        <thead>
 		            <tr>
-		                <td style="width:180px;">院校名称</td>
-		                <td style="width:100px;">高校位置</td>
-		                <td style="width:100px;">年份</td>
-		                <td style="width:100px;">录取最高分</td>
-		                <td style="width:100px;">录取平均分</td>
-		                <td style="width:100px;">收藏</td>
+		                <td class="table_head">院校名称</td>
+		                <td class="table_head">高校位置</td>
+		                <td class="table_head">年份</td>
+		                <td class="table_head">录取最高分</td>
+		                <td class="table_head">录取平均分</td>
+		                <td class="table_head">收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->
 		            </tr>

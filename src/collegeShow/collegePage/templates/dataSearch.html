@@ -75,9 +75,7 @@
 	.rt{
 		float: right;
 	}
-	.lable_key{
-		color: red;
-	}
+
 	
 </style>
 
@@ -188,7 +186,12 @@
 							//alert(data.Data[i][0])
 							//alert(data.Data.SchoolName)
 							//console.log(data.Data[i].SchoolName)
-							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" ></td></tr>')	
+                            if(i%2==0){
+                            	$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" ></td></tr>')  
+                            }else{
+                            	$('.data-tbody').append('<tr style="background:#EBFBFF;"><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" ></td></tr>')
+                            }
+								
 						}
 					
 				}else{
@@ -366,14 +369,14 @@
 			  
 		        <thead>
 		            <tr >
-		                <td style="width:100px;">院校名称</td>
-		                <td style="width:50px;">985</td>
-		                <td style="width:50px;">211</td>
-		                <td style="width:50px;">研究生</td>
-		                <td style="width:50px;">公/民办</td>
-		                <td style="width:80px;">高校排名</td>
-		                <td style="width:100px;">隶属部门</td>
-		                <td style="width:70px;">收藏</td>
+		                <td class="table_head">院校名称</td>
+		                <td class="table_head">985</td>
+		                <td class="table_head">211</td>
+		                <td class="table_head">研究生</td>
+		                <td class="table_head">公/民办</td>
+		                <td class="table_head">高校排名</td>
+		                <td class="table_head">隶属部门</td>
+		                <td class="table_head">收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->
 		            </tr>
