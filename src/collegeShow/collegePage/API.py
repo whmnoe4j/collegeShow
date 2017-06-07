@@ -271,7 +271,7 @@ def showProfession(request):
             Degree = profession.major_degree
             needTime = profession.major_time
             Course = profession.major_course
-            resultList.append([Code, Name, Degree, needTime, Course])
+            resultList.append([ Name, Code, Degree, needTime, Course])
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:

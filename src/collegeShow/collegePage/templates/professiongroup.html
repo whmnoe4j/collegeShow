@@ -266,6 +266,7 @@
 									$(documentName).append('<li class="pull-left " data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
 								}
 							}
+
 							if (flag==0){
 								//alert(data.Data[0])
 								//根据专业大类选取专业类别
@@ -273,18 +274,12 @@
 								majoy_data(url,'#mclass2',stu_level,1)
 							}
 
-							if(flag==1){
-									//根据专业类别选取专业小类
-									url="/api_professionsmall/?subjectType="+stu_level+"&majorClass="+data.Data[0]
-									majoy_data(url,'#mclass3',stu_level,1)
-
-							}
+							
 							if(flag==1){
 
-									//加载排名数据
-									//根据专业小类别获取排名 professionrank/?professionName=绘画
-									url="/api_professionrank/?professionName="+data.Data[0]
-									// alert(url)
+									//加载专业详细
+									var mclass = $("#mclass li.mySelected").html();
+									url="/api_profession/?subjectType="+stu_level+"&subjectName="+mclass+"&majorClass="+data.Data[0]
 									ajax_data(url)
 							}
 							// alert(url)
@@ -345,9 +340,10 @@
 			var stu_level = $("#stulevel li.mySelected").html(),
 				majorClass = $("#mclass2 li.mySelected").html()	;
 
-			//根据专业类别选取专业小类
-			url="/api_professionsmall/?subjectType="+stu_level+"&majorClass="+majorClass
-			majoy_data(url,'#mclass3',stu_level,1)
+			//加载专业详细
+			var mclass = $("#mclass li.mySelected").html();
+			url="/api_profession/?subjectType="+stu_level+"&subjectName="+mclass+"&majorClass="+majorClass
+			ajax_data(url)
 			
 
 	    });
@@ -356,7 +352,8 @@
 	   	function ajax_data(url){
 			$('.data-tbody').remove();
 			$('.data_table').append('<tbody class="data-tbody"></tbody>')
-
+			//专业大类
+			var mclass = $("#mclass2 li.mySelected").html();
 			$.getJSON(url,function(data){
 				if (data.Data.length!=0){
 					$('.noData').addClass("hidden");
@@ -365,7 +362,7 @@
 						{
 							//alert(data.Data[i][0])
 
-							$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+							$('.data-tbody').append('<tr><td>'+mclass+'</td><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
 						}
 					
 				}else{
@@ -373,18 +370,6 @@
 				}
 			})
 	    }
-	    //动态事件绑定  新增的节点添加事件 
-	   	$('#mclass3').on('click','li',function(){　　　　
-	   		//给动态添加的元素一个样式
-	        $('#mclass3 li').removeClass('mySelected');
-			$(this).addClass('mySelected');
-
-			var professionName = $("#mclass3 li.mySelected").html();
-			//根据专业小类别获取排名 professionrank/?professionName=绘画
-			url="/api_professionrank/?professionName="+professionName
-			ajax_data(url)
-			
-	    });
 
 	});	
 	
@@ -454,7 +439,18 @@
 				        <div class="select_inputDom">学科类别：</div>
 				    </div>
 				    <ul class="select_items fl" id="mclass">
-				       
+				       	  <li class="pull-left mySelected" data_value="历史学">历史学</li>
+						  <li class="pull-left" data_value=" 艺术学">艺术学</li>
+						  <li class="pull-left" data_value="管理学">管理学</li>
+						  <li class="pull-left" data_value="工学">工学</li>
+						  <li class="pull-left" data_value="经济学">经济学</li>
+						  <li class="pull-left" data_value="教育学">教育学</li>
+						  <li class="pull-left" data_value="农学">农学</li>
+						  <li class="pull-left" data_value="文学">文学</li>
+						  <li class="pull-left" data_value="哲学">哲学</li>
+						  <li class="pull-left" data_value="医学">医学</li>
+						  <li class="pull-left" data_value="理学">理学</li>
+						  <li class="pull-left" data_value="法学">法学</li>
 				    </ul>
 				</div>
 		       	
@@ -463,35 +459,12 @@
 				        <div class="select_inputDom">学科大类：</div>
 				    </div>
 				    <ul class="select_items fl" id="mclass2">
-				        <!-- <li class="pull-left mySelected" data_value="哲学">哲学</li>
-				        <li class="pull-left" data_value="理论经济学">理论经济学</li>
-				        <li class="pull-left" data_value="应用经济学">应用经济学</li>
-				        <li class="pull-left" data_value="法学">法学</li>
-				        <li class="pull-left" data_value="政治学">政治学</li>
-				        <li class="pull-left" data_value="社会学">社会学</li>
-				        <li class="pull-left" data_value="民族学">民族学</li>
-				        <li class="pull-left" data_value="马克思主义理论">马克思主义理论</li>
-				        <li class="pull-left" data_value="教育学">教育学</li>
-				        <li class="pull-left" data_value="心理学">心理学</li>
-				        <li class="pull-left" data_value="体育学">体育学</li>
-				        <li class="pull-left" data_value="中国语言文学">中国语言文学</li>
-				        <li class="pull-left" data_value="外国语言文学">外国语言文学</li>
-				        <li class="pull-left" data_value="新闻传播学">新闻传播学</li>
-				        <li class="pull-left" data_value="考古学">考古学</li>
-				        <li class="pull-left" data_value="中国史">中国史</li>
-				        <li class="pull-left" data_value="世界史">世界史</li> -->
-				    </ul>
-				</div>
-		        
-		        <div id="row_mclass3">
-				    <div class="select_title fl">
-				        <div class="select_inputDom">专业小类：</div>
-				    </div>
-				    <ul class="select_items fl" id="mclass3">
+				         <li class="pull-left mySelected" data_value="历史学类">历史学类</li>
 				        
 				    </ul>
 				</div>
-		       
+		        
+ 		       
 		    </div>
 	 </div>	  
 	 	<div class="data_conts" >
@@ -513,9 +486,10 @@
 			  
 		        <thead>
 		            <tr>
-		                <td >专业名称</td>
+		            	<td >专业大类</td>
+		            	<td >专业名称</td>
+		            	<td >专业代码</td>
 		                <td >院校名称</td>
-		                <td >排名</td>
 		                <td>收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->
