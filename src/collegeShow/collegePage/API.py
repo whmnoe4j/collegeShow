@@ -223,8 +223,32 @@ def showMajorGroupList(request):
     except:
         return HttpResponse(json.dumps(ErrorResponse))
 
+def showProfessionSmall(request):
+    """专业小类别API
+    http://127.0.0.1:8000/profession/?subjectType=1&subjectName=艺术学&majorClass=美术学类
+    Get：subjectType(1为本科,2为高职专科)subjectName(专业大类名)majorClass(专业子类名)
+    Response:{"Msg": "Success", "Result": "True",
+        "Data":  [["130402","绘画", "艺术学学士", "四年", "主干课程：主干学科：艺术学素描、色彩、专业技法、创作、中外美术史主要实践性教学环节：社会实践、艺术考察，每年1--2次，一般安排4--6周。"]]}
+    """
+    SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
+    ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
+    try:
+        subjectType = request.GET.get("subjectType")
+        majorClass = request.GET.get("majorClass")
+        ProfessionList = Profession.objects.filter(subject_type = subjectType, major_class = majorClass)
+        if len(ProfessionList) == 0:
+            return HttpResponse(json.dumps(SuccessResponse))
+        resultList = []
+        for profession in ProfessionList:
+            Name = profession.major_name
+            resultList.append(Name)
+        SuccessResponse["Data"] = resultList
+        return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
+    except:
+        return HttpResponse(json.dumps(ErrorResponse))
+    
 def showProfession(request):
-    """专业信息API
+    """专业详细信息API
     http://127.0.0.1:8000/profession/?subjectType=1&subjectName=艺术学&majorClass=美术学类
     Get：subjectType(1为本科,2为高职专科)subjectName(专业大类名)majorClass(专业子类名)
     Response:{"Msg": "Success", "Result": "True",
@@ -237,6 +261,7 @@ def showProfession(request):
         subjectName = request.GET.get("subjectName")
         majorClass = request.GET.get("majorClass")
         ProfessionList = Profession.objects.filter(subject_type = subjectType, subject_name = subjectName, major_class = majorClass) 
+#        ProfessionList = Profession.objects.filter(subject_type = subjectType, subject_name = subjectName)
         if len(ProfessionList) == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []

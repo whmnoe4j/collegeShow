@@ -44,6 +44,8 @@ urlpatterns = [
     url(r'^api_subjectgroup/', API.showSubjectGroup, name = "subjectgroup"),
     #专业细分类
     url(r'^api_majorgroup/', API.showMajorGroupList, name = "majorgroup"),
+    #专业小类
+    url(r'^api_professionsmall/', API. showProfessionSmall, name = "majorgroup"),
     #专业信息
     url(r'^api_profession/', API.showProfession, name = "profession"),
     #专业排名
@@ -61,4 +63,6 @@ urlpatterns = [
     
     url(r'^scoreparam/', views.scoreparam, name = 'scoreparam'),
     url(r'^professionrank/', views.professionrank, name = 'professionrank'),
+    #专业大全
+    url(r'^professiongroup/', views.professiongroup, name = 'professiongroup'),
 ]
