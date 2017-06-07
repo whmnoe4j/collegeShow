@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^dataSearch/', views.dataSearch, name = 'dataSearch'),
     url(r'^reportedCollege/', views.reportedCollege, name = 'reportedCollege'),
     url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreList'),
-    
+    url(r'^areascoreline/', views.areascoreline, name = 'collegescoreList'),
     #登录注册
     url(r'^login/', API.login, name = "login"),
     url(r'^logout/', API.logout, name = "logout"),

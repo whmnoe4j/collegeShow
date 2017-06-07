@@ -236,7 +236,8 @@
 		        sel_category = $("#category li.mySelected").html(),
 		        sel_year = $("#year li.mySelected").html();
 		        url="/api_collegescoreline/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="
-				
+
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年'+'<lable class="lable_key">'+sel_round+'</lable>高校在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				url=url+page
 				ajax_data(url)
 	        }
@@ -269,17 +270,17 @@
 
 		            <a href="/dataSearch"><li class="lpointer ">院校大全</li></a>
 		            <a href="/collegescoreline"><li class="lpointer  mySelected">大学分数线</li></a>
-		            <a href="#"><li class="lpointer">地区批次线</li></a>
-		            <a href="#"><li class="lpointer">专业匹配测评</li></a> 
+		            <a href="/areascoreline"><li class="lpointer">地区批次线</li></a>
+		            <a href="/scoreparm"><li class="lpointer">专业匹配测评</li></a> 
 		        </ul>
 		    </div>
 
 		    <div>
 		        <div class="changeNav_major"><i class="icon iconfont icon-shu"></i>专业数据</div>
 		        <ul class="changeNav">
-		            <li class="lpointer ajax_li">专业大全</li>
-		            <li class="lpointer ajax_li">专业分数线</li>
-		            <li class="lpointer ajax_li">专业学科排名</li>
+		            <a href="/subjectgroup"><li class="lpointer ajax_li">专业大全</li></a>
+		            <a href="/professionscore"><li class="lpointer ajax_li">专业分数线</li></a>
+		            <a href="/professionrank"><li class="lpointer ajax_li">专业学科排名</li></a>
 		        </ul>
    			</div>
         </div>
@@ -384,7 +385,7 @@
 		       
 		    </div>
 	 </div>	  
-	 	<div class="data_conts" style="height:720px;">
+	 	<div class="data_conts" >
 		    <table class="data_table">
 			    <caption >
 			    	
@@ -413,7 +414,7 @@
 		                <!--<td>录取平均概率</td>-->
 		            </tr>
             	</thead>
-		        <tbody class="data-tbody">
+		       <!--  <tbody class="data-tbody">
 		        			{# <tr> #}
 					            {# <td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">{{data.0}}</a> #}
 					            {# </td> #}
@@ -425,7 +426,7 @@
 					            {# </td> #}
 					            {# <td class="pointer hc tst3">大学录取概率</td> #}
 			      			{# </tr> #}
-	      		</tbody>
+	      		</tbody> -->
     		</table>
     		
     	

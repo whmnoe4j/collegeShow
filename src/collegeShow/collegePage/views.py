@@ -21,3 +21,28 @@ def collegescoreline(request):
        
     #API.showCollegeSchoolScoreLine(request)
     return render_to_response("collegescoreline.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#地区批次线
+def areascoreline(request):
+    #API.showCollegeSchoolScoreLine(request)
+    return render_to_response("areascoreline.html")

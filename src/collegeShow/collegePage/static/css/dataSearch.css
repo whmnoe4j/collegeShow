@@ -468,15 +468,14 @@ thead {
 .data_table thead tr {
     border-bottom: 3px solid #CFF5FF;
 }
-table tr {
+
+.data-tbody tr{
     height: 60px;
 }
 thead td {
     font-weight: 400 !important;
 }
-.data_table>thead>tr>td:nth-child(1) {
-    width: 202px;
-}
+
 td {
     text-align: center;
     height: 60px;
@@ -490,7 +489,7 @@ td {
 
 .data_table{
     width: 100%;
-    height: 800px;
+
 }
 .collect:after {
     content: "收藏";
