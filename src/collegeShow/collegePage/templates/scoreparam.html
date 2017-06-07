@@ -216,9 +216,9 @@
 	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
 
 				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
-				url="/api_areascoreline/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
+				url="/api_scoreparam/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
 				
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的一分一段'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
 			})
 		
@@ -234,9 +234,9 @@
 		        sel_round = $("#round li.mySelected").html(),
 		        sel_category = $("#category li.mySelected").html(),
 		        sel_year = $("#year li.mySelected").html();
-		      	 url="/api_areascoreline/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
-				
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+		      	 url="/api_scoreparam/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
+				// alert(url)
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>一分一段'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
 	     }
 	  
@@ -257,7 +257,7 @@
 		        <ul class="breadcrumb breadNav">
 		            <li><a class="index" href="/">首页</a></li>
 		            <li><a id="bread_nav1" href="/dataSearch">数据查询</a></li>
-		            <li id="bread_nav2">地区批次线</li>
+		            <li id="bread_nav2">一分一段表</li>
 		        </ul>
 		    </div>
 
@@ -267,8 +267,8 @@
 
 		            <a href="/dataSearch"><li class="lpointer ">院校大全</li></a>
 		            <a href="/collegescoreline"><li class="lpointer  ">大学分数线</li></a>
-		            <a href="/areascoreline"><li class="lpointer mySelected">地区批次线</li></a>
-		            <a href="/scoreparam"><li class="lpointer">一分一段表</li></a> 
+		            <a href="/areascoreline"><li class="lpointer ">地区批次线</li></a>
+		            <a href="/scoreparam"><li class="lpointer mySelected">一分一段表</li></a> 
 		        </ul>
 		    </div>
 
@@ -345,15 +345,15 @@
 		                <div class="select_inputDom">高考年份：</div>
 		            </div>
 		            <ul class="select_items fl" id="year">
-		                {# <li class="pull-left mySelected" data_value="2016">2016</li> #}
-		                <li class="pull-left mySelected"  data_value="2015">2015</li>
-		                <li class="pull-left" data_value="2014">2014</li>
+		                <li class="pull-left mySelected"  data_value="2015">2016</li>
+		                <li class="pull-left "  data_value="2015">2015</li>
+		                <!-- <li class="pull-left" data_value="2014">2014</li>
 		                <li class="pull-left" data_value="2013">2013</li>
 		                <li class="pull-left" data_value="2012">2012</li>
 		                <li class="pull-left" data_value="2011">2011</li>
 		                <li class="pull-left" data_value="2010">2010</li>
 		                <li class="pull-left" data_value="2009">2009</li>
-		                <li class="pull-left" data_value="2008">2008</li>
+		                <li class="pull-left" data_value="2008">2008</li> -->
 		            </ul>
 		        </div>
 		        
@@ -382,8 +382,8 @@
 		                <td >考生位置</td>
 		                <td >考生类型</td>
 		                <td >年份</td>
-		                <td >录取批次</td>
 		                <td >分数</td>
+		                <td >本段人数</td>
 		                <td>收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->

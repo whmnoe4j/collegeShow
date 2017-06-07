@@ -253,7 +253,7 @@ def showProfession(request):
         return HttpResponse(json.dumps(ErrorResponse))
 
 def showProfessionRank(request):
-    """专业信息API
+    """专业排名API
     http://127.0.0.1:8000/professionrank/?professionCode=130402
     http://127.0.0.1:8000/professionrank/?professionName=绘画
     Get：professionCode(专业代码)professionName(专业名称)
@@ -328,20 +328,20 @@ def sameScore(request):
 
 def login(request):
     if request.method == "POST":
-        Name= request.POST.get("username")
+        Name = request.POST.get("username")
         PassWd = request.POST.get("password")
         if Name and PassWd:
             try:
-                loginUser = Users.objects.get(username = Name,password = PassWd)
+                loginUser = Users.objects.get(username = Name, password = PassWd)
                 print loginUser.username
             except:
-                return HttpResponse(json.dumps({"Result":"False","Msg":"用户不存在或密码错误"}))
+                return HttpResponse(json.dumps({"Result":"False", "Msg":"用户不存在或密码错误"}))
             else:
                 request.session["loginUser"] = loginUser.id
 #                     request.session["loginUser"] = loginUser
-                return HttpResponse(json.dumps({"Result":"True","Msg":"登录成功"}))
+                return HttpResponse(json.dumps({"Result":"True", "Msg":"登录成功"}))
     else:
-        return HttpResponse(json.dumps({"Result":"False","Msg":"请使用POST请求"}))
+        return HttpResponse(json.dumps({"Result":"False", "Msg":"请使用POST请求"}))
 
 def logout(request):
     try: 
@@ -360,13 +360,13 @@ def register(request):
             try:
                 user = Users.objects.get(username = Name)
                 if user:
-                    return HttpResponse(json.dumps({"Result":"False","Msg":"用户已存在"}))
+                    return HttpResponse(json.dumps({"Result":"False", "Msg":"用户已存在"}))
             except:
-                user = Users(username=Name,password=PassWd,stuprovince=stuProvince,stutype=stuType)
+                user = Users(username = Name, password = PassWd, stuprovince = stuProvince, stutype = stuType)
                 user.save()
                 request.session["loginUser"] = user.id
-                return HttpResponse(json.dumps({"Result":"True","Msg":"注册成功"}))
+                return HttpResponse(json.dumps({"Result":"True", "Msg":"注册成功"}))
         else:
-            return HttpResponse(json.dumps({"Result":"False","Msg":"请完整填写信息"}))
+            return HttpResponse(json.dumps({"Result":"False", "Msg":"请完整填写信息"}))
     else:
-        return HttpResponse(json.dumps({"Result":"False","Msg":"请使用POST请求"}))
+        return HttpResponse(json.dumps({"Result":"False", "Msg":"请使用POST请求"}))

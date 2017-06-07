@@ -52,3 +52,11 @@ def collegescoreline(request):
 def areascoreline(request):
     #API.showCollegeSchoolScoreLine(request)
     return render_to_response("areascoreline.html")
+#一分一段
+def scoreparam(request):
+    #API.showCollegeSchoolScoreLine(request)
+    return render_to_response("scoreparam.html")
+#专业排名
+def professionrank(request):
+    #API.showCollegeSchoolScoreLine(request)
+    return render_to_response("professionrank.html")

@@ -88,11 +88,8 @@
 		lpointClass(".lpointer","mySelected")
 
 		//省份选项样式
-		mySelectedClass("#district .pull-left",".pull-left","mySelected")
-		mySelectedClass("#sch_province .pull-left",".pull-left","mySelected")
-		mySelectedClass("#round .pull-left",".pull-left","mySelected")
-		mySelectedClass("#category .pull-left",".pull-left","mySelected")
-		mySelectedClass("#year .pull-left",".pull-left","mySelected")
+		mySelectedClass("#mclass .pull-left",".pull-left","mySelected")
+		mySelectedClass("#mclass2 .pull-left",".pull-left","mySelected")
 
 		
 		//全选
@@ -201,42 +198,92 @@
 		$('.pull-left').each(function(){
 
 			$(this).click(function(){
-				var sel_district = $("#district li.mySelected").html(),
-				//sch_province = $("#sch_province li.mySelected").html(),
-	            // sel_subject = $("#subject li.mySelected").html(),
-	            // sel_round = $("#round li.mySelected").html(),
-	            // sel_collegeNature = $("#collegeNature li.mySelected").html(),
-	            sel_category = $("#category li.mySelected").html(),
-	            sel_year = $("#year li.mySelected").html();
-	            // sel_zydl = $("#zydl li.mySelected").html(),
-	            // sel_xklb=$("#xklb li.mySelected").html(),
-	            // sel_mClass = $("#mclass li.mySelected").html()
-	            // sel_mClass2 = $("#mclass2 li.mySelected").html(),
-	            // sel_mClassold = $("#mclassold li.mySelected").html()
-	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
+				var big_majoy = $("#mclass li.mySelected").html(),
+	            small_majoy = $("#mclass2 li.mySelected").html();
 
 				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
-				url="/api_areascoreline/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
+				url="/api_professionrank/?stuProvince="+big_majoy+"&stuType="+small_majoy
 				
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+			
 				ajax_data(url)
 			})
 		
 		})
-	  
+
+		//点击专业大类显示专业小类
+		$('#mclass .pull-left').each(function(){
+
+			$(this).click(function(){
+				var big_majoy = $("#mclass li.mySelected").html();
+
+				url="/api_majorgroup/?subjectType=本科&subjectName="+big_majoy
+				
+				$.getJSON(url,function(data){
+					// alert(data.Data)	
+					if (data.Data.length!=0){
+							$('.noData').addClass("hidden");
+							$('#mclass2 li').remove()
+							for (var i=0;i<data.Data.length;i++)
+							{
+								//alert(data.Data[i][0])
+								if (i==0){
+									$('#mclass2').append('<li class="pull-left mySelected" data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}else{
+									$('#mclass2').append('<li class="pull-left " data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}
+
+								//alert()	
+
+							}
+						
+					}else{
+						$('.noData').removeClass("hidden");
+					}
+				})
+				
+	            
+			})
 		
+		})
+	  
+		function startMajoy(){
+			var big_majoy = $("#mclass li.mySelected").html();
+
+				url="/api_majorgroup/?subjectType=本科&subjectName="+big_majoy
+				
+				$.getJSON(url,function(data){
+					// alert(data.Data)	
+					if (data.Data.length!=0){
+							$('.noData').addClass("hidden");
+							$('#mclass2 li').remove()
+							for (var i=0;i<data.Data.length;i++)
+							{
+								//alert(data.Data[i][0])
+								if (i==0){
+									$('#mclass2').append('<li class="pull-left mySelected" data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}else{
+									$('#mclass2').append('<li class="pull-left " data_value="'+data.Data[i]+'">'+data.Data[i]+'</li>')
+								}
+
+								//alert()	
+
+							}
+						
+					}else{
+						$('.noData').removeClass("hidden");
+					}
+				})
+		}
 		// 分页
-	
+		startMajoy()
 	 
 	    function startUp(){
 
-	            var sel_district = $("#district li.mySelected").html(),
-		        sel_round = $("#round li.mySelected").html(),
-		        sel_category = $("#category li.mySelected").html(),
-		        sel_year = $("#year li.mySelected").html();
-		      	 url="/api_areascoreline/?stuProvince="+sel_district+"&stuType="+sel_category+"&year="+sel_year
+	            var big_majoy = $("#mclass li.mySelected").html(),
+	            small_majoy = $("#mclass2 li.mySelected").html();
+
+		      	 url="/api_scoreparam/?stuProvince="+big_majoy+"&stuType="+small_majoy
 				
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年在'+'<lable class="lable_key">'+sel_district+'</lable>的录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
 	     }
 	  
@@ -257,7 +304,7 @@
 		        <ul class="breadcrumb breadNav">
 		            <li><a class="index" href="/">首页</a></li>
 		            <li><a id="bread_nav1" href="/dataSearch">数据查询</a></li>
-		            <li id="bread_nav2">地区批次线</li>
+		            <li id="bread_nav2">专业学科排名</li>
 		        </ul>
 		    </div>
 
@@ -267,8 +314,8 @@
 
 		            <a href="/dataSearch"><li class="lpointer ">院校大全</li></a>
 		            <a href="/collegescoreline"><li class="lpointer  ">大学分数线</li></a>
-		            <a href="/areascoreline"><li class="lpointer mySelected">地区批次线</li></a>
-		            <a href="/scoreparam"><li class="lpointer">一分一段表</li></a> 
+		            <a href="/areascoreline"><li class="lpointer ">地区批次线</li></a>
+		            <a href="/scoreparam"><li class="lpointer ">一分一段表</li></a> 
 		        </ul>
 		    </div>
 
@@ -277,7 +324,7 @@
 		        <ul class="changeNav">
 		            <a href="/subjectgroup"><li class="lpointer ">专业大全</li></a>
 		            <a href="/professionscore"><li class="lpointer ">专业分数线</li></a>
-		            <a href="/professionrank"><li class="lpointer ">专业学科排名</li></a>
+		            <a href="/professionrank"><li class="lpointer  mySelected">专业学科排名</li></a>
 		        </ul>
    			</div>
         </div>
@@ -292,70 +339,50 @@
 	   		 </div>
 	   		 <div class="partLine">
          	<div class="partLine_top">
-         		<div id="row_category">
-		            <div class="select_title fl">
-		                <div class="select_inputDom">考生类型：</div>
-		            </div>
-		            <ul class="select_items fl" id="category">
-		                <li class="pull-left mySelected" data_value="理科">理科</li><li class="pull-left" data_value="文科">文科</li>
-		            </ul>
-		        </div>
-
-		        <div id="row_district">
-		            <div class="select_title fl">
-		                <div class="select_inputDom"><lable class='.keyword'>考生</label>位置：</div>
-		            </div>
-		            <ul class="select_items fl mul" id="district">
-		                <li class="pull-left mySelected" data_value="北京">北京</li>
-		                <li class="pull-left" data_value="安徽">安徽</li>
-		                <li class="pull-left" data_value="重庆">重庆</li>
-		                <li class="pull-left" data_value="福建">福建</li>
-		                <li class="pull-left" data_value="广东">广东</li>
-		                <li class="pull-left" data_value="广西">广西</li>
-		                <li class="pull-left" data_value="甘肃">甘肃</li>
-		                <li class="pull-left" data_value="贵州">贵州</li>
-		                <li class="pull-left" data_value="海南">海南</li>
-		                <li class="pull-left" data_value="河南">河南</li>
-		                <li class="pull-left" data_value="河北">河北</li>
-		                <li class="pull-left" data_value="黑龙江">黑龙江</li>
-		                <li class="pull-left" data_value="湖北">湖北</li>
-		                <li class="pull-left" data_value="湖南">湖南</li>
-		                <li class="pull-left" data_value="吉林">吉林</li>
-		                <li class="pull-left" data_value="江苏">江苏</li>
-		                <li class="pull-left" data_value="江西">江西</li>
-		                <li class="pull-left" data_value="辽宁">辽宁</li>
-		                <li class="pull-left" data_value="内蒙古">内蒙古</li>
-		                <li class="pull-left" data_value="宁夏">宁夏</li>
-		                <li class="pull-left" data_value="青海">青海</li>
-		                <li class="pull-left" data_value="山东">山东</li>
-		                <li class="pull-left" data_value="山西">山西</li>
-		                <li class="pull-left" data_value="陕西">陕西</li>
-		                <li class="pull-left" data_value="上海">上海</li>
-		                <li class="pull-left" data_value="四川">四川</li>
-		                <li class="pull-left" data_value="天津">天津</li>
-		                <li class="pull-left" data_value="新疆">新疆</li>
-		                <li class="pull-left" data_value="西藏">西藏</li>
-		                <li class="pull-left" data_value="云南">云南</li>
-		                <li class="pull-left" data_value="浙江">浙江</li>
-		            </ul>
-		        </div>
-
-		        <div id="row_year">
-		            <div class="select_title fl">
-		                <div class="select_inputDom">高考年份：</div>
-		            </div>
-		            <ul class="select_items fl" id="year">
-		                {# <li class="pull-left mySelected" data_value="2016">2016</li> #}
-		                <li class="pull-left mySelected"  data_value="2015">2015</li>
-		                <li class="pull-left" data_value="2014">2014</li>
-		                <li class="pull-left" data_value="2013">2013</li>
-		                <li class="pull-left" data_value="2012">2012</li>
-		                <li class="pull-left" data_value="2011">2011</li>
-		                <li class="pull-left" data_value="2010">2010</li>
-		                <li class="pull-left" data_value="2009">2009</li>
-		                <li class="pull-left" data_value="2008">2008</li>
-		            </ul>
-		        </div>
+         		<div id="row_mclass">
+				    <div class="select_title fl">
+				        <div class="select_inputDom">学科类别：</div>
+				    </div>
+				    <ul class="select_items fl" id="mclass">
+				        <li class="pull-left mySelected" data_value="人文社科类">历史学</li>
+				        <li class="pull-left" data_value="理学">管理学</li>
+				        <li class="pull-left" data_value="工学">艺术学</li>
+				        <li class="pull-left" data_value="工学">工学</li>
+				        <li class="pull-left" data_value="工学">教育学</li>
+				        <li class="pull-left" data_value="工学">经济学</li>
+				        <li class="pull-left" data_value="农学">农学</li>
+				        <li class="pull-left" data_value="医学">文学</li>
+				        <li class="pull-left" data_value="管理学">哲学</li>
+				        <li class="pull-left" data_value="艺术学">医学</li>
+				        <li class="pull-left" data_value="艺术学">理学</li>
+				        <li class="pull-left" data_value="艺术学">法学</li>
+				    </ul>
+				</div>
+		       	
+		        <div id="row_mclass2">
+				    <div class="select_title fl">
+				        <div class="select_inputDom">学科大类：</div>
+				    </div>
+				    <ul class="select_items fl" id="mclass2">
+				        <!-- <li class="pull-left mySelected" data_value="哲学">哲学</li>
+				        <li class="pull-left" data_value="理论经济学">理论经济学</li>
+				        <li class="pull-left" data_value="应用经济学">应用经济学</li>
+				        <li class="pull-left" data_value="法学">法学</li>
+				        <li class="pull-left" data_value="政治学">政治学</li>
+				        <li class="pull-left" data_value="社会学">社会学</li>
+				        <li class="pull-left" data_value="民族学">民族学</li>
+				        <li class="pull-left" data_value="马克思主义理论">马克思主义理论</li>
+				        <li class="pull-left" data_value="教育学">教育学</li>
+				        <li class="pull-left" data_value="心理学">心理学</li>
+				        <li class="pull-left" data_value="体育学">体育学</li>
+				        <li class="pull-left" data_value="中国语言文学">中国语言文学</li>
+				        <li class="pull-left" data_value="外国语言文学">外国语言文学</li>
+				        <li class="pull-left" data_value="新闻传播学">新闻传播学</li>
+				        <li class="pull-left" data_value="考古学">考古学</li>
+				        <li class="pull-left" data_value="中国史">中国史</li>
+				        <li class="pull-left" data_value="世界史">世界史</li> -->
+				    </ul>
+				</div>
 		        
 		       
 		    </div>
@@ -382,8 +409,8 @@
 		                <td >考生位置</td>
 		                <td >考生类型</td>
 		                <td >年份</td>
-		                <td >录取批次</td>
 		                <td >分数</td>
+		                <td >本段人数</td>
 		                <td>收藏</td>
 		                <!--<td>平均分线差</td>-->
 		                <!--<td>录取平均概率</td>-->

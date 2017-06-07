@@ -225,7 +225,7 @@
 				url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page=1"
 
 				// alert(url)
-		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校--院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>--院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
+		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
 				ajax_data(url)
 			})
 		
@@ -246,7 +246,7 @@
 
 		        url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page="+page
 
-		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校--院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>--院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
+		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
 				//alert(url)
 				//console.log(url)
 				ajax_data(url)
@@ -281,16 +281,16 @@
 		            <a href="/dataSearch"><li class="lpointer mySelected">院校大全</li></a>
 		            <a href="/collegescoreline"><li class="lpointer ">大学分数线</li></a>
 		            <a href="/areascoreline"><li class="lpointer">地区批次线</li></a>
-		            <a href="/scoreparm"><li class="lpointer">专业匹配测评</li></a> 
+		            <a href="/scoreparam"><li class="lpointer">一分一段表</li></a> 
 		        </ul>
 		    </div>
 
 		    <div>
 		        <div class="changeNav_major"><i class="icon iconfont icon-shu"></i>专业数据</div>
 		        <ul class="changeNav">
-		            <a href="/subjectgroup"><li class="lpointer ajax_li">专业大全</li></a>
-		            <a href="/professionscore"><li class="lpointer ajax_li">专业分数线</li></a>
-		            <a href="/professionrank"><li class="lpointer ajax_li">专业学科排名</li></a>
+		            <a href="/subjectgroup"><li class="lpointer ">专业大全</li></a>
+		            <a href="/professionscore"><li class="lpointer ">专业分数线</li></a>
+		            <a href="/professionrank"><li class="lpointer ">专业学科排名</li></a>
 		        </ul>
    			</div>
         </div>

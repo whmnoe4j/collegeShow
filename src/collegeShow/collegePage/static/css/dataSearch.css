@@ -529,3 +529,7 @@ td {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.collegeId{
+    overflow: hidden;
+}
