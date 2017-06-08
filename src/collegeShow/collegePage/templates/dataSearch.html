@@ -176,11 +176,11 @@
 		function ajax_data(url){
 			$('.data-tbody').remove();
 			$('.data_table').append('<tbody class="data-tbody"></tbody>')
-
+			$(document.body).mLoading("show");//显示loading组件
 			$.getJSON(url,function(data){
 				if (data.Data.length!=0){
 					$('.noData').addClass("hidden");
-					
+					$(document.body).mLoading("hide");//显示loading组件
 						for (var i=0;i<data.Data.length;i++)
 						{
 							//alert(data.Data[i][0])
@@ -195,6 +195,7 @@
 						}
 					
 				}else{
+					$(document.body).mLoading("hide");//显示loading组件
 					$('.noData').removeClass("hidden");
 				}
 			})
