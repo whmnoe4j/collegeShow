@@ -62,7 +62,7 @@ function register() {
         success: function(data, status, xml) {
             data = JSON.parse(data);
             alert(data.Msg);
-            window.location.href = "/";
+            // window.location.href = "/";
         }
     })
 }
