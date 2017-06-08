@@ -1,0 +1,76 @@
+{% extends 'base.html' %} {% block title %}个人中心{% endblock %} {% block content %}
+<style type="text/css">
+
+</style>
+<link rel="stylesheet" href="../static/css/user.css">
+<script type="text/javascript" src="../static/js/user.js"></script>
+<script type="text/javascript">
+    window.onload = function() {
+        // 生成头像
+        var userFrameStr = "{{loginUser.username}}";
+        infoFrame(userFrameStr);
+    }
+</script>
+<div class="head_height"></div>
+
+<div class="UserPageDiv">
+    <div class="Center_UserDiv">
+        <div class="UserInfo_hrDiv">
+            <!--<hr class="UserInfo_hr">-->
+        </div>
+        <div class="UserInfoDiv" style="height:140px;">
+            <div class="Userframe" id="Userframe"></div>
+            <div class="UserInfo">
+                <ul>
+                    <li>用户名:
+                        <p id="userInfo_name">{{loginUser.username}}</p>
+                    </li>
+                    <li>性&nbsp;&nbsp;&nbsp;别:
+                        <p id="userInfo_sex">{{loginUser.sex}}</p>
+                    </li>
+                    <li>省&nbsp;&nbsp;&nbsp;份:
+                        <p id="userInfo_stuProvince">{{loginUser.stuprovince}}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="UserInfo_hrDiv">
+            <hr class="UserInfo_hr">
+        </div>
+        <div class="UserInfoDiv UserTypeDiv">
+            <ul>
+
+                <li>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;科:
+                    <p id="userInfo_stuType">{{loginUser.stutype}}</p>
+                </li>
+                {% if loginUser.schooladdress %}
+                <li>院&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校:
+                    <p id="userInfo_schoolAddress">{{loginUser.schooladdress}}</p>
+                </li>
+                {% else %}
+                <li>院&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;校:
+                    <p id="userInfo_schoolAddress">尚未填写</p>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="UserInfo_hrDiv">
+            <hr class="UserInfo_hr">
+        </div>
+        <div class="UserInfoDiv UserScoreDiv">
+            <ul>
+                {% if loginUser.score %}
+                <li>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数:
+                    <p id="userInfo_score">{{loginUser.score}}</p>
+                </li>
+                {% else %}
+                <li>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数:
+                    <p id="userInfo_score">尚未填写</p>
+                </li>
+                {% endif %}
+                <li class="UserInfo_button" id="userInfo_Edit"><a onclick="editInfo();">编辑信息</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

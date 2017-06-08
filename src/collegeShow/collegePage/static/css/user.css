@@ -1,0 +1,137 @@
+.head_height {
+    height: 100px;
+}
+
+.UserPageDiv {
+    height: 600px;
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.Center_UserDiv {
+    margin-top: 100px;
+    height: 400px;
+    background-color: #fff;
+    width: 50%;
+    text-align: center;
+    left: 20%;
+    display: inline-block;
+    border: 1px solid #dedede;
+}
+
+.UserInfo_hrDiv {
+    height: 20px;
+    text-align: center;
+}
+
+.UserInfo_hr {
+    width: 80%;
+    size: 1px;
+}
+
+.UserInfoDiv {
+    height: 100px;
+    width: 80%;
+    /*text-align: center;*/
+    display: inline-block;
+    color: #000;
+}
+
+.Userframe {
+    display: inline-block;
+    width: 140px;
+    height: 140px;
+    /*margin-right: 60%;*/
+    background-color: #03a9f4;
+    border: 1px solid yellow;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 140px;
+    font-size: 80px;
+    float: left;
+    color: #fff;
+}
+
+.UserInfo {
+    height: 140px;
+    width: 70%;
+    display: inline-block;
+    /*background-color: blue;*/
+}
+
+.UserInfo ul {
+    /*margin-right: 50%;*/
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+}
+
+.UserInfo li {
+    left: 20px;
+    height: 33%;
+    list-style: none;
+    vertical-align: middle;
+    line-height: 30px;
+}
+
+.UserInfo p {
+    padding-left: 20px;
+    display: inline-block;
+    margin: 0;
+}
+
+.UserTypeDiv {
+    text-align: left;
+    width: 60%;
+    height: 100px;
+}
+/*.UserTypeDiv UserScoreDiv ui {
+    height: 100px;
+}
+*/
+
+.UserTypeDiv li {
+    height: 50%;
+    line-height: 50px;
+}
+
+.UserTypeDiv p {
+    padding-left: 20px;
+    display: inline-block;
+    margin: 0;
+}
+
+.UserScoreDiv {
+    width: 60%;
+    height: 30px;
+    text-align: left;
+}
+
+.UserScoreDiv li {
+    line-height: 30px;
+    height: 30px;
+}
+
+.UserScoreDiv p {
+    padding-left: 20px;
+    display: inline-block;
+    margin: 0;
+}
+
+.UserInfo_button {
+    text-align: center;
+}
+
+.UserInfo_button a {
+    color: #dedede;
+    border: 1px solid;
+    border-radius: 3px;
+    background-color: #03a9f4;
+}
+
+.edit_input {
+    border: 1px solid #03a9f4;
+    border-radius: 5px;
+}

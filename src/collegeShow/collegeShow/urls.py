@@ -56,9 +56,9 @@ urlpatterns = [
     url(r'^api_professionscore/', API.professionscore, name = "professionscore"),
     
     
-    
-    
-    
+    #个人中心
+    url(r'^user/',views.user,name="user"),
+    url(r"^edit_user/", API.editUser, name="editUser"),
     
     
     

@@ -457,3 +457,26 @@ def professionscore(request):
     except:
         print u'数据库不存在该表:' 
         return HttpResponse(json.dumps(ErrorResponse))
+
+def editUser(request):
+    """个人中心信息修改api"""
+    if request.method == "POST":
+        Name = request.POST.get("username")
+        sex = request.POST.get("sex")
+        stuProvince = request.POST.get("stuProvince")
+        stuType = request.POST.get("stuType")
+        schoolAddress = request.POST.get("schoolAddress")
+        score = request.POST.get("score")
+        
+        loginUserID = request.session.get("loginUser", "none")
+        if loginUserID:
+            loginUser = Users.objects.get(id = loginUserID)
+            loginUser.username = Name
+            loginUser.sex = sex
+            loginUser.stuprovince = stuProvince
+            loginUser.schooladdress = schoolAddress
+            loginUser.score = score
+            loginUser.save()
+            return HttpResponse(json.dumps({"Result":"True","Msg":"Success"}))
+        else:
+            return render_to_response("index.html")
