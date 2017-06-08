@@ -91,6 +91,7 @@
 		mySelectedClass("#round .pull-left",".pull-left","mySelected")
 		mySelectedClass("#category .pull-left",".pull-left","mySelected")
 		mySelectedClass("#year .pull-left",".pull-left","mySelected")
+		mySelectedClass("#sch_province .pull-left",".pull-left","mySelected")
 
 		
 		//全选
@@ -210,7 +211,8 @@
 	            sel_round = $("#round li.mySelected").html(),
 	            // sel_collegeNature = $("#collegeNature li.mySelected").html(),
 	            sel_category = $("#category li.mySelected").html(),
-	            sel_year = $("#year li.mySelected").html();
+	            sel_year = $("#year li.mySelected").html(),
+	            sch_province= $("#sch_province li.mySelected").html();
 	            // sel_zydl = $("#zydl li.mySelected").html(),
 	            // sel_xklb=$("#xklb li.mySelected").html(),
 	            // sel_mClass = $("#mclass li.mySelected").html()
@@ -219,9 +221,9 @@
 	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
 
 				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
-				url="/api_professionscore/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
+				url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
 				
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年'+'<lable class="lable_key">'+sel_round+'</lable>高校在'+'<lable class="lable_key">'+sel_district+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable><lable class="lable_key">年'+sch_province+'</lable>高校在'+'<lable class="lable_key">'+sel_district+''+sel_round+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				ajax_data(url)
 			})
 		
@@ -237,10 +239,12 @@
 	            var sel_district = $("#district li.mySelected").html(),
 		        sel_round = $("#round li.mySelected").html(),
 		        sel_category = $("#category li.mySelected").html(),
-		        sel_year = $("#year li.mySelected").html();
-		        url="/api_professionscore/?stuProvince="+sel_district+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="+page
+		        sel_year = $("#year li.mySelected").html(),
+		        sch_province= $("#sch_province li.mySelected").html();
+
+		        url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="+page
 		        console.log(url)
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable>年'+'<lable class="lable_key">'+sel_round+'</lable>高校在'+'<lable class="lable_key">'+sel_district+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable><lable class="lable_key">年'+sch_province+'</lable>高校在'+'<lable class="lable_key">'+sel_district+''+sel_round+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				
 				ajax_data(url)
 	        }
@@ -337,11 +341,11 @@
 		        </div>
 
 			<div class="partLine">
-		      	 <div id="row_district">
+		      	 <div id="row_schprovince">
 		            <div class="select_title fl">
 		                <div class="select_inputDom"><lable class='.keyword'>院校</label>位置：</div>
 		            </div>
-		            <ul class="select_items fl mul" id="district">
+		            <ul class="select_items fl mul" id="sch_province">
 		                <li class="pull-left mySelected" data_value="江西">江西</li>
 		                <li class="pull-left" data_value="江苏">江苏</li>
 		                <li class="pull-left " data_value="北京">北京</li>

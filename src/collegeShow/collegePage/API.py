@@ -89,14 +89,14 @@ def showCollegeSchoolScoreLine(request):
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
         #从get中提取参数
-        studentProvine = request.GET.get("stuProvince")
+        studentProvince = request.GET.get("stuProvince")
         studentType = request.GET.get("stuType")
         studentBatch = request.GET.get("batch")
         studentYear = request.GET.get("year")
         page = int(request.GET.get("page"))
         
         #使用参数过滤数据
-        collegeList = CollegeSchoolscoreline.objects.filter(area_student = studentProvine, batch = studentBatch, studentclass = studentType, dateyear = studentYear)
+        collegeList = CollegeSchoolscoreline.objects.filter(area_student = studentProvince, batch = studentBatch, studentclass = studentType, dateyear = studentYear)
         ListLength = len(collegeList)
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
@@ -129,17 +129,17 @@ def showAreaScoreLine(request):
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
         #从get中提取参数
-        studentProvine = request.GET.get("stuProvince")
+        studentProvince = request.GET.get("stuProvince")
         studentType = request.GET.get("stuType")
         studentYear = request.GET.get("year")
-        areaList = CollegeAreascoreline.objects.filter(provincearea = studentProvine, studentclass = studentType, dateyear = studentYear)
+        areaList = CollegeAreascoreline.objects.filter(provincearea = studentProvince, studentclass = studentType, dateyear = studentYear)
         if len(areaList) == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []
         for area in areaList:
             Batch = area.batch
             ScoreLine = area.scoreline
-            resultList.append([studentProvine, studentType, studentYear, Batch, ScoreLine])
+            resultList.append([studentProvince, studentType, studentYear, Batch, ScoreLine])
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
@@ -154,11 +154,11 @@ def showScoreParm(request):
     """
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
-    studentProvine = request.GET.get("stuProvince")
+    studentProvince = request.GET.get("stuProvince")
     studentType = request.GET.get("stuType")
     studentYear = request.GET.get("year")
 #     try:
-    parmList = CollegeScoreparm.objects.filter(province = studentProvine, category = studentType, years = studentYear)
+    parmList = CollegeScoreparm.objects.filter(province = studentProvince, category = studentType, years = studentYear)
     print parmList
     if len(parmList) == 0:
         return HttpResponse(json.dumps(SuccessResponse))
@@ -166,7 +166,7 @@ def showScoreParm(request):
     for parm in parmList:
         score = parm.score
         num = parm.num
-        resultList.append([studentProvine, studentType, studentYear, score, num])
+        resultList.append([studentProvince, studentType, studentYear, score, num])
     SuccessResponse["Data"] = resultList
     return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
 #     except:
@@ -318,17 +318,17 @@ def sameScore(request):
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
-        studentProvine = request.GET.get("stuProvince")
+        studentProvince = request.GET.get("stuProvince")
         studentType = request.GET.get("stuType")
         Score = int(request.GET.get("score"))
         page = int(request.GET.get("page"))
-        print studentProvine, studentType, Score, page
-        if ProvinceDict[studentProvine.encode("utf8")]:
-            tempObject = ProvinceDict[studentProvine.encode("utf8")]
+        print studentProvince, studentType, Score, page
+        if ProvinceDict[studentProvince.encode("utf8")]:
+            tempObject = ProvinceDict[studentProvince.encode("utf8")]
             
         else:
             return HttpResponse(json.dumps(ErrorResponse))
-        DataList = tempObject.objects.filter(province = studentProvine, studenttype = studentType, score = Score).order_by("-year", "-batch", "rank")
+        DataList = tempObject.objects.filter(province = studentProvince, studenttype = studentType, score = Score).order_by("-year", "-batch", "rank")
         ListLength = len(DataList)
         
         if ListLength == 0:
@@ -411,7 +411,9 @@ def professionscore(request):
     ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
     try:
         #考生位置
-        studentProvine = request.GET.get("stuProvince")
+        studentProvince = request.GET.get("stuProvince")
+        #院校位置
+        schProvince = request.GET.get("schProvince")
         #录取批次
         batch = request.GET.get("batch")
         #考生文理科
@@ -420,13 +422,13 @@ def professionscore(request):
         year = int(request.GET.get("year"))
         
         page = int(request.GET.get("page"))
-        print studentProvine, batch, studentType, year, page
-        if ProvinceDict[studentProvine.encode("utf8")]:
-            tempObject = ProvinceDict[studentProvine.encode("utf8")]
+        print studentProvince, batch, studentType, year, page
+        if ProvinceDict[studentProvince.encode("utf8")]:
+            tempObject = ProvinceDict[studentProvince.encode("utf8")]
             
         else:
             return HttpResponse(json.dumps(ErrorResponse))
-        DataList = tempObject.objects.filter(province = studentProvine, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
+        DataList = tempObject.objects.filter(province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
         ListLength = len(DataList)
         
         if ListLength == 0:
