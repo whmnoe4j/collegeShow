@@ -17,10 +17,22 @@ def index(request):
 
 def dataSearch(request):
 #     Search("江西")
-    return render_to_response("dataSearch.html")
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        if loginUser:
+            return render_to_response("dataSearch.html", {"loginUser":loginUser})
+    except:
+        return render_to_response("dataSearch.html")
 
 def reportedCollege(request):
-    return render_to_response("reportedCollege.html")
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        if loginUser:
+            return render_to_response("reportedCollege.html", {"loginUser":loginUser})
+    except:
+        return render_to_response("reportedCollege.html")
 
 def collegescoreline(request):
     #从get中提取参数
