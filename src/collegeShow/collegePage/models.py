@@ -379,10 +379,13 @@ class ProfessionRank(models.Model):
 
 
 class Users(models.Model):
-    username = models.CharField(max_length = 10)
-    password = models.CharField(max_length = 10)
-    stuprovince = models.CharField(max_length = 10)
-    stutype = models.CharField(max_length = 2)
+    username = models.CharField(max_length=10)
+    password = models.CharField(max_length=10)
+    sex = models.CharField(max_length=2, blank=True, null=True)
+    stuprovince = models.CharField(max_length=10)
+    stutype = models.CharField(max_length=2)
+    schooladdress = models.CharField(db_column='schoolAddress', max_length=30, blank=True, null=True)  # Field name made lowercase.
+    score = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
