@@ -77,6 +77,7 @@
 	
 </style>
 
+
 <link href="../static/css/page.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript" src="../static/js/page.js"></script>
 <script type="text/javascript">
@@ -171,17 +172,21 @@
 			})
 		}
 
-
+		
 		 //大学分数线
 		// ajax 传数据获取院校数据
 		function ajax_data(url){
 			$('.data-tbody').remove();
 			$('.data_table').append('<tbody class="data-tbody"></tbody>')
-
+			//加载数据中
+	  		$(document.body).mLoading("show");//显示loading组件
 			$.getJSON(url,function(data){
 				if (data.Data.length!=0){
+
+					//隐藏幕布
+					$(document.body).mLoading("hide");//隐藏loading组件
 					$('.noData').addClass("hidden");
-					
+						
 						for (var i=0;i<data.Data.length;i++)
 						{
 							//alert(data.Data[i][0])
@@ -195,12 +200,12 @@
 						}
 					
 				}else{
+					$(document.body).mLoading("hide");//显示loading组件
 					$('.noData').removeClass("hidden");
+
 				}
 			})
 	    }
-	
-	 
 	    //根据点击显示不同省份的内容
 		$('.pull-left').each(function(){
 
@@ -228,8 +233,8 @@
 			})
 		
 		})
-	  
-		
+	  	
+		//$("#mark").mLoading();
 		// 分页
 	
 	 	totalPage=0
@@ -258,6 +263,7 @@
 </script>
 
 <div class="head_height"></div>
+
 <div id="reportedCollege-container">
     <div id="reportedCollege_content" >
       
@@ -285,7 +291,7 @@
 		    <div>
 		        <div class="changeNav_major"><i class="icon iconfont icon-shu"></i>专业数据</div>
 		        <ul class="changeNav">
-		            <a href="/subjectgroup"><li class="lpointer ">专业大全</li></a>
+		            <a href="/professiongroup"><li class="lpointer ">专业大全</li></a>
 		            <a href="/professionscore"><li class="lpointer mySelected">专业分数线</li></a>
 		            <a href="/professionrank"><li class="lpointer ">专业学科排名</li></a>
 		        </ul>
