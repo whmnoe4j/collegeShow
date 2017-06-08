@@ -322,12 +322,15 @@ def sameScore(request):
         studentType = request.GET.get("stuType")
         Score = int(request.GET.get("score"))
         page = int(request.GET.get("page"))
+        print studentProvine, studentType, Score, page
         if ProvinceDict[studentProvine.encode("utf8")]:
             tempObject = ProvinceDict[studentProvine.encode("utf8")]
+            
         else:
             return HttpResponse(json.dumps(ErrorResponse))
         DataList = tempObject.objects.filter(province = studentProvine, studenttype = studentType, score = Score).order_by("-year", "-batch", "rank")
         ListLength = len(DataList)
+        
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []
@@ -348,6 +351,7 @@ def sameScore(request):
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
+        print u'数据库不存在该表:' 
         return HttpResponse(json.dumps(ErrorResponse))
 
 
@@ -395,3 +399,59 @@ def register(request):
             return HttpResponse(json.dumps({"Result":"False", "Msg":"请完整填写信息"}))
     else:
         return HttpResponse(json.dumps({"Result":"False", "Msg":"请使用POST请求"}))
+
+def professionscore(request):
+    """专业分数线
+    http://127.0.0.1:8000/api_professionscore/?stuProvince=山东&batch=本科一批&stuType=文科&year=2015&page=1
+    Get：studentProvince(生源地)studentType(1为文科,2为理科)page(数据切页数，每页10条数据)
+    Response:{"Msg": "Success", "Length": 81, "Result": "True", "Page": 1,
+    "Data": [[2015, "本科", "本科提前批", 133, "港澳台", "香港中文大学(深圳)", "经济管理试验班"]]}
+    """
+    SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
+    ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
+    try:
+        #考生位置
+        studentProvine = request.GET.get("stuProvince")
+        #录取批次
+        batch = request.GET.get("batch")
+        #考生文理科
+        studentType = request.GET.get("stuType")
+        #高考年份
+        year = int(request.GET.get("year"))
+        
+        page = int(request.GET.get("page"))
+        print studentProvine, batch, studentType, year, page
+        if ProvinceDict[studentProvine.encode("utf8")]:
+            tempObject = ProvinceDict[studentProvine.encode("utf8")]
+            
+        else:
+            return HttpResponse(json.dumps(ErrorResponse))
+        DataList = tempObject.objects.filter(province = studentProvine, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
+        ListLength = len(DataList)
+        
+        if ListLength == 0:
+            return HttpResponse(json.dumps(SuccessResponse))
+        resultList = []
+        for data in DataList:
+            
+            d_schoolName = data.schoolname
+            d_profession = data.profession
+            d_score = data.score
+            d_rank = data.rank
+            d_levels = data.levels
+            d_admission_number = data.admission_number
+            d_batch = data.batch
+            d_studenttype = data.studenttype
+            d_year = data.year
+            d_schoolProvince = data.school_province
+            resultList.append([d_schoolName, d_profession, d_score, d_rank, d_levels, d_admission_number, d_batch, d_studenttype, d_year , d_schoolProvince])
+        if page:
+            start, end = PageSplit(page, ListLength)
+            resultList = resultList[start:end]
+            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
+            SuccessResponse["Page"] = page
+        SuccessResponse["Data"] = resultList
+        return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
+    except:
+        print u'数据库不存在该表:' 
+        return HttpResponse(json.dumps(ErrorResponse))

@@ -60,3 +60,7 @@ def professionrank(request):
 #专业排名
 def professiongroup(request):
     return render_to_response("professiongroup.html")
+#专业分数线
+def professionscore(request):
+    return render_to_response("professionscore.html")
+

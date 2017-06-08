@@ -52,6 +52,8 @@ urlpatterns = [
     url(r'^api_professionrank/', API.showProfessionRank, name = "professionrank"),
     #同分考生去向
     url(r'^api_samescore/', API.sameScore, name = "sameScore"),
+    #专业分数线
+    url(r'^api_professionscore/', API.professionscore, name = "professionscore"),
     
     
     
@@ -65,4 +67,6 @@ urlpatterns = [
     url(r'^professionrank/', views.professionrank, name = 'professionrank'),
     #专业大全
     url(r'^professiongroup/', views.professiongroup, name = 'professiongroup'),
+    #专业分数线
+    url(r'^professionscore/', views.professionscore, name = 'professionscore'),
 ]
