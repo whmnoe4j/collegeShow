@@ -7,6 +7,9 @@
   position: fixed;
   background: white;
 }
+.lpointer{
+	cursor: pointer;
+}
 #head-fixed{
   width:1140px;
   margin:0px auto;
