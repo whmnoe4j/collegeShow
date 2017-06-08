@@ -55,25 +55,27 @@
            </span>
 
                 <li><a href="/reportedCollege">院校推荐</a>
-                    <ul class="drop">
-                        <div>
-                            <dt><a href="#">推荐大学</a></dt>
-                            <dt><a href="#">推荐专业</a></dt>
-                            <dt><a href="#">大学分数线</a></dt>
-                        </div>
-                    </ul>
-                </li>
-                <li><a href="/dataSearch">数据查询</a>
+              <ul class="drop">
+                <div>
+                  <dt><a href="#">推荐大学</a></dt>
+                  <dt><a href="#">推荐专业</a></dt>
+                  <dt><a href="#">同分去向</a></dt>
+                  <dt><a href="#">大学录取概率</a></dt>
+                </div>
+              </ul>
+            </li>
+            <li><a href="/dataSearch">数据查询</a>
 
-                    <ul class="drop">
-                        <div>
-                            <dt><a href="#">院校大全</a></dt>
-                            <dt><a href="#">专业大全</a></dt>
-                            <dt><a href="#">专业分数线</a></dt>
-                        </div>
-                    </ul>
-
-                </li>
+              <ul class="drop">
+                <div>
+                  <dt><a href="/dataSearch">院校大全</a></dt>
+                  <dt><a href="/professiongroup">专业大全</a></dt>
+                  <dt><a href="/professionscore">专业分数线</a></dt>
+                  <dt><a href="/collegescoreline">大学分数线</a></dt>
+                </div>
+              </ul>
+            
+            </li>
                 <li><a href="#">志愿指南</a>
                     <ul class="drop">
                         <div>
@@ -126,9 +128,9 @@
                     <div class="NullDiv"></div>
                     <div class="inputDiv log_Div"><input id="login_password" class="inputText huise" type="text" placeholder="密码"></div>
                     <div class="NullDiv"></div>
-                    <div class="ClickDiv log_Div"><a class="inputText" onclick="login()">登录</a></div>
+                    <div class="ClickDiv log_Div lpointer"><a class="inputText" onclick="login()">登录</a></div>
                     <div class="NullDiv"></div>
-                    <div class="inputDiv log_Div"><a class="inputText" onclick="show_register()">没有账号？请注册</a></div>
+                    <div class="inputDiv log_Div">没有账号？请<a class="inputText lpointer" style="color:red" onclick="show_register()">注册</a></div>
                     <div class="NullDiv"></div>
                 </div>
                 <div class="register login_register">
@@ -154,9 +156,9 @@
                         </select>
                     </div>
                     <div class="NullDiv2"></div>
-                    <div class="ClickDiv log_Div"><a class="inputText" onclick="register()">注册</a></div>
+                    <div class="ClickDiv log_Div lpointer"><a class="inputText" onclick="register()">注册</a></div>
                     <div class="NullDiv2"></div>
-                    <div class="inputDiv log_Div"><a class="inputText" onclick="show_login()">已有账号？请登录</a></div>
+                    <div class="inputDiv log_Div "><a class="inputTex lpointert"  style="color:red"  onclick="show_login()">已有账号？请登录</a></div>
                     <div class="NullDiv"></div>
                 </div>
             </div>
