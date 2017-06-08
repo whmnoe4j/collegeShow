@@ -2,137 +2,133 @@
 
 <script type="text/javascript" src="../static/js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript">
+    window.onload = function() {
 
-  
+        var supnav = document.getElementById("head-main");
 
-  window.onload = function() {
+        var nav = document.getElementById("head-nav");
 
-    var supnav = document.getElementById("head-main");
+        var btns = supnav.getElementsByTagName("li");
 
-    var nav = document.getElementById("head-nav");
-    
-    var btns = supnav.getElementsByTagName("li");
+        var subnavs = nav.getElementsByTagName("div");
 
-    var subnavs = nav.getElementsByTagName("div");
+        var paddingbottom = 0;
 
-    var paddingbottom = 0;
-
-    var defaultHeight = 0;
+        var defaultHeight = 0;
 
 
-  function drop(obj, ivalue) {
+        function drop(obj, ivalue) {
 
-    var a = obj.offsetHeight;
+            var a = obj.offsetHeight;
 
-    var speed = (ivalue - obj.offsetHeight) / 3;
+            var speed = (ivalue - obj.offsetHeight) / 3;
 
-    a += Math.floor(speed);
+            a += Math.floor(speed);
 
-    obj.style.height = a + "px";
+            obj.style.height = a + "px";
 
-  }
-    for (var i = 0; i < btns.length-1; i++) {
+        }
+        for (var i = 0; i < btns.length - 1; i++) {
 
-      btns[i].index = i;
+            btns[i].index = i;
 
-      btns[i].onmouseover = function() {
+            btns[i].onmouseover = function() {
 
-        var osubnav = subnavs[this.index];
+                var osubnav = subnavs[this.index];
 
-        var sublinks = osubnav.getElementsByTagName("dt");
+                var sublinks = osubnav.getElementsByTagName("dt");
 
-        if (osubnav.firstChild.tagName == undefined) {
+                if (osubnav.firstChild.tagName == undefined) {
 
-          var itarheight = parseInt(osubnav.childNodes[1].offsetHeight) * sublinks.length + paddingbottom;
+                    var itarheight = parseInt(osubnav.childNodes[1].offsetHeight) * sublinks.length + paddingbottom;
 
-        } else {
+                } else {
 
-          var itarheight = parseInt(osubnav.firstChild.offsetHeight) * sublinks.length + paddingbottom;
+                    var itarheight = parseInt(osubnav.firstChild.offsetHeight) * sublinks.length + paddingbottom;
+
+                }
+
+                clearInterval(this.itimer);
+
+                this.itimer = setInterval(function() {
+
+                        drop(osubnav, itarheight);
+
+                    },
+
+                    30);
+
+            }
+
+            btns[i].onmouseout = function() {
+
+                var osubnav = subnavs[this.index];
+
+                clearInterval(this.itimer);
+
+                this.itimer = setInterval(function() {
+
+                        drop(osubnav, defaultHeight);
+
+                    },
+
+                    30);
+
+            }
 
         }
 
-        clearInterval(this.itimer);
-
-        this.itimer = setInterval(function() {
-
-          drop(osubnav, itarheight);
-
-        },
-
-        30);
-
-      }
-
-        btns[i].onmouseout = function() {
-
-          var osubnav = subnavs[this.index];
-
-          clearInterval(this.itimer);
-
-          this.itimer = setInterval(function() {
-
-            drop(osubnav, defaultHeight);
-
-          },
-
-          30);
-
-        }
-
-      }
-
-   }
-
+    }
 </script>
 
-<div id="head-container" >
-      <div id="head-fixed" >
+<div id="head-container">
+    <div id="head-fixed">
         {# 导航栏 #}
         <nav id='head-nav'>
-         
-          {# 导航内容 #}
-          <ul id="head-main">
-            <span class="head-img">
+
+            {# 导航内容 #}
+            <ul id="head-main">
+                <span class="head-img">
               <a href="/"><img src="../static/images/logo.png" alt="img" width="120" ></a>
            </span>
-            
-            <li><a href="/reportedCollege">院校推荐</a>
-              <ul class="drop">
-                <div>
-                  <dt><a href="#">推荐大学</a></dt>
-                  <dt><a href="#">推荐专业</a></dt>
-                  <dt><a href="#">大学分数线</a></dt>
-                </div>
-              </ul>
-            </li>
-            <li><a href="/dataSearch">数据查询</a>
 
-              <ul class="drop">
-                <div>
-                  <dt><a href="#">院校大全</a></dt>
-                  <dt><a href="#">专业大全</a></dt>
-                  <dt><a href="#">专业分数线</a></dt>
-                </div>
-              </ul>
-            
-            </li>
-            <li><a href="#">志愿指南</a>
-              <ul class="drop">
-                <div>
-                  <dt><a href="#">平行志愿</a></dt>
-                  <dt><a href="#">招生资讯</a></dt>
-                  <dt><a href="#">志愿百科</a></dt>
-                </div>
-              </ul>
-            </li>
-            <li><a href="#">开通VIP</a>
-            </li>
-            <div id="marker"></div>
+                <li><a href="/reportedCollege">院校推荐</a>
+                    <ul class="drop">
+                        <div>
+                            <dt><a href="#">推荐大学</a></dt>
+                            <dt><a href="#">推荐专业</a></dt>
+                            <dt><a href="#">大学分数线</a></dt>
+                        </div>
+                    </ul>
+                </li>
+                <li><a href="/dataSearch">数据查询</a>
 
-          </ul>
-          
-         
-          {# 搜索框 #}
+                    <ul class="drop">
+                        <div>
+                            <dt><a href="#">院校大全</a></dt>
+                            <dt><a href="#">专业大全</a></dt>
+                            <dt><a href="#">专业分数线</a></dt>
+                        </div>
+                    </ul>
+
+                </li>
+                <li><a href="#">志愿指南</a>
+                    <ul class="drop">
+                        <div>
+                            <dt><a href="#">平行志愿</a></dt>
+                            <dt><a href="#">招生资讯</a></dt>
+                            <dt><a href="#">志愿百科</a></dt>
+                        </div>
+                    </ul>
+                </li>
+                <li><a href="#">开通VIP</a>
+                </li>
+                <div id="marker"></div>
+
+            </ul>
+
+
+            {# 搜索框 #}
             <div id="nav-bottom-menu">
                 <form method="get" id="searchform" action="#">
                     <label for="s" class="assistive-text">搜索</label>
@@ -145,7 +141,7 @@
             {# 登入注册按钮 #} {% if loginUser %}
             <div id='unlogin'>
                 <form method="post" id="searchform" action="#">
-                    <span class="btn-login btn-color">{{loginUser.username}}</span>
+                    <span class="btn-login btn-color" onclick="location='/user/'">{{loginUser.username}}</span>
                     <span onclick="logout()" class="btn-register">登出</span>
                 </form>
             </div>
@@ -202,8 +198,7 @@
                     <div class="NullDiv"></div>
                 </div>
             </div>
-          
-        </nav>
-      </div>
-</div>
 
+        </nav>
+    </div>
+</div>
