@@ -84,45 +84,77 @@ def professiongroup(request):
 def professionscore(request):
     return render_to_response("professionscore.html")
 #院校信息
-def PageSplit(page, length):
-    "提供页数和数据总长度返回切片起点和终点"
-    start = (int(page) - 1) * 10
-    if length - start < 10:
-        end = length
-    else:
-        end = start + 10
-    return start, end
 def schoolinfo(request):
+    SchoolData = getSchoolInfo(request)
+    return render_to_response("school_info.html", {'schoolinfo':SchoolData})
+
+#获取学校信息
+def getSchoolInfo(request):
+    SchoolInfo = {}
     try:
         #学校名称
         schoolName = request.GET.get("schoolName")
+        #为什么会连续访问两次呢？
         print '-----------' + schoolName
         SchoolList = CollegeDetailEwt.objects.filter(schoolname = schoolName)
         
         ListLength = len(SchoolList)
         if ListLength == 0:
             return HttpResponse('没有该学校信息!')
-        SchoolData = {}
+        
         for school in SchoolList:
-            SchoolData["SchoolName"] = school.schoolname
-            SchoolData["f985"] = school.f985
-            SchoolData["f211"] = school.f211 
-            SchoolData["fyan"] = school.fyan 
-            SchoolData["Province"] = school.address if school.address else "暂无"
-            SchoolData["Levels"] = school.levels if school.levels else "暂无"
-            SchoolData["attach_to"] = school.attach_to if school.attach_to else "暂无"
-            SchoolData["Rank"] = school.school_rank 
-            SchoolData["schoolType"] = school.schooltype 
-            SchoolData["character"] = school.character if school.character else "不详"
-            SchoolData["Code"] = school.schoolid if school.schoolid else "00000"
-            SchoolData["Address"] = school.postal_address.replace("\r", "") if school.postal_address else "暂无"
-            SchoolData["Tel"] = school.tel.replace("\r", "") if school.tel else "暂无"
-            SchoolData["KeyDiscipline"] = school.key_discipline if school.key_discipline else "不详"
-            SchoolData["Facukty"] = school.faculty if school.faculty else "不详"
-            SchoolData["OfficeWebsite"] = school.official_website if school.official_website else "不详"
-            SchoolData["school_img"] = school.school_img
-        print SchoolData['SchoolName']
-        return render_to_response("school_base.html", {'schoolinfo':SchoolData})
+            SchoolInfo["SchoolName"] = school.schoolname
+            SchoolInfo["f985"] = school.f985
+            SchoolInfo["f211"] = school.f211 
+            SchoolInfo["fyan"] = school.fyan 
+            SchoolInfo["Province"] = school.address if school.address else "暂无"
+            SchoolInfo["Levels"] = school.levels if school.levels else "暂无"
+            SchoolInfo["attach_to"] = school.attach_to if school.attach_to else "暂无"
+            SchoolInfo["Rank"] = school.school_rank 
+            SchoolInfo["schoolType"] = school.schooltype 
+            SchoolInfo["character"] = school.character if school.character else "不详"
+            SchoolInfo["Code"] = school.schoolid if school.schoolid else "00000"
+            SchoolInfo["Address"] = school.postal_address.replace("\r", "") if school.postal_address else "暂无"
+            SchoolInfo["Tel"] = school.tel.replace("\r", "") if school.tel else "暂无"
+            SchoolInfo["KeyDiscipline"] = school.key_discipline if school.key_discipline else "不详"
+            SchoolInfo["Facukty"] = school.faculty if school.faculty else "不详"
+            SchoolInfo["OfficeWebsite"] = school.official_website if school.official_website else "不详"
+            SchoolInfo["school_img"] = school.school_img
+        return SchoolInfo
     except:
-        return render_to_response("school_base.html", {'schoolinfo':SchoolData})
+        return []
+#招生专业
+def schoolmajor(request):
+    SchoolInfo = getSchoolInfo(request)
+    
+    try:
+        #学校名称
+        schoolName = request.GET.get("schoolName")
+        #为什么会连续访问两次呢？
+        print '-----------' + schoolName
+        SchoolMajor = CollegeMajor.objects.filter(schoolname = schoolName)
+        
+        ListLength = len(SchoolMajor)
+        if ListLength == 0:
+            return HttpResponse('没有该学校信息!')
+        SchoolMajors = []
+        print ListLength
+        for school in SchoolMajor:
+            SchoolData = {}
+            SchoolData["SchoolName"] = school.schoolname 
+            SchoolData["edudirectly"] = school.edudirectly 
+            SchoolData["f985"] = school.f985 
+            SchoolData["f211"] = school.f211 
+            SchoolData["schoolprovince"] = school.schoolprovince 
+            SchoolData["specialtype"] = school.specialtype 
+            SchoolData["specialtyname"] = school.specialtyname 
+            SchoolData["level"] = school.level 
+            SchoolMajors.append(SchoolData)
+        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo})
+    except:
+        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo})
 
+#历年分数线
+def schoolenrol(request):
+    SchoolData = getSchoolInfo(request)
+    return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData})

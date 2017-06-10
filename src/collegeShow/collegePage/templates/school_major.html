@@ -1,0 +1,130 @@
+{% extends 'school_detail_base.html' %}
+{% block right_conts %}
+{# 填写右边的内容 #}
+<style type="text/css">
+    .block-body {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #fff;
+        overflow: auto;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .right-major .up-block .upper-title {
+        width: 130px;
+        float: left;
+        padding-left: 10px;
+    }
+    .right-major .up-block .upper-listItems {
+        float: left;
+        width: 625px;
+
+    }
+    .right-major .up-block .upper-listItems>li {
+        float: left;
+        width: 155px;
+        height: 50px;
+    }
+
+    .ws-ellipsis {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    .right-major .grey_spot {
+        float: left;
+        margin-top: 8px;
+        margin-right: 12px;
+    }
+    .grey_spot {
+        width: 6px;
+        height: 6px;
+        background-color: #aaa;
+        border-radius: 3px;
+    }
+
+    .upper-title{
+        font-size: 16px;
+    }
+
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+       //导航换肤
+        $('.left-item').each(function(){
+            $(this).removeClass('current')
+           
+        })
+        $('.left-item:eq(1)').addClass('current')
+    })
+</script>
+<div class="right-wrap">
+
+    <div class="right-wrap-body" >
+    
+        <div class="right-intro" >
+            
+            
+            <div class="block right-intro-majors" >
+                
+                <div class="right-major" >
+                    <div class="block up-block" >
+                        <div class="block-head" >
+                            <h3 class="upper-text">本科和专科专业</h3>
+                        </div>
+                        <div class="block-body">
+                            <ul class="upper-list">
+                                    
+                            {%if schoolMajors%}
+                                
+                                    
+                                <li>
+                                    <div class="upper-title">本科</div>
+                                     <ul class="upper-listItems">
+                                    {%for major in schoolMajors%}
+                                        {%ifequal major.level '本科'%}
+                                        <li class="ws-ellipsis">
+                                            <div class="grey_spot"></div>
+                                            <div class="upper-text" title="文物与博物馆学" data-value="060104" data-disable="false" style=" color: rgb(66, 170, 243);">
+                                                {{major.specialtyname}}
+                                            </div>
+                                            
+                                        </li>
+                                    {%endifequal%}  
+                                   {%endfor%}
+                            
+                                    </ul>
+                                </li>
+                                <li>
+                                    <div class="upper-title">专科</div>
+                                     <ul class="upper-listItems">
+                                    {%for major in schoolMajors%}
+                                        {%ifequal major.level '专科'%}
+                                        <li class="ws-ellipsis">
+                                            <div class="grey_spot"></div>
+                                            <div class="upper-text" title="文物与博物馆学" data-value="060104" data-disable="false" style="color: rgb(66, 170, 243);">
+                                                {{major.specialtyname}}
+                                            </div>
+                                            
+                                        </li>
+                                    {%endifequal%}  
+                                   {%endfor%}
+                            
+                                    </ul>
+                                </li>
+                                
+                            
+                                  
+                              {%endif%}
+                               
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock %}
+   

@@ -1,0 +1,301 @@
+{% extends 'school_detail_base.html' %}
+{% block right_conts %}
+{# 填写右边的内容 #}
+<style type="text/css">
+    .block-body {
+        width: 100%;
+        padding: 10px 20px;
+        background-color: #fff;
+        overflow: auto;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .right-enrol .upper-category {
+    margin-left: 220px;
+    margin-right: 20px;
+    }
+
+    .right-enrol .upper-category, .right-enrol .upper-province {
+        width: 80px;
+        float: left;
+        text-align: center;
+        margin-top: 8px;
+    }
+    .right-enrol .upper-category .upper-select, .right-enrol .upper-province .upper-select {
+        background-color: transparent;
+        padding: 5px 15px 5px 10px;
+    }
+    .upper-select {
+        position: relative;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        padding: 7px 25px 7px 15px;
+    }
+    .upper-select, .upper-inp-text, .upper-radios, .upper-checkboxs, .upper-search {
+        font-size: 14px;
+        line-height: 14px;
+        border-radius: 2px;
+        background-color: #fff;
+    }
+    .upper-select-text {
+        height: 14px;
+    }
+    .upper-select-text>.upper-text {
+        line-height: 14px;
+    }
+    .right-enrol .upper-category .upper-icon, .right-enrol .upper-province .upper-icon {
+        top: 5px;
+        right: 5px;
+    }
+    .iconCaretDown {
+        border-top: 5px solid #666;
+        border-left: 5px solid #fff;
+        border-right: 5px solid #fff;
+        margin-top: 4px;
+    }
+    .upper-select .upper-icon {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+    }
+    .upper-select-text {
+        height: 14px;
+    }
+    .right-enrol .upper-category .upper-select-list {
+        width: 80px;
+        top: 24px;
+    }
+    .upper-select-list.upper-left {
+        left: 0;
+        margin-left: -1px;
+    }
+    .upper-select-list {
+        position: absolute;
+        border: 1px solid #2FA1F1;
+        width: 120px;
+        background-color: #fff;
+        z-index: 99;
+        border-radius: 2px;
+        top: 28px;
+    }
+    .upper-select-list>li {
+        font-size: 14px;
+        line-height: 14px;
+        padding: 7px 15px;
+    }
+    .right-enrol .upper-category, .right-enrol .upper-province {
+        width: 80px;
+        float: left;
+        text-align: center;
+        margin-top: 8px;
+    }
+    .right-enrol .upper-category .upper-select, .right-enrol .upper-province .upper-select {
+        background-color: transparent;
+        padding: 5px 15px 5px 10px;
+    }
+    .upper-select {
+        position: relative;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        padding: 7px 25px 7px 15px;
+    }
+    .upper-select-text {
+        height: 14px;
+    }
+    .block-body {
+        padding: 10px 20px;
+        background-color: #fff;
+        overflow: auto;
+        position: relative;
+        margin-bottom: 20px;
+    }
+    .right-enrol .table_box h3 {
+        color: #00A0E9;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    .right-enrol table {
+        width: 100%;
+        border: 1px solid #E5E5E5;
+    }
+    table {
+        border-collapse: collapse;
+    }
+    tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+    }
+    .right-enrol th {
+        background-color: #EFEFEF;
+        font-size: 16px;
+        font-weight: normal;
+        height: 35px;
+    }
+    *, *:before, *:after {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .right-enrol td {
+        border: 1px solid #E5E5E5;
+        text-align: center;
+        height: 30px;
+    }
+    .hide{
+        display: none;
+    }
+    .upper-select-list li:hover{
+        color: white;
+        background: #00BFEC;
+    }
+    .stuProvinceSelect li{
+        float: left;
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+       //导航换肤
+        $('.left-item').each(function(){
+            $(this).removeClass('current')
+        })
+        $('.left-item:eq(2)').addClass('current')
+
+    
+         $('.upper-select-text ').click(function(){
+            
+            $(this).siblings('ul').removeClass('hide')
+        })
+        
+       //改变文理和考生省份
+         $('.stuTypeSelect li').click(function(){
+            $('.upper-select-list').addClass('hide')
+            $('.stuType').html($(this).text())
+
+         })
+        $('.stuProvinceSelect li').click(function(){
+            $('.upper-select-list').addClass('hide')
+            $('.stuProvince').html($(this).text())
+
+         })
+
+    })
+</script>
+<div class="right-wrap">
+
+    <div class="right-wrap-body" >
+    
+        <div class="right-intro" >
+            
+            
+            <div class="block right-intro-majors" >
+                
+               <div class="right-enrol">
+                        <div class="block">
+                            <div class="block-head">
+                                <h3 class="upper-text">历年分数线 录取人数统计(不含自主招生人数) </h3>
+                                <div class="upper-category upper-input">
+                                    <div class="upper-select">
+                                        <div class="upper-select-text">
+                                            <div class="upper-text stuType" data-val="理科">理科</div>
+                                            <div class="upper-icon iconCaretDown" style="border-left: 5px solid white;border-right: 5px solid white"></div>
+                                        </div>
+                                        <ul class="upper-select-list upper-left stuTypeSelect hide" >
+                                            <li data-val="文科">文科</li>
+                                             <li data-val="理科">理科</li>
+                                         </ul>
+                                     </div>
+                                 </div>
+                                <div class="upper-province upper-input">
+                                    <div class="upper-select">
+                                        <div class="upper-select-text">
+                                            <div class="upper-text stuProvince" data-val="江西">江西</div>
+                                            <div class="upper-icon iconCaretDown" style="border-left: 5px solid white;border-right: 5px solid white"></div>
+                                        </div>
+                                    <ul class="upper-select-list upper-left stuProvinceSelect hide" >
+                                        <li data-val="北京">北京</li>
+                                        <li data-val="天津">天津</li>
+                                        <li data-val="河北">河北</li>
+                                        <li data-val="山西">山西</li>
+                                        <li data-val="内蒙古">内蒙古</li>
+                                        <li data-val="辽宁">辽宁</li>
+                                        <li data-val="吉林">吉林</li>
+                                        <li data-val="黑龙江">黑龙江</li>
+                                        <li data-val="上海">上海</li>
+                                        <li data-val="江苏">江苏</li>
+                                        <li data-val="浙江">浙江</li>
+                                        <li data-val="安徽">安徽</li>
+                                        <li data-val="福建">福建</li>
+                                        <li data-val="江西">江西</li>
+                                        <li data-val="山东">山东</li>
+                                        <li data-val="河南">河南</li>
+                                        <li data-val="湖北">湖北</li>
+                                        <li data-val="湖南">湖南</li>
+                                        <li data-val="广东">广东</li>
+                                        <li data-val="广西">广西</li>
+                                        <li data-val="海南">海南</li>
+                                        <li data-val="重庆">重庆</li>
+                                        <li data-val="四川">四川</li>
+                                        <li data-val="贵州">贵州</li>
+                                        <li data-val="云南">云南</li>
+                                        <li data-val="陕西">陕西</li>
+                                        <li data-val="甘肃">甘肃</li>
+                                        <li data-val="青海">青海</li>
+                                        <li data-val="宁夏">宁夏</li>
+                                        <li data-val="新疆">新疆</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="block-body">
+                            <div class="table_box">
+                                <h3>{{schoolinfo.SchoolName}}</h3>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                           <th>年份</th><th>批次</th> <th>录取人数</th><th>录取分</th><th>录取位次</th><th>线差</th><th>备注</th>
+                                        </tr>
+                                        <tr>
+                                            <td>2014</td><td>本1批</td><td>836</td><td>527</td><td>23756</td><td>1</td><td>暂无</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2013</td><td>本1批</td><td>670</td><td>517</td><td>22446</td><td>0</td><td>暂无</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2012</td><td>本1批</td><td>551</td><td>547</td><td>21551</td><td>0</td><td>暂无</td>
+                                        </tr>
+                                        
+                                        <tr><td>2012</td><td>本2批</td><td>857</td><td>513</td><td>38392</td><td>27</td><td>暂无</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="table_box"><h3>江西师范大学(国际教育学院)</h3><table><tbody><tr><th>年份</th>
+                            <th>批次</th>
+                            <th>录取人数</th>
+                            <th>录取分</th>
+                            <th>录取位次</th>
+                            <th>线差</th>
+                            <th>备注</th></tr>
+                            <tr><td>2014</td><td>本2批</td><td>--</td><td>492</td><td>43044</td><td>21</td><td>暂无</td></tr>
+                            <tr><td>2013</td><td>本2批</td><td>--</td><td>457</td><td>53477</td><td>1</td><td>暂无</td></tr>
+                            <tr><td>2012</td><td>本2批</td><td>--</td><td>494</td><td>49189</td><td>8</td><td>暂无</td></tr></tbody></table></div><div class="table_box"><h3>江西师范大学(软件学院)</h3><table><tbody><tr><th>年份</th>
+                            <th>批次</th>
+                            <th>录取人数</th>
+                            <th>录取分</th>
+                            <th>录取位次</th>
+                            <th>线差</th>
+                            <th>备注</th></tr>
+                            <tr><td>2014</td><td>本2批</td><td>--</td><td>476</td><td>53241</td><td>5</td><td>暂无</td></tr>
+                            <tr><td>2013</td><td>本2批</td><td>--</td><td>456</td><td>54231</td><td>0</td><td>暂无</td></tr>
+                            <tr><td>2012</td><td>本2批</td><td>--</td><td>486</td><td>53874</td><td>0</td><td>暂无</td></tr></tbody></table></div></div>
+                        </div>
+                    </div>
+        </div>
+           
+        </div>
+    </div>
+</div>
+{% endblock %}
+   

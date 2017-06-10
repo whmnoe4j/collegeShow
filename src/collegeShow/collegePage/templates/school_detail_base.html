@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% block title %}院校信息{% endblock %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="../static/css/schoolinfo.css">
+<style type="text/css">
+	.schMajMenuIcon {
+	    background-image: url(../static/images/schMajMenuIcon.png);
+	}
+	.commonIcon {
+    	background-image: url(../static/images/commonIcon.png);
+	}
+	
+
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	//展开
+	$('.upper-readMore').click(function(){
+		$('p').removeClass('hide')
+
+		$('.upper-readLess').removeClass('hide')
+	})
+	//收起
+	$('.upper-readLess').click(function(){
+		$('.upper-intro p:eq(1)').addClass('hide')
+		$('.upper-intro p:eq(2)').addClass('hide')
+		$('.upper-readLess').addClass('hide')
+	})
+    
+})
+	
+	
+</script>
+<div class="head_height"></div>
+<div class="body of-auto">
+        <div class="container-middle">
+	        <div class="mynav nav2_bar breadUserInfoBox " >
+		        <ul class="breadcrumb breadNav">
+		            <li><a class="index" href="/">首页</a></li>
+		            <li><a id="bread_nav1" href="/dataSearch">院校大全</a></li>
+		            <li id="bread_nav2">{{schoolinfo.SchoolName}}</li>
+		        </ul>
+		    </div>
+            <div class="left-wrap">
+
+            	
+                <ul class="menu">
+                    
+                    <li class="left-item current">
+                        <a href="/schoolinfo?schoolName={{schoolinfo.SchoolName}}">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                    院校简介
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/schoolmajor?schoolName={{schoolinfo.SchoolName}}">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        招生专业
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/schoolenrol?schoolName={{schoolinfo.SchoolName}}">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        历年分数线
+                            </div>
+                        </a>
+                    </li>
+                    <!-- 
+                    <li class="left-item ">
+                        <a href="/school-employ-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        就业信息
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/school-brochures-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        报考指南
+                            </div>
+                        </a>
+                    </li>
+                    -->
+                    <li class="left-item ">
+                        <a href="/school-evaluate-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        学校评论
+                            </div>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+           
+
+
+            <div class="right-wrap">
+
+                <div class="right-wrap-top">
+                    <div class="upper-schoolMajorInfo upper-school-index"><img class="upper-logo" src="{{schoolinfo.school_img}}">
+                        <div class="upper-head">
+                            <span class="upper-name" data-fill="sch_name">{{schoolinfo.SchoolName}}</span>
+                            <span class="upper-collect" data-type_id="10414" data-fav_type="SCHOOL" data-collect="false">
+                                <div class="upper-icon commonIcon"></div>
+                            </span>
+                            <span class="upper-schoolLabel">
+                                
+                            </span>
+                        </div>
+                        <ul class="upper-baseInfo">
+                            <li>
+                                <div class="upper-icon upper-icon0 commonIcon"></div>所在城市：<span data-fill="province_sch">{{schoolinfo.Province}}</span>&nbsp;-&nbsp;<span data-fill="city_sch"></span>
+                            </li>
+                            <li>
+                                <div class="upper-icon upper-icon1 commonIcon"></div><span data-fill="public_sch">层次：</span>{{schoolinfo.Levels}}&nbsp;<span data-fill="education_sch">{{schoolinfo.character}}</span>院校
+                            </li>
+                            <li>
+                                <div class="upper-icon upper-icon2 commonIcon"></div>学校类型：<span data-fill="bg_rate">{{schoolinfo.schoolType}}</span>
+                            </li>
+                            <li>
+                                <div class="upper-icon upper-icon3 commonIcon"></div><span data-fill="general_sch"></span>排名：<span data-fill="ranking_sch">{{schoolinfo.Rank}}</span>
+                            </li>
+                        </ul>
+                        <div class="upper-btn-submit" data-sch_id="10414">测试院校录取风险</div>
+                    </div>
+                </div>
+                
+                 {# 填写右边的内容 #}
+                {% block right_conts %}
+
+                    <div>学校详细信息数据...</div>
+                {% endblock %}
+                 
+            </div>
+    </div>
+</div>
+{% endblock %}

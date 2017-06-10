@@ -70,5 +70,11 @@ urlpatterns = [
     #专业分数线
     url(r'^professionscore/', views.professionscore, name = 'professionscore'),
     #院校信息
-    url(r'^schoolinfo/', views.schoolinfo, name = 'schoolinfo'),
+    url(r'^schoolinfo/$', views.schoolinfo, name = 'schoolinfo'),
+    #院校专业
+    url(r'^schoolmajor/$', views.schoolmajor, name = 'schoolmajor'),
+    #历年分数线
+    url(r'^schoolenrol/$', views.schoolenrol, name = 'schoolenrol'),
+    
+    
 ]

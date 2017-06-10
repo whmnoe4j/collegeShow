@@ -4,7 +4,6 @@
     min-height: 800px;
 }
 .of-auto {
-    overflow: auto;
 }
 .container-middle {
     width: 1000px;
@@ -174,6 +173,8 @@ ul {
 .right-intro-intro .upper-intro {
     position: relative;
     padding-bottom: 10px;
+    padding-top: 30px;
+
 }
 p {
     text-indent: 2em;
@@ -326,7 +327,7 @@ tr {
 }
 .left-item:nth-child(2).current .upper-icon {
         background-position: -24px -25px;
-        background: red;
+        
 }
 .left-item:nth-child(2) .upper-icon {
      background-position: -24px 0;
@@ -402,4 +403,7 @@ p{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+}
+.right-zszy, .right-intro-majors, .right-jyxx, .right-bkzn, .right-xxpl {
+    margin-top: 20px;
 }

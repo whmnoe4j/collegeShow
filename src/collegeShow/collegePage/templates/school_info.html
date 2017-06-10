@@ -1,0 +1,65 @@
+{% extends 'school_detail_base.html' %}
+{% block right_conts %}
+<script type="text/javascript">
+    $(document).ready(function(){
+       //导航换肤
+        $('.left-item').each(function(){
+            $(this).removeClass('current')
+           
+        })
+        $('.left-item:eq(0)').addClass('current')
+    })
+</script>
+{# 填写右边的内容 #}
+    <div class="right-wrap">
+
+    <div class="right-wrap-body">
+    
+        <div class="right-intro">
+            <div class="block-body right-intro-intro">
+                <div class="upper-introInfo"><div class="upper-intro">
+                    <p>{{schoolinfo.Address}}</p>
+                    <p class="hide">联系方式:{{schoolinfo.Tel}}</p>
+                    <p class="hide">教师力量:{{schoolinfo.Facukty}}</p>
+
+                    <div class="upper-readMore">展开<span class="icon icon-angle-down"></span></div><div class="upper-readLess hide">收起<span class="icon icon-angle-up"></span></div></div></div>
+                <div class="upper-tableInfo">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">211</div><div class="table-value tip_nm" data-fill="create_time">{{schoolinfo.f211}}</div></td>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">隶属于</div><div class="table-value tip_nm" data-fill="lishu_type">{{schoolinfo.attach_to}}</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">985</div><div class="table-value tip_nm" data-fill="student_count">{{schoolinfo.f985}}</div></td>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">研究生</div><div class="table-value tip_nm" data-fill="yuanshi_count">{{schoolinfo.fyan}}</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">重点学科</div><div class="table-value tip_nm" data-fill="subject_count">暂无</div></td>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">学校类型</div><div class="table-value tip_nm" data-fill="school_type">{{schoolinfo.schoolType}}</div></td>
+                            </tr>
+                            <tr>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">博士点个数</div><div class="table-value tip_nm" data-fill="dr_count">29个</div></td>
+                                <td><div class="blue_spot"></div><div class="table-name tip_nm">硕士点个数</div><div class="table-value tip_nm" data-fill="master_count">134个</div></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="block right-intro-majors"></div>
+            <div class="block right-intro-tuition">
+                <div class="block-head"><h3 class="upper-text">学费信息</h3></div>
+                <div class="block-body"><p>当前学费：3795-5550元/年（普通本科专业）</p><p>文史类普通本科专业的学费为3795-5550元/年，理工类普通本科专业的学费为3795-5550元/年，外语类专业（国际方向）学费为12000元/年。</p></div>
+            </div>
+            <div class="block right-intro-employ">
+                <div class="block-head"><h3 class="upper-text">就业信息</h3></div>
+                <div class="block-body"><p>学校本科毕业生一次性就业率稳定保持在90%以上，学生综合素质明显提高，英语四六级考试、计算机等级考试通过率等均一直稳居全省高校前列，并在全国大学生文艺汇演、体育竞赛、专业竞赛、科技活动等方面取得优异成绩。</p><p></p></div>
+            </div>
+
+        </div>
+    
+    </div>
+</div>
+{% endblock %}
+   

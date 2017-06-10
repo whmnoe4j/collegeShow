@@ -391,3 +391,17 @@ class Users(models.Model):
     class Meta:
         managed = False
         db_table = 'users'
+
+class CollegeMajor(models.Model):
+    schoolname = models.CharField(max_length = 100, blank = True, null = True)
+    edudirectly = models.CharField(max_length = 15, blank = True, null = True)
+    f985 = models.CharField(max_length = 4, blank = True, null = True)
+    f211 = models.CharField(max_length = 4, blank = True, null = True)
+    schoolprovince = models.CharField(max_length = 30, blank = True, null = True)
+    specialtype = models.CharField(max_length = 30, blank = True, null = True)
+    specialtyname = models.CharField(max_length = 30, blank = True, null = True)
+    level = models.CharField(max_length = 10, blank = True, null = True)
+
+    class Meta:
+        managed = False
+        db_table = 'college_major'
