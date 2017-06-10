@@ -41,6 +41,7 @@ class CollegeDetailEwt(models.Model):
     key_discipline = models.CharField(max_length = 15, blank = True, null = True)
     faculty = models.CharField(max_length = 50, blank = True, null = True)
     official_website = models.CharField(max_length = 100, blank = True, null = True)
+    school_img = models.CharField(max_length = 100, blank = True, null = True)
 
     class Meta:
         managed = False
@@ -379,13 +380,13 @@ class ProfessionRank(models.Model):
 
 
 class Users(models.Model):
-    username = models.CharField(max_length=10)
-    password = models.CharField(max_length=10)
-    sex = models.CharField(max_length=2, blank=True, null=True)
-    stuprovince = models.CharField(max_length=10)
-    stutype = models.CharField(max_length=2)
-    schooladdress = models.CharField(db_column='schoolAddress', max_length=30, blank=True, null=True)  # Field name made lowercase.
-    score = models.IntegerField(blank=True, null=True)
+    username = models.CharField(max_length = 10)
+    password = models.CharField(max_length = 10)
+    sex = models.CharField(max_length = 2, blank = True, null = True)
+    stuprovince = models.CharField(max_length = 10)
+    stutype = models.CharField(max_length = 2)
+    schooladdress = models.CharField(db_column = 'schoolAddress', max_length = 30, blank = True, null = True)  # Field name made lowercase.
+    score = models.IntegerField(blank = True, null = True)
 
     class Meta:
         managed = False

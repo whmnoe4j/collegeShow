@@ -446,7 +446,7 @@ def professionscore(request):
             d_studenttype = data.studenttype
             d_year = data.year
             d_schoolProvince = data.school_province
-            resultList.append([d_schoolName, d_profession, d_score, d_rank, d_levels, d_admission_number, d_batch, d_studenttype, d_year , d_schoolProvince])
+            resultList.append([d_schoolName, d_profession, d_score, d_rank, d_batch, d_levels, d_admission_number, d_studenttype, d_year , d_schoolProvince])
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
@@ -477,6 +477,6 @@ def editUser(request):
             loginUser.schooladdress = schoolAddress
             loginUser.score = score
             loginUser.save()
-            return HttpResponse(json.dumps({"Result":"True","Msg":"Success"}))
+            return HttpResponse(json.dumps({"Result":"True", "Msg":"Success"}))
         else:
             return render_to_response("index.html")

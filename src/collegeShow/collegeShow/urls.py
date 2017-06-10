@@ -57,8 +57,8 @@ urlpatterns = [
     
     
     #个人中心
-    url(r'^user/',views.user,name="user"),
-    url(r"^edit_user/", API.editUser, name="editUser"),
+    url(r'^user/', views.user, name = "user"),
+    url(r"^edit_user/", API.editUser, name = "editUser"),
     
     
     
@@ -69,4 +69,6 @@ urlpatterns = [
     url(r'^professiongroup/', views.professiongroup, name = 'professiongroup'),
     #专业分数线
     url(r'^professionscore/', views.professionscore, name = 'professionscore'),
+    #院校信息
+    url(r'^schoolinfo/', views.schoolinfo, name = 'schoolinfo'),
 ]

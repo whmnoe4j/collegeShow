@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% block title %}院校信息{% endblock %}
+{% block content %}
+<link rel="stylesheet" type="text/css" href="../static/css/schoolinfo.css">
+<style type="text/css">
+	.schMajMenuIcon {
+	    background-image: url(../static/images/schMajMenuIcon.png);
+	}
+	.commonIcon {
+    	background-image: url(../static/images/commonIcon.png);
+	}
+	
+
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	//展开
+	$('.upper-readMore').click(function(){
+		$('p').removeClass('hide')
+
+		$('.upper-readLess').removeClass('hide')
+	})
+	//收起
+	$('.upper-readLess').click(function(){
+		$('.upper-intro p:eq(1)').addClass('hide')
+		$('.upper-intro p:eq(2)').addClass('hide')
+		$('.upper-readLess').addClass('hide')
+	})
+})
+	
+	
+</script>
+<div class="head_height"></div>
+<div class="body of-auto">
+        <div class="container-middle">
+	        <div class="mynav nav2_bar breadUserInfoBox " >
+		        <ul class="breadcrumb breadNav">
+		            <li><a class="index" href="/">首页</a></li>
+		            <li><a id="bread_nav1" href="/dataSearch">院校大全</a></li>
+		            <li id="bread_nav2">{{schoolinfo.SchoolName}}</li>
+		        </ul>
+		    </div>
+            <div class="left-wrap">
+
+            	
+                <ul class="menu">
+                    
+                    <li class="left-item  current ">
+                        <a href="/school-intro-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                    院校简介
+                                
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/school-school_major-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        招生专业
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/school-enrol-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        历年分数线
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/school-employ-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        就业信息
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/school-brochures-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        报考指南
+                            </div>
+                        </a>
+                    </li>
+                
+                    <li class="left-item ">
+                        <a href="/school-evaluate-10414">
+                            <div class="upper-icon schMajMenuIcon"></div>
+                            <div class="upper-txt">
+                                        学校评论
+                            </div>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+
+            <div class="right-wrap">
+
+                <div class="right-wrap-top">
+                    <div class="upper-schoolMajorInfo upper-school-index"><img class="upper-logo" src="{{schoolinfo.school_img}}">
+                        <div class="upper-head">
+                            <span class="upper-name" data-fill="sch_name">{{schoolinfo.SchoolName}}</span>
+                            <span class="upper-collect" data-type_id="10414" data-fav_type="SCHOOL" data-collect="false">
+                                <div class="upper-icon commonIcon"></div>
+                            </span>
+                            <span class="upper-schoolLabel">
+                                
+                                
+                            </span>
+                        </div>
+                        <ul class="upper-baseInfo">
+                            <li>
+                            	<div class="upper-icon upper-icon0 commonIcon"></div>所在城市：<span data-fill="province_sch">{{schoolinfo.Province}}</span>&nbsp;-&nbsp;<span data-fill="city_sch"></span>
+                            </li>
+                            <li>
+                            	<div class="upper-icon upper-icon1 commonIcon"></div><span data-fill="public_sch">层次：</span>{{schoolinfo.Levels}}&nbsp;<span data-fill="education_sch">{{schoolinfo.character}}</span>院校
+                            </li>
+                            <li>
+                            	<div class="upper-icon upper-icon2 commonIcon"></div>学校类型：<span data-fill="bg_rate">{{schoolinfo.schoolType}}</span>
+                            </li>
+                            <li>
+                            	<div class="upper-icon upper-icon3 commonIcon"></div><span data-fill="general_sch"></span>排名：<span data-fill="ranking_sch">{{schoolinfo.Rank}}</span>
+                            </li>
+                        </ul>
+                        <div class="upper-btn-submit" data-sch_id="10414">测试院校录取风险</div>
+                    </div>
+                </div>
+
+                <div class="right-wrap-body">
+                    
+                
+                    <div class="right-intro">
+                        <div class="block-body right-intro-intro">
+                            <div class="upper-introInfo"><div class="upper-intro">
+                            	<p>{{schoolinfo.Address}}</p>
+                            	<p class="hide">联系方式:{{schoolinfo.Tel}}</p>
+                            	<p class="hide">教师力量:{{schoolinfo.Facukty}}</p>
+
+                            	<div class="upper-readMore">展开<span class="icon icon-angle-down"></span></div><div class="upper-readLess hide">收起<span class="icon icon-angle-up"></span></div></div></div>
+                            <div class="upper-tableInfo">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">211</div><div class="table-value tip_nm" data-fill="create_time">{{schoolinfo.f211}}</div></td>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">隶属于</div><div class="table-value tip_nm" data-fill="lishu_type">{{schoolinfo.attach_to}}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">985</div><div class="table-value tip_nm" data-fill="student_count">{{schoolinfo.f985}}</div></td>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">研究生</div><div class="table-value tip_nm" data-fill="yuanshi_count">{{schoolinfo.fyan}}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">重点学科</div><div class="table-value tip_nm" data-fill="subject_count">暂无</div></td>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">学校类型</div><div class="table-value tip_nm" data-fill="school_type">{{schoolinfo.schoolType}}</div></td>
+                                        </tr>
+                                        <tr>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">博士点个数</div><div class="table-value tip_nm" data-fill="dr_count">29个</div></td>
+                                            <td><div class="blue_spot"></div><div class="table-name tip_nm">硕士点个数</div><div class="table-value tip_nm" data-fill="master_count">134个</div></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <div class="block right-intro-majors"></div>
+                        <div class="block right-intro-tuition">
+                            <div class="block-head"><h3 class="upper-text">学费信息</h3></div>
+                            <div class="block-body"><p>当前学费：3795-5550元/年（普通本科专业）</p><p>文史类普通本科专业的学费为3795-5550元/年，理工类普通本科专业的学费为3795-5550元/年，外语类专业（国际方向）学费为12000元/年。</p></div>
+                        </div>
+                        <div class="block right-intro-employ">
+                            <div class="block-head"><h3 class="upper-text">就业信息</h3></div>
+                            <div class="block-body"><p>学校本科毕业生一次性就业率稳定保持在90%以上，学生综合素质明显提高，英语四六级考试、计算机等级考试通过率等均一直稳居全省高校前列，并在全国大学生文艺汇演、体育竞赛、专业竞赛、科技活动等方面取得优异成绩。</p><p></p></div>
+                        </div>
+
+                    </div>
+                
+
+                    
+                
+
+                
+
+                    
+                
+
+                    
+                
+
+                    
+                
+
+                    
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
