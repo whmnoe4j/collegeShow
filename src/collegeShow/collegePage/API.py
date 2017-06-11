@@ -75,6 +75,7 @@ def showCollege(request):
             SuccessResponse["PageNum"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
+        
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
         return HttpResponse(json.dumps(ErrorResponse))
@@ -526,6 +527,7 @@ def recommendSchool(request):
         resultList = []
         for school in schoolList:
             name = school.schoolname
+            schoolProvince = EwtNewJiangxi.objects.filter(schoolname=name)[0].school_province
             profession = school.profession
             year = school.year
             batch = school.batch
@@ -533,7 +535,7 @@ def recommendSchool(request):
             meanscore = school.meanscore
             meanrank = school.meanrank
             diffscore = school.diffscore
-            resultList.append([name,profession,year,batch,getnum,meanscore,meanrank,diffscore])
+            resultList.append([name,schoolProvince,profession,year,batch,getnum,meanscore,meanrank,diffscore])
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
