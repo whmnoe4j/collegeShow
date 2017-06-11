@@ -27,7 +27,9 @@ def dataSearch(request):
     except:
         print '获取登录用户失败'
         tempUser = request.session.get("tempUser", "none")
+        print tempUser
         if tempUser == "none":
+            
             return render_to_response("dataSearch.html")
         else:
             return render_to_response("dataSearch.html", {'tempUser':tempUser})

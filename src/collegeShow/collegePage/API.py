@@ -575,16 +575,16 @@ def recommendSchool(request):
                 KeyDiscipline = school_Detail.key_discipline if school_Detail.key_discipline else "不详"
                 Facukty = school_Detail.faculty if school_Detail.faculty else "不详"
                 OfficeWebsite = school_Detail.official_website if school_Detail.official_website else "不详"
-                
+                school_img = school_Detail.school_img
                 if schoolType:
                     if schooltype != schoolType:
                         continue
 #                 if schoolCharacter:
 #                     if character != schoolCharacter:
 #                         continue
-                resultList.append([name, schoolprovince,schooltype,f985,f211,fyan,Levels,attach_to,Rank,character,Code,Address,Tel,KeyDiscipline,Facukty,OfficeWebsite,profession, year, batch, getnum, meanscore, meanrank, diffscore])
+                resultList.append([name, schoolprovince, schooltype, f985, f211, fyan, Levels, attach_to, Rank, character, Code, Address, Tel, KeyDiscipline, Facukty, OfficeWebsite, profession, year, batch, getnum, meanscore, meanrank, diffscore, school_img])
             else:
-                resultList.append([name, schoolprovince,"暂无","非985","非211","非研","暂无","暂无","暂无","不详","00000","暂无","暂无","不详","不详","不详",profession, year, batch, getnum, meanscore, meanrank, diffscore])
+                resultList.append([name, schoolprovince, "暂无", "非985", "非211", "非研", "暂无", "暂无", "暂无", "不详", "00000", "暂无", "暂无", "不详", "不详", "不详", profession, year, batch, getnum, meanscore, meanrank, diffscore])
         if page:
             ListLength = len(resultList)
             start, end = PageSplit(page, ListLength)

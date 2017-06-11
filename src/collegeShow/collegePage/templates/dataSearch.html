@@ -300,20 +300,7 @@
         </div>
        {# 右侧内容 #}
      	<div class="rFrame lt">
-	        {%if tempUser%}
-	        <div class="no_userinfo">
-			    <div class="rFrame_userInfo">
-			        <ul class="userInfo" id="searchOrUserInfo">
-			            <li id="userInfo">
-			            	<span id="userInfo_district">{{tempUser.stuProvince}}</span>
-			            	<span id="userInfo_category">{{tempUser.stuType}}</span>
-			            	<span id="userInfo_score">{{tempUser.score}}</span>分
-			            	<a class="changeUserInfo"><img src="../static/images/write.png" alt="修改分数"></a>
-			            </li>
-			        </ul>
-			    </div>
-	   		 </div>
-	   		 {%endif%}
+	        {% include 'tempuser.html' %}
    <div class="partLine">
 
    		 <div id="row_collegeNature" style="border-top:3px #00BFED solid;">
