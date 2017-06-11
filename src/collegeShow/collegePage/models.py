@@ -208,6 +208,24 @@ class EwtNewJiangxi(models.Model):
         db_table = 'ewt_new_jiangxi'
 
 
+class EwtNewJxMean(models.Model):
+    province = models.CharField(max_length=10, blank=True, null=True)
+    schoolname = models.CharField(max_length=30, blank=True, null=True)
+    profession = models.CharField(max_length=30, blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
+    studenttype = models.CharField(db_column='studentType', max_length=4, blank=True, null=True)  # Field name made lowercase.
+    batch = models.CharField(max_length=10, blank=True, null=True)
+    getnum = models.IntegerField(blank=True, null=True)
+    areascoreline = models.IntegerField(blank=True, null=True)
+    meanscore = models.IntegerField(blank=True, null=True)
+    meanrank = models.IntegerField(blank=True, null=True)
+    diffscore = models.IntegerField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'ewt_new_jx_mean'        
+
+
 class EwtNewJilin(models.Model):
     schoolname = models.CharField(max_length = 30, blank = True, null = True)
     profession = models.CharField(max_length = 100, blank = True, null = True)
