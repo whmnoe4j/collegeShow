@@ -52,14 +52,14 @@ li {
     color: #5D5D5D!important;
 }
 .breadcrumb > li+li :before {
-    content: '＞'!important;
+    content: '>'!important;
     color: #5D5D5D;
     padding: 0;
 }
 .breadcrumb > li+li+li:before {
     padding: 0 5px;
     color: #5D5D5D;
-    content: "＞";
+    content: ">";
 }
 
 
@@ -121,7 +121,6 @@ li {
     /* border-bottom: 1px dotted #E7E7E7; */
 }
 /*右侧窗口样式*/
-
 .rFrame {
     width: 870px;
     margin: 0 0 40px 70px;
@@ -495,9 +494,9 @@ td {
     display: block;
     /* float: left; */
     /* position: relative; */
-     margin-left: 35px; 
+     margin-left: 27px; 
      width: 55px; 
-     height: 60px;
+          height: 60px;
 }
 .collect:after {
     content: "收藏";
@@ -540,12 +539,11 @@ td {
     box-sizing: border-box;
 }
 
-.collegeId{
-    overflow: hidden;
-    width: 100px;
-}
+
 .collegeLink{
 	width:100%;
+	color:  #333;
+	font-size: 18px;
 	overflow: hidden;
 }
 .table_head{
@@ -561,4 +559,14 @@ td {
 }
 .lable_key{
     color: #00BFED;
+}
+.table_head:first-child
+{ 
+	width: 210px;
+}
+.collegeId a:hover{
+	color: #00BFED;
+}
+.data_conts{
+	margin-bottom: 30px;
 }

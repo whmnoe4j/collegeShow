@@ -476,3 +476,186 @@ div > .headTab:before {
 .lpointer{
     cursor: pointer;
 }
+        
+/*推荐大学列表*/
+.pagers.collegeId {
+    border-bottom: 1px solid #E5E5E5;
+    /* margin-left: 15px!important; */
+    /* margin-right: -15px!important; */
+    overflow: hidden;
+}
+
+.reported_school {
+    width: 100%;
+    height: 140px;
+}
+#college, .pagers {
+    padding-left: 0!important;
+    margin: 5px 0 10px 0px;
+}
+.xiaohui {
+    width: 130px;
+    line-height: 140px;
+    text-align: center;
+}
+
+.fl {
+    float: left;
+}
+.xiaohui_left {
+    width: 70px;
+    height: 70px;
+    vertical-align: middle;
+}
+.school_info {
+    height: 140px;
+    padding-left: 0!important;
+    padding-right: 0!important;
+    display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+}   
+
+.school_indu {
+    width: 300px;
+    margin-top: 18px;
+}
+.hanggao {
+    height: 35px;
+    line-height: 35px;
+}
+.schoolName, .zhpm {
+    height: 35px!important;
+    line-height: 35px!important;
+}
+.linkCollegeName {
+    width: 72%!important;
+    display: inline-block!important;
+    float: left;
+    font-size: 18px;
+    color: #333;
+}
+.ellipses {
+    display: block;
+    width: 45%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.pointer {
+    cursor: pointer;
+}
+
+.hanggao {
+    height: 35px;
+    line-height: 35px;
+}
+.hanggao_font {
+    font-size: 14px;
+    color: #A9A9A9;
+    height: 35px;
+    display: inline-block;
+    overflow: hidden;
+}
+.gc211 {
+    color: #E78B06;
+    width: 70px!important;
+    height: 25px!important;
+    line-height: 25px;
+    text-align: center;
+    background: #fffbf0;
+    border: 1px solid #ffdeab;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    margin: 0 0 5px 10px;
+}
+.gc211 {
+    color: #E78B06;
+    width: 70px!important;
+    height: 25px!important;
+    line-height: 25px;
+    text-align: center;
+    background: #fffbf0;
+    border: 1px solid #ffdeab;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    margin: 0 0 5px 10px;
+}
+.hanggao_font {
+    font-size: 14px;
+    color: #A9A9A9;
+    height: 35px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.hanggao .fontSize12 {
+    color: #333;
+    font-size: 14px;
+}
+.hzkjdx, .zhpm, .lqgl, .right_lqgl {
+    padding-left: 0!important;
+    padding-right: 0!important;
+    line-height: 20px;
+}
+.right_lqgl {
+    width: 438px;
+}
+.lqgl_zhpm {
+    width: 130px;
+}
+.lqgl {
+    text-align: center;
+    font-size: 14px;
+    height: 140px;
+}
+.right_lqgl .lqgl .hanggao_font {
+    margin-top: 20px;
+}
+.hanggao_font {
+    font-size: 14px;
+    color: #A9A9A9;
+    height: 35px;
+    display: inline-block;
+    overflow: hidden;
+}
+.zhpm {
+    font-size: 32px;
+    /* font-weight: 900; */
+    /* padding: 10px 0px; */
+    text-align: center;
+    color: #2D95D7;
+}
+.lqgl_gl {
+    width: 178px;
+}
+
+.lqgl {
+    text-align: center;
+    font-size: 14px;
+    height: 140px;
+}
+.right_lqgl .lqgl .hanggao_font.pointer {
+    width: 100%;
+}
+.right_lqgl .lqgl .hanggao_font {
+    margin-top: 20px;
+}
+.hanggao_font span {
+    max-width: 140px;
+    /* height: 20px; */
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* background: url(../img/what.png?v=981571b3bf) no-repeat right center; */
+    /* -webkit-background-size: 14px; */
+    /* background-size: 14px; */
+}
+.what {
+    width: 14px;
+    height: 14px;
+}

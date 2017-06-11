@@ -289,13 +289,8 @@
         </div>
        {# 右侧内容 #}
      	<div class="rFrame lt">
-	        <div class="no_userinfo">
-			    <div class="rFrame_userInfo">
-			        <ul class="userInfo" id="searchOrUserInfo">
-			            <li id="userInfo"><span id="userInfo_district">北京</span><span id="userInfo_category">理科</span><span id="userInfo_score">分数：123</span><a class="changeUserInfo"><img src="../static/images/write.png" alt="修改分数"></a></li>
-			        </ul>
-			    </div>
-	   		 </div>
+	        <!--引入临时用户 -->
+       		 {% include 'tempuser.html' %}
          	<div class="partLine_top">
 		        <div id="row_district">
 		            <div class="select_title fl">

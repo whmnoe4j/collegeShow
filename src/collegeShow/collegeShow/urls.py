@@ -55,7 +55,7 @@ urlpatterns = [
     #专业分数线
     url(r'^api_professionscore/', API.professionscore, name = "professionscore"),
     #推荐学校
-    url(r'^api_recommendSchool/',API.recommendSchool,name='recommendSchool'),
+    url(r'^api_recommendSchool/', API.recommendSchool, name = 'recommendSchool'),
     
     #个人中心
     url(r'^user/', views.user, name = "user"),
@@ -76,5 +76,7 @@ urlpatterns = [
     url(r'^schoolmajor/$', views.schoolmajor, name = 'schoolmajor'),
     #历年分数线
     url(r'^schoolenrol/$', views.schoolenrol, name = 'schoolenrol'),
+    #推荐学校
+    url(r'^recommendschool/$', views.recommendschool, name = 'recommendschool'),
 
 ]

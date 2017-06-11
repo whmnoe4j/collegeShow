@@ -60,10 +60,12 @@
 	    line-height: 52px;
 	    float: left;
 	    color: #333;
-	    /* background: #00D0FF; */
+	     /*background: #00D0FF; */
 	    text-indent: 24px;
-	   
-	
+	   	text-align: center;
+	   	margin: 0px auto;
+	   	width: 100%;
+		
 	}
 
 	caption span {
@@ -342,9 +344,9 @@
 
 							if(i%2==0){
 								
-									$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+									$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a href="/schoolinfo?schoolName='+data.Data[i][1]+'" class="collegeLink pointer tst3" >'+data.Data[i][1]+'</a></td><td>'+data.Data[i][0]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
 							}else{
-									$('.data-tbody').append('<tr  style="background:#EBFBFF;"><td class="collegeId" data_college_id="1"><a class="collegeLink pointer tst3">'+data.Data[i][0]+'</a></td><td>'+data.Data[i][1]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
+									$('.data-tbody').append('<tr  style="background:#EBFBFF;"><td class="collegeId" data_college_id="1"><a href="/schoolinfo?schoolName='+data.Data[i][1]+'" class="collegeLink pointer tst3" >'+data.Data[i][1]+'</a></td><td>'+data.Data[i][0]+'</td><td>'+data.Data[i][2]+'</td><td class="collectBox collect pointer" ></td></tr>')	
 							}
 							
 						}
@@ -408,13 +410,8 @@
         </div>
        {# 右侧内容 #}
      	<div class="rFrame lt">
-	        <div class="no_userinfo">
-			    <div class="rFrame_userInfo">
-			        <ul class="userInfo" id="searchOrUserInfo">
-			            <li id="userInfo"><span id="userInfo_district">北京</span><span id="userInfo_category">理科</span><span id="userInfo_score">分数：123</span><a class="changeUserInfo"><img src="../static/images/write.png" alt="修改分数"></a></li>
-			        </ul>
-			    </div>
-	   		 </div>
+	        <!--引入临时用户 -->
+       		 {% include 'tempuser.html' %}
 	   		 <div class="partLine">
          	<div class="partLine_top">
 
@@ -480,23 +477,19 @@
 		    <table class="data_table">
 			    <caption >
 			    	
-		            <div class="sortBar">
+		            <div class="sortBar" >
 		            	<span class="bar_word">
-	                   	 2016年本科一批高校在北京的录取分数线（理科）
+	                   	 各院校专业排名查询
 	                	</span>
-				        <div class="sortByCollege rt">
-				            <input type="text" placeholder="在结果中搜索学校" class="inputCollege" id="inputCollege">
-				            <span class="collegeSearch"></span>
-				            
-				        </div>
+				        
 				       
 				    </div>
 	        	</caption>
 			  
 		        <thead>
 		            <tr>
-		                <td class="table_head">专业名称</td>
 		                <td class="table_head">院校名称</td>
+		                <td class="table_head">专业名称</td>
 		                <td class="table_head">排名</td>
 		                <td class="table_head">收藏</td>
 		                <!--<td>平均分线差</td>-->

@@ -209,17 +209,18 @@ class EwtNewJiangxi(models.Model):
 
 
 class EwtNewJxMean(models.Model):
-    province = models.CharField(max_length=10, blank=True, null=True)
-    schoolname = models.CharField(max_length=30, blank=True, null=True)
-    profession = models.CharField(max_length=30, blank=True, null=True)
-    year = models.IntegerField(blank=True, null=True)
-    studenttype = models.CharField(db_column='studentType', max_length=4, blank=True, null=True)  # Field name made lowercase.
-    batch = models.CharField(max_length=10, blank=True, null=True)
-    getnum = models.IntegerField(blank=True, null=True)
-    areascoreline = models.IntegerField(blank=True, null=True)
-    meanscore = models.IntegerField(blank=True, null=True)
-    meanrank = models.IntegerField(blank=True, null=True)
-    diffscore = models.IntegerField(blank=True, null=True)
+    province = models.CharField(max_length = 10, blank = True, null = True)
+    schoolprovince = models.CharField(max_length = 10, blank = True, null = True)
+    schoolname = models.CharField(max_length = 30, blank = True, null = True)
+    profession = models.CharField(max_length = 30, blank = True, null = True)
+    year = models.IntegerField(blank = True, null = True)
+    studenttype = models.CharField(db_column = 'studentType', max_length = 4, blank = True, null = True)  # Field name made lowercase.
+    batch = models.CharField(max_length = 10, blank = True, null = True)
+    getnum = models.IntegerField(blank = True, null = True)
+    areascoreline = models.IntegerField(blank = True, null = True)
+    meanscore = models.IntegerField(blank = True, null = True)
+    meanrank = models.IntegerField(blank = True, null = True)
+    diffscore = models.IntegerField(blank = True, null = True)
 
     class Meta:
         managed = False

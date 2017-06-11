@@ -34,9 +34,35 @@
     height: 226px;
     background: url(../static/images/vip_ad.jpg) center no-repeat;
 	}
-
+	.collect {
+    display: block;
+    float: left;
+    position: relative;
+    margin-left: 30px;
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+    background: red;
+    line-height: 25px;
+    background: url(../static/images/star_b.png) no-repeat left center;
+    background-size: auto 100%;
+	}
+	.collect:after {
+	    content: "收藏";
+	    position: absolute;
+	    left: 25px;
+	    width: 50px;
+	    height: 17px;
+	    font-size: 14px;
+	    color: #00BFEC;
+	    text-align: left;
+	}
+	.hidden{
+		display: none;
+	}
 </style>
-
+<link href="../static/css/page.css" type="text/css" rel="stylesheet"/>
+<script type="text/javascript" src="../static/js/page.js"></script>
 <script>window.jQuery || document.write('<script src="../static/js/jquery-1.11.0.min.js"><\/script>')</script>
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -124,6 +150,72 @@
 				})
 			}
 		}
+
+		
+
+		// alert(stuProvince)
+		// alert(stuType)
+		// alert(stuScore)
+
+		function ajax_data(url){
+			$.getJSON(url,function(data){
+					// alert(data.Data)	
+					// $('.recommend_data .pagers').remove();
+					//$('.data_table').append('<tbody class="data-tbody"></tbody>')
+					if (data.Data.length!=0){
+						$('.noData').addClass("hidden");
+							// alert(data.Data)
+						for (var i=0;i<data.Data.length;i++)
+						{
+							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="../static/school-img/清华大学.jpg">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a class="pointer linkCollegeName ellipses" data_college_id="1" title="'+data.Data[i][0]+'">'+data.Data[i][0]+'</a>		                        <span class="collectBox collect pointer" data_college_name="北京大学"></span>		                    </div>		                    <!--<div class="col-md-4 zhpm"><span>综合排名：{{item.rank}}</span></div>-->		                </div>		                <div class="hanggao">		                    <span class="hanggao_font">北京-北京</span>		                    <span class="hanggao_font gc211">985工程</span>		                    <span class="hanggao_font gc211">211工程</span>		                    <span class="hanggao_font"></span>		                    <span class="hanggao_font"></span>		                </div>		                <div class="hanggao" name="link_nav3" data_college_id="1" data_college_name="北京大学">		                    <a class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		                    <a class="pointer fontSize12" data_link_id="zsjh">招生计划</a>&nbsp;|		                    <a class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div>		                    <div class="zhpm">1</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>本科二批录取概率 </span>		                        <img src="img/what.png?v=981571b3bf" alt="" class="what">		                    </div>		                    <div class="bfb"><span class="high">保</span>99.00%</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">2016年录取平均分：--</a>		                    </div>		                </div>		               		            </div>		        </div>		    </div>');
+
+						}
+							
+					}else{
+						$('.noData').removeClass("hidden");
+					}
+				})
+
+		}
+
+
+		if (document.location.href.indexOf('?stuProvince=') ==-1){
+			//获取推荐大学
+			var stuProvince=$('#userInfo_district').html(),
+			stuType=$('#userInfo_category').html(),
+			stuScore=$('#userInfo_score').html();
+			url="/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+			// alert(url)
+			// ajax_data(url)
+
+		}
+//		$(document.body).mLoading("show");//显示loading组件
+		//var recoSchool={{recoSchool|safe}}
+		//alert(recoSchool)
+		//智能推荐
+	 //    function startShow(){
+		// 		var stuProvince=$('#userInfo_district').html(),
+		// 		stuType=$('#userInfo_category').html(),
+		// 		stuScore=$('#userInfo_score').html();
+		// 		;
+		// 		location.href = "/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";//location.href实现客户端页面的跳转 
+				
+		// }
+		// startShow()
+
+		var GG = {
+	        "kk":function(page){
+	        	if (page>1){
+
+	        	var stuProvince=$('#userInfo_district').html(),
+				stuType=$('#userInfo_category').html(),
+				stuScore=$('#userInfo_score').html();
+	        	location.href = "/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page="+page;
+	        	}
+
+	        }
+	    }
+		$("#page").initPage(500,1,GG.kk);
 	});
 
 </script>
@@ -148,21 +240,17 @@
 		            <li class="lpointer mySelected">按分推荐大学</li>
 		            <li class="lpointer">大学录取概率</li>
 		            <li class="lpointer">同分考生去向</li>
-		            <li class="lpointer">专业匹配测评</li>
-		            <li class="lpointer">模拟志愿填报</li>
+		            {# <li class="lpointer">专业匹配测评</li> #}
+		            {# <li class="lpointer">模拟志愿填报</li> #}
 
 		        </ul>
 		    </div>
         </div>
        {# 右侧内容 #}
      	<div class="rFrame lt">
-	        <div class="no_userinfo">
-			    <div class="rFrame_userInfo">
-			        <ul class="userInfo" id="searchOrUserInfo">
-			            <li id="userInfo"><span id="userInfo_district">北京</span><span id="userInfo_category">理科</span><span id="userInfo_score">分数：123</span><a class="changeUserInfo"><img src="../static/images/write.png" alt="修改分数"></a></li>
-			        </ul>
-			    </div>
-	   		 </div>
+     		
+	   		 <!--引入临时用户 -->
+       		 {% include 'tempuser.html' %}
          	<div class="partLine_top">
 		        <div id="row_district">
 		            <div class="select_title fl">
@@ -255,15 +343,93 @@
 		        <div class="sortItem lt sortChecked sortPng">录取概率</div>
 		        <div class="sortItem lt">毕业收入</div>
 		    </div>
+		<div id="recommend_data">
+		   {%if recoSchool%}
+		   {% for school in recoSchool %}
+		   	
+		   
+				<div class="pagers collegeId reported_school" data_college_id="1">
+			        <div class="xiaohui fl">
+			            <img alt="校徽" class="xiaohui_left" src="{{school.school_img}}">
+			        </div>
+			        <div class="fl school_info">
+			            <div class="school_indu fl">
+			                <div class="hanggao">
+			                    <div class="schoolName">
+			                        <a href="/schoolinfo?schoolName={{school.SchoolName}}"class="pointer linkCollegeName ellipses" data_college_id="1" title="{{school.SchoolName}}">{{school.SchoolName}}</a>
+			                        <span class="collectBox collect pointer" data_college_name="{{school.SchoolName}}"></span>
+			                    </div>
+			                    <!--<div class="col-md-4 zhpm"><span>综合排名：{{item.rank}}</span></div>-->
+			                </div>
+			                <div class="hanggao">
+			                    <span class="hanggao_font">{{school.Province}}</span>
+			                    {%ifequal school.f985 '985'%}
+			                    <span class="hanggao_font gc211">{{school.f985}}工程</span>
+			                    {%endifequal%}
+			                    {%ifequal school.f211 '211'%}
+			                    <span class="hanggao_font gc211">{{school.f211}}工程</span>
+			                    {%endifequal%}
+			                    {%ifequal school.fyan '研'%}
+			                    <span class="hanggao_font gc211">研</span>
+			                    {%endifequal%}
+			                    <span class="hanggao_font"></span>
+			                    <span class="hanggao_font"></span>
+			                </div>
+			                <div class="hanggao" name="link_nav3" data_college_id="1" data_college_name="北京大学">
+			                    <a href="/schoolinfo?schoolName={{school.SchoolName}}" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|
+			                    <a  href="/schoolmajor?schoolName={{school.SchoolName}}" class="pointer fontSize12" data_link_id="zsjh">高校专业</a>&nbsp;|
+			                    <a  href="/schoolenrol?schoolName={{school.SchoolName}}" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>
+			                </div>
+			            </div>
 
-    
-		    <div class="noData noBd"><div class="mc"><span class="dataLine"></span> <span>抱歉，暂无相关数据</span> <span class="dataLine"></span></div></div>
+			            <div class="right_lqgl fl">
+			                <div class="lqgl lqgl_zhpm fl">
+			                    <div class="hanggao_font">综合排名</div>
+			                    <div class="zhpm">{{school.Rank}}</div>
+			                </div>
+			                <div class="lqgl lqgl_gl fl">
+			                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">
+			                        <span>{{school.batch}}录取概率 </span>
+			                        <img src="img/what.png?v=981571b3bf" alt="" class="what">
+			                    </div>
+			                    {# <div class="bfb"><span class="high">保</span>99.00%</div> #}
+			                    <div class="bfb"><span class="high"></span>{{school.profession}}</div>
+			                    <div class="lqpjf">
+			                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">{{school.meanscore}}/{{school.meanrank}}/{{school.diffscore}}</a>
+			                    </div>
+			                </div>
+			               
+			            </div>
+			        </div>
+
+			    </div>
+
+		    {% endfor %}
+		    {%else%}
+			    <div class="noData noBd "><div class="mc">
+		    		<span class="dataLine"></span> 
+		    		<span>抱歉，暂无相关数据</span> 
+		    		<span class="dataLine"></span></div>
+			    </div>
+		    {%endif%}
+    	 </div>
+		<!--
+	    	 {%ifequal recoSchool None%}
+			    <div class="noData noBd "><div class="mc">
+		    		<span class="dataLine"></span> 
+		    		<span>抱歉，暂无相关数据</span> 
+		    		<span class="dataLine"></span></div>
+			    </div>
+			{%endifequal%}
+		    
 		    <div class="cover">
 		        <div class="cover_text">
-		            <!--开通VIP，查看全部，为梦想投资-->
+		            开通VIP，查看全部，为梦想投资
 		        </div>
-		        <a href="buyVip.html" class="cover_btn pointer btn_tran">开通VIP</a>
+		        <a href="#" class="cover_btn pointer btn_tran">开通VIP</a>
 		    </div>
+		    -->
+		    <div ><ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page"></ul></div>
         </div>
 
 	</div>

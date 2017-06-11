@@ -45,7 +45,18 @@
 		       // });
 
 
-
+		      //智能推荐
+		      $('.goform_bottom').click(function(){
+					var sel_stuProvince=$('#district option:selected').text().substring(2),
+					sel_stuType=$('#category input:checked').val(),
+					sel_stuScore=$('.scores_all input').val()
+					sel_stuRank=$('.year_rank input').val()
+					;
+					location.href = "/recommendschool/?stuProvince="+sel_stuProvince+"&stuType="+sel_stuType+"&year=2014&score="+sel_stuScore+"&page=1";//location.href实现客户端页面的跳转 
+					
+					
+			})
+		      
 
 	});
 
@@ -97,7 +108,8 @@
                             <div class="coverBox"></div>
                             <select id="district" name="district">
                                 <option value="安徽">A 安徽</option>
-                                <option selected="selected" value="北京">B 北京</option>
+                                <option  value="北京">B 北京</option>
+                                <option value="江西" selected="selected">J 江西</option>
                                 <option value="重庆">C 重庆</option>
                                 <option value="福建">F 福建</option>
                                 <option value="广东">G 广东</option>
@@ -112,7 +124,6 @@
                                 <option value="湖南">H 湖南</option>
                                 <option value="吉林">J 吉林</option>
                                 <option value="江苏">J 江苏</option>
-                                <option value="江西">J 江西</option>
                                 <option value="辽宁">L 辽宁</option>
                                 <option value="内蒙古">N 内蒙古</option>
                                 <option value="宁夏">N 宁夏</option>
