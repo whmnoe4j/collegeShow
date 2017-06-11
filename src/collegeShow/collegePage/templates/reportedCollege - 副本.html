@@ -184,24 +184,30 @@
 			var stuProvince=$('#userInfo_district').html(),
 			stuType=$('#userInfo_category').html(),
 			stuScore=$('#userInfo_score').html();
-			url="/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+			url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+			location.href=url
 			// alert(url)
 			// ajax_data(url)
 
 		}
-//		$(document.body).mLoading("show");//显示loading组件
-		//var recoSchool={{recoSchool|safe}}
-		//alert(recoSchool)
-		//智能推荐
-	 //    function startShow(){
-		// 		var stuProvince=$('#userInfo_district').html(),
-		// 		stuType=$('#userInfo_category').html(),
-		// 		stuScore=$('#userInfo_score').html();
-		// 		;
-		// 		location.href = "/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";//location.href实现客户端页面的跳转 
-				
-		// }
-		// startShow()
+
+
+	   	 //根据点击显示不同省份的内容
+		$('.pull-left').each(function(){
+
+			$(this).click(function(){
+				var stuProvince = $("#district li.mySelected").html(),
+				stuType=$('#userInfo_category').html(),
+	            subject = $("#subject li.mySelected").html(),
+	            stuScore=$('#userInfo_score').html();
+				alert(stuProvince)
+				location.href = "/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1"+"&subject="+subject;
+
+				//ajax_data(url)
+			})
+		
+		})
+
 
 		var GG = {
 	        "kk":function(page){
@@ -238,8 +244,8 @@
 		        <div class="changeNav_school"><i class="icon iconfont icon-xueshimao"></i>院校推荐</div>
 		        <ul class="changeNav">
 		            <li class="lpointer mySelected">按分推荐大学</li>
-		            <li class="lpointer">大学录取概率</li>
-		            <li class="lpointer">同分考生去向</li>
+		            {# <li class="lpointer">大学录取概率</li> #}
+		            {# <li class="lpointer">同分考生去向</li> #}
 		            {# <li class="lpointer">专业匹配测评</li> #}
 		            {# <li class="lpointer">模拟志愿填报</li> #}
 
@@ -312,6 +318,7 @@
 		                <li class="pull-left" data_value="其他">其他</li>
 		            </ul>
 		        </div>
+		        <!--
 		        <div id="row_collegeNature mul">
 		            <div class="select_title fl">
 		                <div class="select_inputDom">院校层次：</div>
@@ -332,6 +339,7 @@
 			        <div class="headTab lt">70%~50%(0)</div>
 			        <div class="headTab lt">50%以下(0)</div>
 		    </div>
+		    -->
 		    <div class="sortBar">
 		        <div class="fl searchTitle">搜索结果列表：</div>
 		        <div class="sortByCollege lt">
@@ -340,8 +348,7 @@
 		            
 		        </div>
 		        <div class="sortItem lt">综合排名</div>
-		        <div class="sortItem lt sortChecked sortPng">录取概率</div>
-		        <div class="sortItem lt">毕业收入</div>
+		        <div class="sortItem lt sortChecked sortPng">录取位次</div>
 		    </div>
 		<div id="recommend_data">
 		   {%if recoSchool%}
@@ -372,10 +379,10 @@
 			                    {%ifequal school.fyan '研'%}
 			                    <span class="hanggao_font gc211">研</span>
 			                    {%endifequal%}
-			                    <span class="hanggao_font"></span>
+			                    <span class="hanggao_font">推荐报考专业-{{school.profession}}</span>
 			                    <span class="hanggao_font"></span>
 			                </div>
-			                <div class="hanggao" name="link_nav3" data_college_id="1" data_college_name="北京大学">
+			                <div class="hanggao" name="link_nav3" data_college_id="1">
 			                    <a href="/schoolinfo?schoolName={{school.SchoolName}}" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|
 			                    <a  href="/schoolmajor?schoolName={{school.SchoolName}}" class="pointer fontSize12" data_link_id="zsjh">高校专业</a>&nbsp;|
 			                    <a  href="/schoolenrol?schoolName={{school.SchoolName}}" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>
@@ -388,12 +395,12 @@
 			                    <div class="zhpm">{{school.Rank}}</div>
 			                </div>
 			                <div class="lqgl lqgl_gl fl">
-			                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">
-			                        <span>{{school.batch}}录取概率 </span>
-			                        <img src="img/what.png?v=981571b3bf" alt="" class="what">
+			                    <div class="pointer hanggao_font" >
+			                        <span>{{school.batch}}录取</span>
 			                    </div>
 			                    {# <div class="bfb"><span class="high">保</span>99.00%</div> #}
-			                    <div class="bfb"><span class="high"></span>{{school.profession}}</div>
+			                    <div class="bfb"><span class="high"></span></div>
+			                    <div class="bfb"><span class="high"></span>平均分数线/平均位次/分差</div>
 			                    <div class="lqpjf">
 			                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">{{school.meanscore}}/{{school.meanrank}}/{{school.diffscore}}</a>
 			                    </div>

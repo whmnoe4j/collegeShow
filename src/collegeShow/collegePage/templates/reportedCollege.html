@@ -162,9 +162,11 @@
 					// alert(data.Data)	
 					// $('.recommend_data .pagers').remove();
 					//$('.data_table').append('<tbody class="data-tbody"></tbody>')
+				
 					if (data.Data.length!=0){
 						$('.noData').addClass("hidden");
-							// alert(data.Data)
+						$('#recommend_data div').remove();
+						alert(data.Data)
 						for (var i=0;i<data.Data.length;i++)
 						{
 							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="../static/school-img/清华大学.jpg">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a class="pointer linkCollegeName ellipses" data_college_id="1" title="'+data.Data[i][0]+'">'+data.Data[i][0]+'</a>		                        <span class="collectBox collect pointer" data_college_name="北京大学"></span>		                    </div>		                    <!--<div class="col-md-4 zhpm"><span>综合排名：{{item.rank}}</span></div>-->		                </div>		                <div class="hanggao">		                    <span class="hanggao_font">北京-北京</span>		                    <span class="hanggao_font gc211">985工程</span>		                    <span class="hanggao_font gc211">211工程</span>		                    <span class="hanggao_font"></span>		                    <span class="hanggao_font"></span>		                </div>		                <div class="hanggao" name="link_nav3" data_college_id="1" data_college_name="北京大学">		                    <a class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		                    <a class="pointer fontSize12" data_link_id="zsjh">招生计划</a>&nbsp;|		                    <a class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div>		                    <div class="zhpm">1</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>本科二批录取概率 </span>		                        <img src="img/what.png?v=981571b3bf" alt="" class="what">		                    </div>		                    <div class="bfb"><span class="high">保</span>99.00%</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">2016年录取平均分：--</a>		                    </div>		                </div>		               		            </div>		        </div>		    </div>');
@@ -184,11 +186,10 @@
 			var stuProvince=$('#userInfo_district').html(),
 			stuType=$('#userInfo_category').html(),
 			stuScore=$('#userInfo_score').html();
-			// url="/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+			url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+			location.href=url
 			// alert(url)
 			// ajax_data(url)
-			url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
-			location.href =url
 
 		}
 
@@ -197,14 +198,15 @@
 		$('.pull-left').each(function(){
 
 			$(this).click(function(){
-				var stuProvince = $("#district li.mySelected").html(),
+				var stuProvince = $("#userInfo_district").html(),
+				schoolProvince=$('#district li.mySelected').html(),
 				stuType=$('#userInfo_category').html(),
 	            subject = $("#subject li.mySelected").html(),
 	            stuScore=$('#userInfo_score').html();
-				alert(stuProvince)
-				location.href = "/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1"+"&subject="+subject;
-	        	
-				//ajax_data(url)
+				
+				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&subject="+subject+"&schoolProvince="+schoolProvince+"&page=1";
+				console.log(url)
+				ajax_data(url)
 			})
 		
 		})
@@ -215,6 +217,7 @@
 	        	if (page>1){
 
 	        	var stuProvince=$('#userInfo_district').html(),
+
 				stuType=$('#userInfo_category').html(),
 				stuScore=$('#userInfo_score').html();
 	        	location.href = "/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page="+page;
