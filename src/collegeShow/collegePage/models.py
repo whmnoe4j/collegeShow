@@ -210,6 +210,7 @@ class EwtNewJiangxi(models.Model):
 
 class EwtNewJxMean(models.Model):
     province = models.CharField(max_length=10, blank=True, null=True)
+    schoolprovince = models.CharField(max_length=10, blank=True, null=True)
     schoolname = models.CharField(max_length=30, blank=True, null=True)
     profession = models.CharField(max_length=30, blank=True, null=True)
     year = models.IntegerField(blank=True, null=True)
