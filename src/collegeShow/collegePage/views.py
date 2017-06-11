@@ -256,6 +256,7 @@ def recommendSchoolName(stuProvince, stuType, Year, score, page):
                 SchoolsDetail = CollegeDetailEwt.objects.get(schoolname = schoolNames)
         except:
             print schoollist.schoolname
+            print schoolNames
             print '匹配学校出错'
         else:   
             SchoolInfo["SchoolName"] = schoollist.schoolname
