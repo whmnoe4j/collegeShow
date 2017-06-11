@@ -513,11 +513,12 @@ def recommendSchool(request):
             scoreDiff = batchDiff[minDiff_index] #应投报的档次线的分差值
             if minDiff > 10 and scoreDiff < 0:  #若最小分值差绝对值大于10而且实际值为负数，说明无法进行补录跳批次录取，需降级
                 if batch.index(min(batch))-1 <= BatchNum -1: 
-                    stuBatch = Batch[batch.index(min(batch))+1]
+                    stuBatch = Batch[minDiff_index+1]
                 else:
                     return HttpResponse(json.dumps({"Result":"True", "Msg":"请确认是否达到批次线"}))
             else:
-                stuBatch = Batch[batch.index(min(batch))]
+                stuBatch = Batch[minDiff_index]
+                
         #查询在分差上下3分区间的学校
         if score:
             schoolList = EwtNewJxMean.objects.filter(province=stuProvince,studenttype=stuType,batch=stuBatch[0],diffscore__lt=(scoreDiff+3),diffscore__gt=(scoreDiff-3)).order_by("-year","-meanscore","diffscore","-getnum")
