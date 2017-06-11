@@ -488,7 +488,15 @@ def recommendSchool(request):
     http://127.0.0.1:8000/api_recommendSchool/?stuProvince=江西&stuType=文科&year=2014&score=468&page=1
     Get：studentProvince(生源地)studentType(1为文科,2为理科)year(当年年限)score(分数)page(数据切页数，每页10条数据)
     Response:{"PageNum": 11, , "Result": "True", "Msg": "Success", "Page": 1,
+        "Data": ["江西服装学院", "江西", "艺术", "民办", "服装与服饰设计", 2015, "本科三批", 18, 447, 25327, -9]], 
+        "Batch": {"Province": "江西", "Bacth": "本科三批", "StuType": "文科", "BatchLine": 450, "Year": "2014"}}
+        
+    http://127.0.0.1:8000/api_recommendSchool/?stuProvince=江西&stuType=文科&year=2014&score=520&page=1&schoolProvince=江西&schoolType=综合&character=公办
+    Get：可选参数    schoolProvince(院校所在地)schoolType(院校类型)character(办学类型)
+    Response:{"PageNum": 11, , "Result": "True", "Msg": "Success", "Page": 1,
         "Data": [["江西服装学院", "服装与服饰设计", 2015, "本科三批", 18, 447, 25327, -9]], 
+        [["井冈山大学", "江西", "综合", "公办", "应用心理学", 2014, "本科一批", 2, 522, 6032, -3], 
+        ["南昌大学", "江西", "综合", "公办", "工商管理类", 2014, "本科一批", 73, 522, 2215, -2]],
         "Batch": {"Province": "江西", "Bacth": "本科三批", "StuType": "文科", "BatchLine": 450, "Year": "2014"}}
     """
     SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
@@ -498,8 +506,12 @@ def recommendSchool(request):
         stuType = request.GET.get("stuType")
         Year = request.GET.get("year")
         score = request.GET.get("score")
-    #     rank = request.GET.get("rank")
+        rank = request.GET.get("rank")
+
         page = int(request.GET.get("page"))
+        schoolProvince = request.GET.get("schoolProvince")
+        schoolType = request.GET.get("schoolType")
+        schoolCharacter = request.GET.get("character")
     
     #     计算分数对应批次线
         Batch = CollegeAreascoreline.objects.filter(provincearea=stuProvince,studentclass=stuType,dateyear=Year)
@@ -522,13 +534,16 @@ def recommendSchool(request):
         #查询在分差上下3分区间的学校
         if score:
             schoolList = EwtNewJxMean.objects.filter(province=stuProvince,studenttype=stuType,batch=stuBatch[0],diffscore__lt=(scoreDiff+3),diffscore__gt=(scoreDiff-3)).order_by("-year","-meanscore","diffscore","-getnum")
+        #排名在上下500名波动
+        if rank:
+            schoolList = EwtNewJxMean.objects.filter(province=stuProvince,studenttype=stuType,batch=stuBatch[0],meanrank__lt=(rank+500),meanrank__gt=(rank-500)).order_by("-year","-meanscore","diffscore","-getnum")
         ListLength = len(schoolList)
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []
         for school in schoolList:
             name = school.schoolname
-            schoolProvince = EwtNewJiangxi.objects.filter(schoolname=name)[0].school_province
+            schoolprovince = school.schoolprovince
             profession = school.profession
             year = school.year
             batch = school.batch
@@ -536,8 +551,25 @@ def recommendSchool(request):
             meanscore = school.meanscore
             meanrank = school.meanrank
             diffscore = school.diffscore
-            resultList.append([name,schoolProvince,profession,year,batch,getnum,meanscore,meanrank,diffscore])
+            
+            if schoolProvince:
+                if schoolprovince != schoolProvince:
+                    continue               
+            school_Detail = CollegeDetailEwt.objects.filter(schoolname=name)
+            if school_Detail:
+                schooltype = school_Detail[0].schooltype
+                character = school_Detail[0].character
+                if schoolType:
+                    if schooltype != schoolType:
+                        continue
+                if schoolCharacter:
+                    if character != schoolCharacter:
+                        continue
+                resultList.append([name,schoolprovince,schooltype,character,profession,year,batch,getnum,meanscore,meanrank,diffscore])
+            else:
+                resultList.append([name,schoolprovince,"不详","不详",profession,year,batch,getnum,meanscore,meanrank,diffscore])
         if page:
+            ListLength = len(resultList)
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
             SuccessResponse["PageNum"] = int(ListLength / 10) + 1
@@ -545,7 +577,5 @@ def recommendSchool(request):
         SuccessResponse["Data"] = resultList
         SuccessResponse["Batch"] = {"Province":stuProvince,"StuType":stuType,"Year":Year,"Bacth":stuBatch[0],"BatchLine":stuBatch[1]}
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
-        
-        return HttpResponse(json.dumps({"Result":"True", "Msg":"Success"}))
     except:
         return HttpResponse(json.dumps(ErrorResponse))
