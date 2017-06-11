@@ -529,7 +529,7 @@ div > .headTab:before {
     line-height: 35px!important;
 }
 .linkCollegeName {
-    width: 72%!important;
+    /*width: 72%!important;*/
     display: inline-block!important;
     float: left;
     font-size: 18px;
