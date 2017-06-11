@@ -57,10 +57,12 @@
                 <li><a id="reportedCollege" href="/reportedCollege">院校推荐</a>
               <ul class="drop">
                 <div>
+                <!--
                   <dt><a href="#">推荐大学</a></dt>
                   <dt><a href="#">推荐专业</a></dt>
                   <dt><a href="#">同分去向</a></dt>
                   <dt><a href="#">大学录取概率</a></dt>
+                -->
                 </div>
               </ul>
             </li>
@@ -79,9 +81,11 @@
                 <li><a href="#">志愿指南</a>
                     <ul class="drop">
                         <div>
+                        <!--
                             <dt><a href="#">平行志愿</a></dt>
                             <dt><a href="#">招生资讯</a></dt>
                             <dt><a href="#">志愿百科</a></dt>
+                        -->
                         </div>
                     </ul>
                 </li>
@@ -94,9 +98,9 @@
 
             {# 搜索框 #}
             <div id="nav-bottom-menu">
-                <form method="get" id="searchform" action="#">
-                    <label for="s" class="assistive-text">搜索</label>
-                    <input type="text" class="field" name="s" id="search" placeholder="搜索" />
+                <form method="get" id="searchform" action="/schoolinfo">
+                    <label for="schoolName" class="assistive-text">搜索</label>
+                    <input type="text" class="field" name="schoolName" id="search" placeholder="搜索" />
                     <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
                     {# <span class="collegeSearch" ></span> #}
                 </form>

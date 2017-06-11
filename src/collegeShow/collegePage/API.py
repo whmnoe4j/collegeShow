@@ -579,3 +579,39 @@ def recommendSchool(request):
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
         return HttpResponse(json.dumps(ErrorResponse))
+
+def CollegeScoreLine(request):
+    """院校分数线API
+    http://127.0.0.1:8000/collegescoreline/?stuProvince=江西&batch=3&stuType=1&year=2014&page=1
+    Get：stuProvince(生源地)stuType(1为文科2为理科3为综合4为其他)batch(录取批次)year(录取年份)page(数据切页数，每页10条数据)
+    Response:{"Msg": "Success", "Start": 0, "Length": 359, "Result": "True",
+        "Data": [["北京信息科技大学", "北京", "2014", 528, 523], ["北京联合大学", "北京", "2014", 523, 522]]}
+    """
+    SuccessResponse = {"Result":"True", "Msg":"Success", "Data":[]}
+    ErrorResponse = {"Result":"False", "Msg":"Error", "Data":[]}
+    try:
+        #从get中提取参数
+        studentProvince = request.GET.get("stuProvince")
+        studentType = request.GET.get("stuType")
+        schoolName = request.GET.get("schoolName")
+        
+        #使用参数过滤数据
+        collegeList = CollegeSchoolscoreline.objects.filter(area_student = studentProvince, name_school = schoolName, studentclass = studentType).order_by('-dateyear')
+        ListLength = len(collegeList)
+        if ListLength == 0:
+            return HttpResponse(json.dumps(SuccessResponse))
+        #初始化数据列表
+        resultList = []
+        for college in collegeList:
+            schoolName = college.name_school
+#            schoolProvince = college.area_school
+            maxScore = college.maxscore
+            meanScore = college.meanscore
+            year = college.dateyear
+            batch = college.batch
+            resultList.append([ schoolName, year, batch, maxScore, meanScore, studentType, studentProvince])
+            
+        SuccessResponse["Data"] = resultList
+        return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
+    except:
+        return HttpResponse(json.dumps(ErrorResponse))

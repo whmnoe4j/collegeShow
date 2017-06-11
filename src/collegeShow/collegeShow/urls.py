@@ -78,5 +78,7 @@ urlpatterns = [
     url(r'^schoolenrol/$', views.schoolenrol, name = 'schoolenrol'),
     #推荐学校
     url(r'^recommendschool/$', views.recommendschool, name = 'recommendschool'),
+    #推荐学校
+    url(r'^api_collegescoreLine/$', API.CollegeScoreLine, name = 'CollegeScoreLine'),
 
 ]
