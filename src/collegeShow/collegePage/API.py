@@ -511,7 +511,7 @@ def recommendSchool(request):
         page = int(request.GET.get("page"))
         schoolProvince = request.GET.get("schoolProvince")
         schoolType = request.GET.get("schoolType")
-        schoolCharacter = request.GET.get("character")
+#         schoolCharacter = request.GET.get("character")
     
     #     计算分数对应批次线
         Batch = CollegeAreascoreline.objects.filter(provincearea = stuProvince, studentclass = stuType, dateyear = Year)
@@ -557,17 +557,34 @@ def recommendSchool(request):
                     continue               
             school_Detail = CollegeDetailEwt.objects.filter(schoolname = name)
             if school_Detail:
-                schooltype = school_Detail[0].schooltype
-                character = school_Detail[0].character
+                school_Detail = school_Detail[0]
+                
+                f985 = school_Detail.f985 if school_Detail.f985 else "非985"
+                f211 = school_Detail.f211 if school_Detail.f211 else "非211"
+                fyan = school_Detail.fyan if school_Detail.fyan else "非研"
+                
+
+                Levels = school_Detail.levels if school_Detail.levels else "暂无"
+                attach_to = school_Detail.attach_to if school_Detail.attach_to else "暂无"
+                Rank = school_Detail.school_rank if school_Detail.school_rank else "暂无"
+                schooltype = school_Detail.schooltype if school_Detail.schooltype else "暂无"
+                character = school_Detail.character if school_Detail.character else "不详"
+                Code = school_Detail.schoolid if school_Detail.schoolid else "00000"
+                Address = school_Detail.postal_address.replace("\r", "") if school_Detail.postal_address else "暂无"
+                Tel = school_Detail.tel.replace("\r", "") if school_Detail.tel else "暂无"
+                KeyDiscipline = school_Detail.key_discipline if school_Detail.key_discipline else "不详"
+                Facukty = school_Detail.faculty if school_Detail.faculty else "不详"
+                OfficeWebsite = school_Detail.official_website if school_Detail.official_website else "不详"
+                
                 if schoolType:
                     if schooltype != schoolType:
                         continue
-                if schoolCharacter:
-                    if character != schoolCharacter:
-                        continue
-                resultList.append([name, schoolprovince, schooltype, character, profession, year, batch, getnum, meanscore, meanrank, diffscore])
+#                 if schoolCharacter:
+#                     if character != schoolCharacter:
+#                         continue
+                resultList.append([name, schoolprovince,schooltype,f985,f211,fyan,Levels,attach_to,Rank,character,Code,Address,Tel,KeyDiscipline,Facukty,OfficeWebsite,profession, year, batch, getnum, meanscore, meanrank, diffscore])
             else:
-                resultList.append([name, schoolprovince, "不详", "不详", profession, year, batch, getnum, meanscore, meanrank, diffscore])
+                resultList.append([name, schoolprovince,"暂无","非985","非211","非研","暂无","暂无","暂无","不详","00000","暂无","暂无","不详","不详","不详",profession, year, batch, getnum, meanscore, meanrank, diffscore])
         if page:
             ListLength = len(resultList)
             start, end = PageSplit(page, ListLength)
