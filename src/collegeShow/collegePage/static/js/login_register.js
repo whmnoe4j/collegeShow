@@ -49,7 +49,6 @@ function register() {
     var stuprovince = $("#register_stuprovince").val();
     var stutype = $("#register_stutype").val();
     var score = $("#registet_score").val();
-    alert(score)
     $.ajax({
         type: "POST",
         data: {
