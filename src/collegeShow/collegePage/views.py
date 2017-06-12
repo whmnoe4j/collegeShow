@@ -49,15 +49,22 @@ def reportedCollege(request):
             return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool})
 
 def collegescoreline(request):
-    #从get中提取参数
-    #API.showCollegeSchoolScoreLine(request)
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = request.session.get("tempUser", "none")
-    if tempUser == "none":
-        return render_to_response("collegescoreline.html")
-    else:
-        return render_to_response("collegescoreline.html", {'tempUser':tempUser, 'loginUser':loginUser})
+    try:
+        #从get中提取参数
+        #API.showCollegeSchoolScoreLine(request)
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser == "none":
+            return render_to_response("collegescoreline.html")
+        else:
+            return render_to_response("collegescoreline.html", {'tempUser':tempUser, 'loginUser':loginUser})
+    except:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser == "none":
+            return render_to_response("collegescoreline.html")
+        else:
+            return render_to_response("collegescoreline.html", {'tempUser':tempUser})
 def user(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
@@ -89,55 +96,94 @@ def user(request):
 
 #地区批次线
 def areascoreline(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = request.session.get("tempUser", "none")
-    if tempUser == 'none':
-        return render_to_response("areascoreline.html")
-    else:
-        return render_to_response("areascoreline.html", {'tempUser':tempUser, 'loginUser':loginUser})
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser == 'none':
+            return render_to_response("areascoreline.html")
+        else:
+            return render_to_response("areascoreline.html", {'tempUser':tempUser, 'loginUser':loginUser})
+    except:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser == 'none':
+            return render_to_response("areascoreline.html")
+        else:
+            return render_to_response("areascoreline.html", {'tempUser':tempUser})
 #一分一段
 def scoreparam(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = request.session.get("tempUser", "none")
-    if tempUser != 'none':
-        return render_to_response("scoreparam.html", {'tempUser':tempUser, 'loginUser':loginUser})
-    else:
-        return render_to_response("scoreparam.html")
+    try:
+        tempUser = request.session.get("tempUser", "none")
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        if tempUser != 'none':
+            return render_to_response("scoreparam.html", {'tempUser':tempUser, 'loginUser':loginUser})
+        else:
+            return render_to_response("scoreparam.html")
+    except:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none':
+            return render_to_response("scoreparam.html", {'tempUser':tempUser})
+        else:
+            return render_to_response("scoreparam.html")
 #专业排名
 def professionrank(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = request.session.get("tempUser", "none")
-    if tempUser != 'none':
-        return render_to_response("professionrank.html", {'tempUser':tempUser, 'loginUser':loginUser})
-    else:
-        return render_to_response("professionrank.html")
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none':
+            return render_to_response("professionrank.html", {'tempUser':tempUser, 'loginUser':loginUser})
+        else:
+            return render_to_response("professionrank.html")
+    except:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none':
+            return render_to_response("professionrank.html", {'tempUser':tempUser})
+        else:
+            return render_to_response("professionrank.html")
 #专业信息
 def professiongroup(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = request.session.get("tempUser", "none")
-    if tempUser != 'none':
-        return render_to_response("professiongroup.html", {'tempUser':tempUser, 'loginUser':loginUser})
-    else:
-        return render_to_response("professiongroup.html")
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none':
+            return render_to_response("professiongroup.html", {'tempUser':tempUser, 'loginUser':loginUser})
+        else:
+            return render_to_response("professiongroup.html")
+    except:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none':
+            return render_to_response("professiongroup.html", {'tempUser':tempUser})
+        else:
+            return render_to_response("professiongroup.html")
 #专业分数线
 def professionscore(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = request.session.get("tempUser", "none")
-    if tempUser != 'none':
-        return render_to_response("professionscore.html", {'tempUser':tempUser, 'loginUser':loginUser})
-    else:
-        return render_to_response("professionscore.html")
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none' :
+            return render_to_response("professionscore.html", {'tempUser':tempUser, 'loginUser':loginUser})
+        else:
+            return render_to_response("professionscore.html")
+    except:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser != 'none' :
+            return render_to_response("professionscore.html", {'tempUser':tempUser})
+        else:
+            return render_to_response("professionscore.html")
 #院校信息
 def schoolinfo(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    SchoolData = getSchoolInfo(request)
-    return render_to_response("school_info.html", {'schoolinfo':SchoolData, 'loginUser':loginUser})
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        SchoolData = getSchoolInfo(request)
+        return render_to_response("school_info.html", {'schoolinfo':SchoolData, 'loginUser':loginUser})
+    except:
+        SchoolData = getSchoolInfo(request)
+        return render_to_response("school_info.html", {'schoolinfo':SchoolData})
 
 #获取学校信息
 def getSchoolInfo(request):
@@ -177,9 +223,9 @@ def getSchoolInfo(request):
 #招生专业
 def schoolmajor(request):
     SchoolInfo = getSchoolInfo(request)
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
     try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
         #学校名称
         schoolName = request.GET.get("schoolName")
         #为什么会连续访问两次呢？
@@ -204,8 +250,29 @@ def schoolmajor(request):
             SchoolMajors.append(SchoolData)
         return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo, 'loginUser':loginUser})
     except:
-        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo, 'loginUser':loginUser})
-
+        #学校名称
+        schoolName = request.GET.get("schoolName")
+        #为什么会连续访问两次呢？
+        print '-----------' + schoolName
+        SchoolMajor = CollegeMajor.objects.filter(schoolname = schoolName)
+        
+        ListLength = len(SchoolMajor)
+        if ListLength == 0:
+            return HttpResponse('没有该学校信息!')
+        SchoolMajors = []
+        print ListLength
+        for school in SchoolMajor:
+            SchoolData = {}
+            SchoolData["SchoolName"] = school.schoolname 
+            SchoolData["edudirectly"] = school.edudirectly 
+            SchoolData["f985"] = school.f985 
+            SchoolData["f211"] = school.f211 
+            SchoolData["schoolprovince"] = school.schoolprovince 
+            SchoolData["specialtype"] = school.specialtype 
+            SchoolData["specialtyname"] = school.specialtyname 
+            SchoolData["level"] = school.level 
+            SchoolMajors.append(SchoolData)
+        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo})
 #历年分数线
 def schoolenrol(request):
     try:
@@ -222,7 +289,7 @@ def schoolenrol(request):
         proidInfo['schoolName'] = schoolName
         proidInfo['stuProvince'] = stuProvince
         proidInfo['stuType'] = stuType
-        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
+        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
     else:
         SchoolData = getSchoolInfo(request)
         schoolName = SchoolData["SchoolName"]
@@ -336,21 +403,34 @@ def recommendSchoolName(stuProvince, stuType, Year, score, page):
         return []
 #按分推荐学校
 def recommendschool(request):
-    loginUserID = request.session.get("loginUser", "none")
-    loginUser = Users.objects.get(id = loginUserID)
-    tempUser = {}
-    #学校名称
-    tempUser['stuProvince'] = request.GET.get("stuProvince")
-    tempUser['stuType'] = request.GET.get("stuType")
-    tempUser['year'] = request.GET.get("year")
-    tempUser['score'] = request.GET.get("score")
-    tempUser['page'] = request.GET.get("page")
-    recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], tempUser['year'], tempUser['score'], tempUser['page'])
-    print tempUser
-    #保存临时的用户成绩分数
-    request.session["tempUser"] = tempUser
-#    print recoSchool
-    return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool, 'loginUser':loginUser})
+    try:
+        loginUserID = request.session.get("loginUser", "none")
+        loginUser = Users.objects.get(id = loginUserID)
+        tempUser = {}
+        #学校名称
+        tempUser['stuProvince'] = request.GET.get("stuProvince")
+        tempUser['stuType'] = request.GET.get("stuType")
+        tempUser['year'] = request.GET.get("year")
+        tempUser['score'] = request.GET.get("score")
+        tempUser['page'] = request.GET.get("page")
+        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], tempUser['year'], tempUser['score'], tempUser['page'])
+        print tempUser
+        #保存临时的用户成绩分数
+        request.session["tempUser"] = tempUser
+        return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool, 'loginUser':loginUser})
+    except:
+        tempUser = {}
+        #学校名称
+        tempUser['stuProvince'] = request.GET.get("stuProvince")
+        tempUser['stuType'] = request.GET.get("stuType")
+        tempUser['year'] = request.GET.get("year")
+        tempUser['score'] = request.GET.get("score")
+        tempUser['page'] = request.GET.get("page")
+        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], tempUser['year'], tempUser['score'], tempUser['page'])
+        print tempUser
+        #保存临时的用户成绩分数
+        request.session["tempUser"] = tempUser
+        return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool})
     
 def auth(func):
     def inner(reqeust, *args, **kwargs):
