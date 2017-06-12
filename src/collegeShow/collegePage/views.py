@@ -21,23 +21,22 @@ def dataSearch(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        
-        if tempUser == 'none':
-            tempUser = {}
-            tempUser['stuProvince'] = loginUser.stuprovince
-            tempUser['stuType'] = loginUser.stutype
-            tempUser['score'] = loginUser.score
-            tempUser['year'] = request.GET.get("year")
-            tempUser['page'] = request.GET.get("page")
-            request.session["tempUser"] = tempUser
-        return render_to_response("dataSearch.html", {"loginUser":loginUser, 'tempUser':tempUser})
+#        tempUser = request.session.get("tempUser", "none")
+#        
+#        if tempUser == 'none':
+#            tempUser = {}
+#            tempUser['stuProvince'] = loginUser.stuprovince
+#            tempUser['stuType'] = loginUser.stutype
+#            tempUser['score'] = loginUser.score
+#            tempUser['year'] = request.GET.get("year")
+#            tempUser['page'] = request.GET.get("page")
+#            request.session["tempUser"] = tempUser
+        return render_to_response("dataSearch.html", {"loginUser":loginUser})
     except:
         print '获取登录用户失败'
         tempUser = request.session.get("tempUser", "none")
         print tempUser
         if tempUser == "none":
-            
             return render_to_response("dataSearch.html")
         else:
             return render_to_response("dataSearch.html", {'tempUser':tempUser})
@@ -45,9 +44,7 @@ def reportedCollege(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        if loginUser:
-            return render_to_response("reportedCollege.html", {"loginUser":loginUser, 'tempUser':tempUser})
+        return render_to_response("reportedCollege.html", {"loginUser":loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser == "none":
@@ -62,11 +59,7 @@ def collegescoreline(request):
         #API.showCollegeSchoolScoreLine(request)
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser == "none":
-            return render_to_response("collegescoreline.html")
-        else:
-            return render_to_response("collegescoreline.html", {'tempUser':tempUser, 'loginUser':loginUser})
+        return render_to_response("collegescoreline.html", {'loginUser':loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser == "none":
@@ -107,11 +100,7 @@ def areascoreline(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser == 'none':
-            return render_to_response("areascoreline.html")
-        else:
-            return render_to_response("areascoreline.html", {'tempUser':tempUser, 'loginUser':loginUser})
+        return render_to_response("areascoreline.html", { 'loginUser':loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser == 'none':
@@ -121,13 +110,9 @@ def areascoreline(request):
 #一分一段
 def scoreparam(request):
     try:
-        tempUser = request.session.get("tempUser", "none")
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        if tempUser != 'none':
-            return render_to_response("scoreparam.html", {'tempUser':tempUser, 'loginUser':loginUser})
-        else:
-            return render_to_response("scoreparam.html")
+        return render_to_response("scoreparam.html", {'loginUser':loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser != 'none':
@@ -139,11 +124,7 @@ def professionrank(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none':
-            return render_to_response("professionrank.html", {'tempUser':tempUser, 'loginUser':loginUser})
-        else:
-            return render_to_response("professionrank.html")
+        return render_to_response("professionrank.html", {'loginUser':loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser != 'none':
@@ -155,11 +136,7 @@ def professiongroup(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none':
-            return render_to_response("professiongroup.html", {'tempUser':tempUser, 'loginUser':loginUser})
-        else:
-            return render_to_response("professiongroup.html")
+        return render_to_response("professiongroup.html", { 'loginUser':loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser != 'none':
@@ -171,11 +148,7 @@ def professionscore(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none' :
-            return render_to_response("professionscore.html", {'tempUser':tempUser, 'loginUser':loginUser})
-        else:
-            return render_to_response("professionscore.html")
+        return render_to_response("professionscore.html", {'loginUser':loginUser})
     except:
         tempUser = request.session.get("tempUser", "none")
         if tempUser != 'none' :
@@ -286,9 +259,6 @@ def schoolenrol(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-        tempUser = request.session.get("tempUser", "none")
-        stuProvince = tempUser["stuProvince"]
-    except:
         SchoolData = getSchoolInfo(request)
         stuProvince = SchoolData["Province"]
         schoolName = SchoolData["SchoolName"]
@@ -297,8 +267,8 @@ def schoolenrol(request):
         proidInfo['schoolName'] = schoolName
         proidInfo['stuProvince'] = stuProvince
         proidInfo['stuType'] = stuType
-        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
-    else:
+        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
+    except:
         SchoolData = getSchoolInfo(request)
         schoolName = SchoolData["SchoolName"]
         stuType = '理科'
@@ -306,7 +276,7 @@ def schoolenrol(request):
         proidInfo['schoolName'] = schoolName
         proidInfo['stuProvince'] = stuProvince
         proidInfo['stuType'] = stuType
-        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
+        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
 def PageSplit(page, length):
     "提供页数和数据总长度返回切片起点和终点"
     start = (int(page) - 1) * 10
@@ -418,10 +388,10 @@ def recommendschool(request):
         #学校名称
         tempUser['stuProvince'] = request.GET.get("stuProvince")
         tempUser['stuType'] = request.GET.get("stuType")
-        tempUser['year'] = request.GET.get("year")
+#        tempUser['year'] = request.GET.get("year")
         tempUser['score'] = request.GET.get("score")
-        tempUser['page'] = request.GET.get("page")
-        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], tempUser['year'], tempUser['score'], tempUser['page'])
+#        tempUser['page'] = request.GET.get("page")
+        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
         print tempUser
         #保存临时的用户成绩分数
         request.session["tempUser"] = tempUser
