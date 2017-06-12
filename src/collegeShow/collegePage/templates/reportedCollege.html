@@ -178,17 +178,17 @@
 		}
 
 
-		if (document.location.href.indexOf('?stuProvince=') ==-1){
-			//获取推荐大学
-			var stuProvince=$('#userInfo_district').html(),
-			stuType=$('#userInfo_category').html(),
-			stuScore=$('#userInfo_score').html();
-			url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
-			location.href=url
-			// alert(url)
-			// ajax_data(url)
+		// if (document.location.href.indexOf('?stuProvince=') ==-1){
+		// 	//获取推荐大学
+		// 	var stuProvince=$('#userInfo_district').html(),
+		// 	stuType=$('#userInfo_category').html(),
+		// 	stuScore=$('#userInfo_score').html();
+		// 	url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+		// 	location.href=url
+		// 	// alert(url)
+		// 	// ajax_data(url)
 
-		}
+		// }
 
 
 	   	 //根据点击显示不同省份的内容
@@ -236,9 +236,7 @@
 
 	        }
 	    }
-	    $('.changeUserInfo').click(function(){
-	    	location.href = "/";
-	    })
+	    
 
 		$("#page").initPage(100,1,GG.kk);
 	});

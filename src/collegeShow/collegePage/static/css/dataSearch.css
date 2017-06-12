@@ -153,6 +153,7 @@ li {
     height: 38px;
     margin-left: 5px;
     vertical-align: middle;
+    cursor: pointer;
 }
 .userInfo li {
     /* width: 200px; */
