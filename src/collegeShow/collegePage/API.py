@@ -477,6 +477,7 @@ def editUser(request):
             loginUser.username = Name
             loginUser.sex = sex
             loginUser.stuprovince = stuProvince
+            loginUser.stutype = stuType
             loginUser.schooladdress = schoolAddress
             loginUser.score = score
             loginUser.save()
