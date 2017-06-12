@@ -21,10 +21,10 @@
 .login_register {
     position: absolute;
     z-index: 3000;
-    width: 25%;
+    width: 35%;
     height: 500px;
     left: 35%;
-    top: 200px;
+    top: 100px;
     background-color: #fff;
     align-content: center;
     text-align: center;

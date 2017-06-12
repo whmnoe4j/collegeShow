@@ -47,7 +47,12 @@
         })
     }
 </script>
-
+<style type="text/css">
+    
+    .logpointer{
+        cursor: pointer;
+    }
+</style>
 <div id="head-container">
     <div id="head-fixed">
         {# 导航栏 #}
@@ -137,9 +142,9 @@
                     <div class="NullDiv"></div>
                     <div class="inputDiv log_Div"><input id="login_password" class="inputText huise" type="password" placeholder="密码"></div>
                     <div class="NullDiv"></div>
-                    <div class="ClickDiv log_Div lpointer"><a class="inputText" onclick="login()">登录</a></div>
+                    <div class="ClickDiv log_Div logpointer"><a class="inputText" onclick="login()">登录</a></div>
                     <div class="NullDiv"></div>
-                    <div class="inputDiv log_Div">没有账号？请<a class="inputText lpointer" style="color:red" onclick="show_register()">注册</a></div>
+                    <div class="inputDiv log_Div">没有账号？请<a class="inputText logpointer" style="color:red" onclick="show_register()">注册</a></div>
                     <div class="NullDiv"></div>
                 </div>
                 <div class="register login_register">
@@ -167,9 +172,9 @@
                     <div class="inputDiv log_Div"><input id="registet_score" class="inputText  huise" type="text" placeholder="分数"></div>
 
                     <div class="NullDiv2"></div>
-                    <div class="ClickDiv log_Div lpointer"><a class="inputText" onclick="register()">注册</a></div>
+                    <div class="ClickDiv log_Div logpointer"><a class="inputText" onclick="register()">注册</a></div>
                     <div class="NullDiv2"></div>
-                    <div class="inputDiv log_Div "><a class="inputTex lpointert" style="color:red" onclick="show_login()">已有账号？请登录</a></div>
+                    <div class="inputDiv log_Div ">已有账号？请<a class="inputTex logpointer" style="color:red" onclick="show_login()">登录</a></div>
                     <div class="NullDiv"></div>
                 </div>
             </div>

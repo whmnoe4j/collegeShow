@@ -22,8 +22,16 @@ def dataSearch(request):
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
         tempUser = request.session.get("tempUser", "none")
-        if loginUser:
-            return render_to_response("dataSearch.html", {"loginUser":loginUser, 'tempUser':tempUser})
+        
+        if tempUser == 'none':
+            tempUser = {}
+            tempUser['stuProvince'] = loginUser.stuprovince
+            tempUser['stuType'] = loginUser.stutype
+            tempUser['score'] = loginUser.score
+            tempUser['year'] = request.GET.get("year")
+            tempUser['page'] = request.GET.get("page")
+            request.session["tempUser"] = tempUser
+        return render_to_response("dataSearch.html", {"loginUser":loginUser, 'tempUser':tempUser})
     except:
         print '获取登录用户失败'
         tempUser = request.session.get("tempUser", "none")

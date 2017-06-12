@@ -8,7 +8,7 @@ function infoFrame(userFrameStr) {
 function editInfo() {
     // 编辑信息函数
     var userInfo_name = $("#userInfo_name");
-    var inputHTML_name = "<input type='text' class='edit_input' id='Edited_name' placeholder='" + userInfo_name.text() + "'>";
+    var inputHTML_name = "<input type='text' class='edit_input' id='Edited_name' value='" + userInfo_name.text() + "'>";
     userInfo_name.html(inputHTML_name);
 
     var userInfo_sex = $("#userInfo_sex");
@@ -25,11 +25,11 @@ function editInfo() {
 
 
     var userInfo_schoolAddress = $("#userInfo_schoolAddress");
-    var inputHTML_schoolAddress = "<input type='text' class='edit_input' id='Edited_schoolAddress' placeholder='" + userInfo_schoolAddress.text() + "'>";
+    var inputHTML_schoolAddress = "<input type='text' class='edit_input' id='Edited_schoolAddress' value='" + userInfo_schoolAddress.text() + "'>";
     userInfo_schoolAddress.html(inputHTML_schoolAddress);
 
     var userInfo_score = $("#userInfo_score");
-    var inputHTML_score = "<input type='text' class='edit_input' id='Edited_score' placeholder='" + userInfo_score.text() + "'>";
+    var inputHTML_score = "<input type='text' class='edit_input' id='Edited_score' value='" + userInfo_score.text() + "'>";
     userInfo_score.html(inputHTML_score);
 
     var buttonHTML = "<a onclick='SaveInfo();'>保存信息</a>";
