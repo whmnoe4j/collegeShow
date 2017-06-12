@@ -9,6 +9,7 @@
         var subnavs = nav.getElementsByTagName("div");
         var paddingbottom = 0;
         var defaultHeight = 0;
+
         function drop(obj, ivalue) {
             var a = obj.offsetHeight;
             var speed = (ivalue - obj.offsetHeight) / 3;
@@ -41,7 +42,7 @@
             }
         }
 
-        $('.changeUserInfo').click(function(){
+        $('.changeUserInfo').click(function() {
             location.href = "/";
         })
     }
@@ -59,33 +60,33 @@
            </span>
 
                 <li><a id="reportedCollege" href="/reportedCollege">院校推荐</a>
-              <ul class="drop">
-                <div>
-                <!--
+                    <ul class="drop">
+                        <div>
+                            <!--
                   <dt><a href="#">推荐大学</a></dt>
                   <dt><a href="#">推荐专业</a></dt>
                   <dt><a href="#">同分去向</a></dt>
                   <dt><a href="#">大学录取概率</a></dt>
                 -->
-                </div>
-              </ul>
-            </li>
-            <li><a href="/dataSearch">数据查询</a>
+                        </div>
+                    </ul>
+                </li>
+                <li><a href="/dataSearch">数据查询</a>
 
-              <ul class="drop">
-                <div>
-                  <dt><a href="/dataSearch">院校大全</a></dt>
-                  <dt><a href="/professiongroup">专业大全</a></dt>
-                  <dt><a href="/professionscore">专业分数线</a></dt>
-                  <dt><a href="/collegescoreline">大学分数线</a></dt>
-                </div>
-              </ul>
-            
-            </li>
+                    <ul class="drop">
+                        <div>
+                            <dt><a href="/dataSearch">院校大全</a></dt>
+                            <dt><a href="/professiongroup">专业大全</a></dt>
+                            <dt><a href="/professionscore">专业分数线</a></dt>
+                            <dt><a href="/collegescoreline">大学分数线</a></dt>
+                        </div>
+                    </ul>
+
+                </li>
                 <li><a href="#">志愿指南</a>
                     <ul class="drop">
                         <div>
-                        <!--
+                            <!--
                             <dt><a href="#">平行志愿</a></dt>
                             <dt><a href="#">招生资讯</a></dt>
                             <dt><a href="#">志愿百科</a></dt>
@@ -105,8 +106,7 @@
                 <form method="get" id="searchform" action="/schoolinfo">
                     <label for="schoolName" class="assistive-text">搜索</label>
                     <input type="text" class="field" name="schoolName" id="search" placeholder="搜索" />
-                    <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" />
-                    {# <span class="collegeSearch" ></span> #}
+                    <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search" /> {# <span class="collegeSearch"></span> #}
                 </form>
             </div>
             <link rel="stylesheet" href="./../static/css/login_register.css">
@@ -135,7 +135,7 @@
                     <div class="NullDiv"></div>
                     <div class="inputDiv log_Div"><input id="login_username" class="inputText huise" type="text" placeholder="用户名"></div>
                     <div class="NullDiv"></div>
-                    <div class="inputDiv log_Div"><input id="login_password" class="inputText huise" type="text" placeholder="密码"></div>
+                    <div class="inputDiv log_Div"><input id="login_password" class="inputText huise" type="password" placeholder="密码"></div>
                     <div class="NullDiv"></div>
                     <div class="ClickDiv log_Div lpointer"><a class="inputText" onclick="login()">登录</a></div>
                     <div class="NullDiv"></div>
@@ -144,10 +144,9 @@
                 </div>
                 <div class="register login_register">
                     <div class="NullDiv"></div>
-                    <div class="NullDiv2"></div>
                     <div class="inputDiv log_Div"><input id="register_username" class="inputText  huise" type="text" placeholder="用户名"></div>
                     <div class="NullDiv2"></div>
-                    <div class="inputDiv log_Div"><input id="register_password" class="inputText  huise" type="text" placeholder="密码"></div>
+                    <div class="inputDiv log_Div"><input id="register_password" class="inputText  huise" type="password" placeholder="密码"></div>
                     <div class="NullDiv2"></div>
                     <div class="inputDiv log_Div">
                         <select name="" id="register_stuprovince" class="inputText  huise">
@@ -165,9 +164,12 @@
                         </select>
                     </div>
                     <div class="NullDiv2"></div>
+                    <div class="inputDiv log_Div"><input id="registet_score" class="inputText  huise" type="text" placeholder="分数"></div>
+
+                    <div class="NullDiv2"></div>
                     <div class="ClickDiv log_Div lpointer"><a class="inputText" onclick="register()">注册</a></div>
                     <div class="NullDiv2"></div>
-                    <div class="inputDiv log_Div "><a class="inputTex lpointert"  style="color:red"  onclick="show_login()">已有账号？请登录</a></div>
+                    <div class="inputDiv log_Div "><a class="inputTex lpointert" style="color:red" onclick="show_login()">已有账号？请登录</a></div>
                     <div class="NullDiv"></div>
                 </div>
             </div>

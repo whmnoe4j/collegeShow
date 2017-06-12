@@ -387,13 +387,14 @@ def register(request):
         PassWd = request.POST.get("password")
         stuProvince = request.POST.get("stuProvince")
         stuType = request.POST.get("stuType")
+        stuScore = request.POST.get("score")
         if Name and PassWd and stuProvince and stuType:
             try:
                 user = Users.objects.get(username = Name)
                 if user:
                     return HttpResponse(json.dumps({"Result":"False", "Msg":"用户已存在"}))
             except:
-                user = Users(username = Name, password = PassWd, stuprovince = stuProvince, stutype = stuType)
+                user = Users(username = Name, password = PassWd, stuprovince = stuProvince, stutype = stuType,score = stuScore)
                 user.save()
                 request.session["loginUser"] = user.id
                 return HttpResponse(json.dumps({"Result":"True", "Msg":"注册成功"}))

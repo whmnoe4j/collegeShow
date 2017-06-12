@@ -48,6 +48,8 @@ function register() {
     var password = $("#register_password").val();
     var stuprovince = $("#register_stuprovince").val();
     var stutype = $("#register_stutype").val();
+    var score = $("#registet_score").val();
+    alert(score)
     $.ajax({
         type: "POST",
         data: {
@@ -55,6 +57,7 @@ function register() {
             "password": password,
             "stuProvince": stuprovince,
             "stuType": stutype,
+            "score": score,
         },
         url: "/register/",
         cache: false,
@@ -62,7 +65,7 @@ function register() {
         success: function(data, status, xml) {
             data = JSON.parse(data);
             alert(data.Msg);
-            // window.location.href = "/";
+            window.location.href = "/";
         }
     })
 }
