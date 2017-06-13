@@ -60,6 +60,37 @@
 	.hidden{
 		display: none;
 	}
+
+	.wen{
+		background: #009ACD;
+	}
+	.chong{
+		background: red;
+	}
+	.bao{
+		background: cornflowerblue;
+	}
+	.dian{
+		background: #A0522D;
+	}
+	.rmb{
+		color: #2D95D7;
+		font-size: 16px;
+	}
+	.key_word{
+		/*background: red;*/
+		display: inline-block;
+	    font-size: 19px;
+	    margin-left: 20px;
+	    color: #fff;
+	    border-radius: 5px;
+	    /*background: red;*/
+	    width: 28px;
+	    height: 28px;
+	    line-height: 28px;
+	    text-align: center;
+	    margin-right: 5px;
+	}
 </style>
 <link href="../static/css/page.css" type="text/css" rel="stylesheet"/>
 <script type="text/javascript" src="../static/js/page.js"></script>
@@ -163,7 +194,24 @@
 						//alert(data.Data)
 						for (var i=0;i<data.Data.length;i++)
 						{
-							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="'+data.Data[i][23]+'">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer linkCollegeName ellipses" data_college_id="1" >'+data.Data[i][0]+'</a>		                        <span class="collectBox  pointer" style="color:#00BFEC;overflow:hidden;">'+data.Data[i][16]+'</span>		                    </div>	</div>		                <div class="hanggao">		                    <span class="hanggao_font">'+data.Data[i][1]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][3]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][4]+'</span><span class="hanggao_font gc211">'+data.Data[i][5]+'</span>		                    <span class="hanggao_font"></span>		                </div>	<div class="hanggao" name="link_nav3" data_college_id="1" >	<a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		   <a href="/schoolmajor?schoolName='+data.Data[i][0]+'"class="pointer fontSize12" data_link_id="zsjh">招生计划</a>&nbsp;|	<a href="/schoolenrol?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div> <div class="zhpm">'+data.Data[i][8]+'</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>'+data.Data[i][18]+'录取 </span></div>		                    <div class="bfb"><span class="high"></span>平均分数线/平均位次/分差</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">'+data.Data[i][20]+'/'+data.Data[i][21]+'/'+data.Data[i][22]+'</a>		                    </div>		                </div>		               		            </div>		        </div>		    </div>');
+							
+							var stuScoreDiff=data.Data[i][17]
+							var schScoreDiff=data.Data[i][22]
+							if (stuScoreDiff<=schScoreDiff){
+								showWord='冲'
+								showClass='chong'
+							}else if ( stuScoreDiff-schScoreDiff>3 && stuScoreDiff-schScoreDiff<=5){
+								showWord='稳'
+								showClass='wen'
+							}else if ( stuScoreDiff-schScoreDiff>5 && stuScoreDiff-schScoreDiff<8){
+								showWord='保'
+								showClass='bao'
+							}else if ( stuScoreDiff-schScoreDiff>=8 && stuScoreDiff-schScoreDiff<=10){
+								showWord='垫'
+								showClass='dian'
+							}
+
+							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="'+data.Data[i][23]+'">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer linkCollegeName ellipses" data_college_id="1" >'+data.Data[i][0]+'</a>		                        <span class="collectBox  pointer" style="color:#00BFEC;overflow:hidden;">'+data.Data[i][16]+'</span>		                    </div>	</div>		                <div class="hanggao">		                    <span class="hanggao_font">'+data.Data[i][1]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][3]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][4]+'</span><span class="hanggao_font gc211">'+data.Data[i][5]+'</span>		                    <span class="hanggao_font"></span>		                </div>	<div class="hanggao" name="link_nav3" data_college_id="1" >	<a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		   <a href="/schoolmajor?schoolName='+data.Data[i][0]+'"class="pointer fontSize12" data_link_id="zsjh">招生计划</a>&nbsp;|	<a href="/schoolenrol?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div> <div class="zhpm">'+data.Data[i][8]+'</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>'+data.Data[i][18]+'录取 </span></div>		                    <div class="bfb"><span class="high"></span>平均分数线/平均位次/分差</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">'+data.Data[i][20]+'/'+data.Data[i][21]+'/'+data.Data[i][22]+'</a>	 </div>	 </div>	<div class="lqgl lqgl_zhpm fl">	<div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" >考生与批次线分差</div><div class="rmb">'+data.Data[i][17]+'<span class="key_word '+showClass+'">'+showWord+'</span></div> </div> </div>	 </div>	 </div>');
 
 						}
 							
@@ -366,6 +414,7 @@
 		        </div>
 		        <div class="sortItem lt">综合排名</div>
 		        <div class="sortItem lt sortChecked sortPng">录取位次</div>
+		        <div class="sortItem lt sortChecked">稳冲保垫</div>
 		    </div>
 		<div id="recommend_data">
 		   {%if recoSchool%}
@@ -422,7 +471,12 @@
 			                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">{{school.meanscore}}/{{school.meanrank}}/{{school.diffscore}}</a>
 			                    </div>
 			                </div>
-			               
+			               <div class="lqgl lqgl_zhpm fl">
+		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" >
+		                        毕业五年月薪 <img src="img/what.png?v=981571b3bf" alt="" class="what">
+		                    </div>
+		                    <div class="rmb">12900<span class="yuan">¥</span></div>
+             			   </div>
 			            </div>
 			        </div>
 

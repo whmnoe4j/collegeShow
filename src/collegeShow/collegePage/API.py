@@ -394,7 +394,7 @@ def register(request):
                 if user:
                     return HttpResponse(json.dumps({"Result":"False", "Msg":"用户已存在"}))
             except:
-                user = Users(username = Name, password = PassWd, stuprovince = stuProvince, stutype = stuType,score = stuScore)
+                user = Users(username = Name, password = PassWd, stuprovince = stuProvince, stutype = stuType, score = stuScore)
                 user.save()
                 request.session["loginUser"] = user.id
                 return HttpResponse(json.dumps({"Result":"True", "Msg":"注册成功"}))
@@ -509,14 +509,15 @@ def recommendSchool(request):
         Year = request.GET.get("year")
         score = request.GET.get("score")
         rank = request.GET.get("rank")
-
+    
         page = int(request.GET.get("page"))
         schoolProvince = request.GET.get("schoolProvince")
         schoolType = request.GET.get("schoolType")
-#         schoolCharacter = request.GET.get("character")
-    
+    #         schoolCharacter = request.GET.get("character")
+        
     #     计算分数对应批次线
         Batch = CollegeAreascoreline.objects.filter(provincearea = stuProvince, studentclass = stuType, dateyear = Year)
+        
         if Batch:
             Batch = [[x.batch, x.scoreline] for x in Batch]#查询所有批次线
             BatchNum = len(Batch) #计算存在多少个批次线
@@ -532,31 +533,31 @@ def recommendSchool(request):
                     return HttpResponse(json.dumps({"Result":"True", "Msg":"请确认是否达到批次线"}))
             else:
                 stuBatch = Batch[minDiff_index]
-                
+            stuScoreDiff = int(score) - stuBatch[1]
         #查询在分差上下3分区间的学校
         if score:
-            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 3)).order_by("-year", "-meanscore", "diffscore", "-getnum")
+            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 10)).order_by("meanrank")
         #排名在上下500名波动
         if rank:
-            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], meanrank__lt = (rank + 500), meanrank__gt = (rank - 500)).order_by("-year", "-meanscore", "diffscore", "-getnum")
+            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], meanrank__lt = (rank + 500), meanrank__gt = (rank - 500)).order_by("-meanscore", "diffscore", "-getnum")
         ListLength = len(schoolList)
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []
+        
         for school in schoolList:
             name = school.schoolname
             schoolprovince = school.schoolprovince
             profession = school.profession
-            year = school.year
             batch = school.batch
             getnum = school.getnum
             meanscore = school.meanscore
             meanrank = school.meanrank
             diffscore = school.diffscore
-            
             if schoolProvince:
                 if schoolprovince != schoolProvince:
-                    continue               
+                    continue    
+                       
             school_Detail = CollegeDetailEwt.objects.filter(schoolname = name)
             if school_Detail:
                 school_Detail = school_Detail[0]
@@ -565,7 +566,7 @@ def recommendSchool(request):
                 f211 = school_Detail.f211 if school_Detail.f211 else "非211"
                 fyan = school_Detail.fyan if school_Detail.fyan else "非研"
                 
-
+    
                 Levels = school_Detail.levels if school_Detail.levels else "暂无"
                 attach_to = school_Detail.attach_to if school_Detail.attach_to else "暂无"
                 Rank = school_Detail.school_rank if school_Detail.school_rank else "暂无"
@@ -581,12 +582,11 @@ def recommendSchool(request):
                 if schoolType:
                     if schooltype != schoolType:
                         continue
-#                 if schoolCharacter:
-#                     if character != schoolCharacter:
-#                         continue
-                resultList.append([name, schoolprovince, schooltype, f985, f211, fyan, Levels, attach_to, Rank, character, Code, Address, Tel, KeyDiscipline, Facukty, OfficeWebsite, profession, year, batch, getnum, meanscore, meanrank, diffscore, school_img])
+                resultList.append([name, schoolprovince, schooltype, f985, f211, fyan, Levels, attach_to, Rank, character, Code, Address, Tel, KeyDiscipline, Facukty, OfficeWebsite, profession, stuScoreDiff, batch, getnum, meanscore, meanrank, diffscore, school_img])
             else:
-                resultList.append([name, schoolprovince, "暂无", "非985", "非211", "非研", "暂无", "暂无", "暂无", "不详", "00000", "暂无", "暂无", "不详", "不详", "不详", profession, year, batch, getnum, meanscore, meanrank, diffscore])
+                print name + ":暂无该信息"
+                resultList.append([name, schoolprovince, "暂无", "非985", "非211", "非研", "暂无", "暂无", "暂无", "不详", "00000", "暂无", "暂无", "暂无", "不详", "不详", profession, stuScoreDiff, batch, getnum, meanscore, meanrank, diffscore, ''])
+    #            return HttpResponse(json.dumps(ErrorResponse))
         if page:
             ListLength = len(resultList)
             start, end = PageSplit(page, ListLength)
@@ -594,11 +594,10 @@ def recommendSchool(request):
             SuccessResponse["PageNum"] = int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
-        SuccessResponse["Batch"] = {"Province":stuProvince, "StuType":stuType, "Year":Year, "Bacth":stuBatch[0], "BatchLine":stuBatch[1]}
+        SuccessResponse["Batch"] = {"Province":stuProvince, "StuType":stuType, "Year":Year, "Bacth":stuBatch[0], "BatchLine":stuBatch[1], 'StuScoreDiff':stuScoreDiff}
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
         return HttpResponse(json.dumps(ErrorResponse))
-
 def CollegeScoreLine(request):
     """院校分数线API
     http://127.0.0.1:8000/collegescoreline/?stuProvince=江西&batch=3&stuType=1&year=2014&page=1
