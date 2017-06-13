@@ -61,9 +61,6 @@ urlpatterns = [
     url(r'^user/', views.user, name = "user"),
     url(r"^edit_user/", API.editUser, name = "editUser"),
     
-    
-    
-    
     url(r'^scoreparam/', views.scoreparam, name = 'scoreparam'),
     url(r'^professionrank/', views.professionrank, name = 'professionrank'),
     #专业大全

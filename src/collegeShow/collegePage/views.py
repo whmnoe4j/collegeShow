@@ -21,16 +21,6 @@ def dataSearch(request):
     try:
         loginUserID = request.session.get("loginUser", "none")
         loginUser = Users.objects.get(id = loginUserID)
-#        tempUser = request.session.get("tempUser", "none")
-#        
-#        if tempUser == 'none':
-#            tempUser = {}
-#            tempUser['stuProvince'] = loginUser.stuprovince
-#            tempUser['stuType'] = loginUser.stutype
-#            tempUser['score'] = loginUser.score
-#            tempUser['year'] = request.GET.get("year")
-#            tempUser['page'] = request.GET.get("page")
-#            request.session["tempUser"] = tempUser
         return render_to_response("dataSearch.html", {"loginUser":loginUser})
     except:
         print '获取登录用户失败'
@@ -50,7 +40,7 @@ def reportedCollege(request):
         if tempUser == "none":
             return render_to_response("reportedCollege.html")
         else:
-            recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], tempUser['year'], tempUser['score'], tempUser['page'])
+            recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
             return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool})
 
 def collegescoreline(request):
@@ -76,24 +66,6 @@ def user(request):
             return render_to_response("index.html")
     except:
         return render_to_response("index.html")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #地区批次线
 def areascoreline(request):
@@ -270,6 +242,7 @@ def schoolenrol(request):
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
     except:
         SchoolData = getSchoolInfo(request)
+        stuProvince = SchoolData["Province"]
         schoolName = SchoolData["SchoolName"]
         stuType = '理科'
         proidInfo = {}
@@ -404,7 +377,7 @@ def recommendschool(request):
         tempUser['year'] = request.GET.get("year")
         tempUser['score'] = request.GET.get("score")
         tempUser['page'] = request.GET.get("page")
-        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], tempUser['year'], tempUser['score'], tempUser['page'])
+        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
         print tempUser
         #保存临时的用户成绩分数
         request.session["tempUser"] = tempUser

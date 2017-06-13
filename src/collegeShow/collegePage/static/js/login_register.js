@@ -37,8 +37,10 @@ function login() {
         success: function(data, status, xml) {
             data = JSON.parse(data);
             alert(data.Msg);
+            
             hideMask();
-            window.location.href = "/";
+            //window.location.href = "/";
+            location.reload()
         }
     })
 }
