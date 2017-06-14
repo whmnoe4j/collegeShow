@@ -536,11 +536,33 @@ def recommendSchool(request):
             stuScoreDiff = int(score) - stuBatch[1]
         #查询在分差上下3分区间的学校
         if score:
-            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 10)).order_by("meanrank")
+#            print u'按分数'
+            #根据用户提供的参数进行不同的搜索
+            if schoolProvince != ''and schoolType == '':
+    #            print u'只根据学校位置筛选'
+                schoolList = EwtNewJxMean.objects.filter(schoolprovince = schoolProvince, province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 10)).order_by("meanrank")
+            elif schoolType != ''and schoolProvince == '':
+    #            print u'根据学校类型筛选'
+                schoolList = EwtNewJxMean.objects.filter(schooltype = schoolType, province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 10)).order_by("meanrank")
+            elif schoolProvince != '' and schoolType != '':
+    #            print u'根据学校类型和学校位置筛选'
+                schoolList = EwtNewJxMean.objects.filter(schooltype = schoolType, schoolprovince = schoolProvince, province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 10)).order_by("meanrank")
+            else: 
+    #            print u'不限制筛选'
+                schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 10)).order_by("meanrank")  
         #排名在上下500名波动
         if rank:
-            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], meanrank__lt = (rank + 500), meanrank__gt = (rank - 500)).order_by("-meanscore", "diffscore", "-getnum")
+            print u'按排名'
+            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], meanrank__lt = (rank + 200), meanrank__gt = (rank - 500)).order_by("meanrank", "diffscore", "-getnum")
+        
+        #分页位置调整
+        schoolListLength = len(schoolList)
+        start, end = PageSplit(page, schoolListLength)
+        schoolList = schoolList[start:end]
+        SuccessResponse["PageNum"] = int(schoolListLength / 10) + 1
+        SuccessResponse["Page"] = page
         ListLength = len(schoolList)
+        
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []
@@ -554,19 +576,12 @@ def recommendSchool(request):
             meanscore = school.meanscore
             meanrank = school.meanrank
             diffscore = school.diffscore
-            if schoolProvince:
-                if schoolprovince != schoolProvince:
-                    continue    
-                       
             school_Detail = CollegeDetailEwt.objects.filter(schoolname = name)
             if school_Detail:
                 school_Detail = school_Detail[0]
-                
                 f985 = school_Detail.f985 if school_Detail.f985 else "非985"
                 f211 = school_Detail.f211 if school_Detail.f211 else "非211"
                 fyan = school_Detail.fyan if school_Detail.fyan else "非研"
-                
-    
                 Levels = school_Detail.levels if school_Detail.levels else "暂无"
                 attach_to = school_Detail.attach_to if school_Detail.attach_to else "暂无"
                 Rank = school_Detail.school_rank if school_Detail.school_rank else "暂无"
@@ -579,25 +594,16 @@ def recommendSchool(request):
                 Facukty = school_Detail.faculty if school_Detail.faculty else "不详"
                 OfficeWebsite = school_Detail.official_website if school_Detail.official_website else "不详"
                 school_img = school_Detail.school_img
-                if schoolType:
-                    if schooltype != schoolType:
-                        continue
                 resultList.append([name, schoolprovince, schooltype, f985, f211, fyan, Levels, attach_to, Rank, character, Code, Address, Tel, KeyDiscipline, Facukty, OfficeWebsite, profession, stuScoreDiff, batch, getnum, meanscore, meanrank, diffscore, school_img])
             else:
-                print name + ":暂无该信息"
+                print name + u":暂无该信息"
                 resultList.append([name, schoolprovince, "暂无", "非985", "非211", "非研", "暂无", "暂无", "暂无", "不详", "00000", "暂无", "暂无", "暂无", "不详", "不详", profession, stuScoreDiff, batch, getnum, meanscore, meanrank, diffscore, ''])
-    #            return HttpResponse(json.dumps(ErrorResponse))
-        if page:
-            ListLength = len(resultList)
-            start, end = PageSplit(page, ListLength)
-            resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
-            SuccessResponse["Page"] = page
+        
         SuccessResponse["Data"] = resultList
         SuccessResponse["Batch"] = {"Province":stuProvince, "StuType":stuType, "Year":Year, "Bacth":stuBatch[0], "BatchLine":stuBatch[1], 'StuScoreDiff':stuScoreDiff}
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
-        return HttpResponse(json.dumps(ErrorResponse))
+        return HttpResponse(json.dumps(ErrorResponse, encoding = 'utf8', ensure_ascii = False))
 def CollegeScoreLine(request):
     """院校分数线API
     http://127.0.0.1:8000/collegescoreline/?stuProvince=江西&batch=3&stuType=1&year=2014&page=1

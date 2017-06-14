@@ -44,18 +44,19 @@
 		       //    $(this).animate({top:"150px"},250);
 		       // });
 
-
+		       //改用form表单提交
 		      //智能推荐
-		      $('.goform_bottom').click(function(){
-					var sel_stuProvince=$('#district option:selected').text().substring(2),
-					sel_stuType=$('#category input:checked').val(),
-					sel_stuScore=$('.scores_all input').val()
-					sel_stuRank=$('.year_rank input').val()
-					;
-					location.href = "/recommendschool/?stuProvince="+sel_stuProvince+"&stuType="+sel_stuType+"&year=2014&score="+sel_stuScore+"&page=1";//location.href实现客户端页面的跳转 
+		 //      $('.goform_bottom').click(function(){
+			// 		var sel_stuProvince=$('#district option:selected').text().substring(2),
+			// 		sel_stuType=$('#category input:checked').val(),
+			// 		sel_stuScore=$('.scores_all input').val()
+			// 		sel_stuRank=$('.year_rank input').val()
+			// 		;
+			// 		postUrl= "/recommendschool/?stuProvince="+sel_stuProvince+"&stuType="+sel_stuType+"&score="+sel_stuScore;
+
+			// 		$('#recommendForm').attr('action',postUrl)
 					
-					
-			})
+			// })
 		      
 
 	});
@@ -99,14 +100,14 @@
 		{# 悬浮框 #}
 		<div class="suspendBox">
                 <div class="suspend">
-                    <form class="form-horizontal goform">
+                    <form class="form-horizontal goform" id='recommendForm' action="/recommendschool/" method="post">
                         <div>
                             <label class="labelTitle">大学智能推荐系统</label>
                         </div>
                        
                         <div class="district">
                             <div class="coverBox"></div>
-                            <select id="district" name="district">
+                            <select id="district" name="stuProvince">
                                 <option value="安徽">A 安徽</option>
                                 <option  value="北京">B 北京</option>
                                 <option value="江西" selected="selected">J 江西</option>
@@ -143,10 +144,10 @@
                         <div class="refer_other">
                             <div id="category" class="category">
                                 <label>
-                                    <input type="radio" name="category" class="obj labelItem" id="inlineRadio1" value="文科"> 文科
+                                    <input type="radio" name="stuType" class="obj labelItem" id="inlineRadio2" checked="checked" value="理科"> 理科
                                 </label>
                                 <label>
-                                    <input type="radio" name="category" class="obj labelItem" id="inlineRadio2" checked="checked" value="理科"> 理科
+                                    <input type="radio" name="stuType" class="obj labelItem" id="inlineRadio1" value="文科"> 文科
                                 </label>
                             </div>
                             <div class="changing_over">
@@ -164,10 +165,9 @@
                                 </div>
                        	     </div>
                         </div>
-                        
-                        <div class="goform_bottom">
-                            <input type="button" class="go-refer" value="开始智能推荐">
-                        </div>
+	                        <div class="goform_bottom">
+	                            <input type="submit" class="go-refer" value="开始智能推荐">
+	                        </div>
                     </form>
                     <div class="tips"></div>
             </div>

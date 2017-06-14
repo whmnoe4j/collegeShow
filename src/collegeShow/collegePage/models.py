@@ -219,6 +219,7 @@ class EwtNewJxMean(models.Model):
     meanscore = models.IntegerField(blank = True, null = True)
     meanrank = models.IntegerField(blank = True, null = True)
     diffscore = models.IntegerField(blank = True, null = True)
+    schooltype = models.CharField(max_length = 30, blank = True, null = True)
 
     class Meta:
         managed = False

@@ -200,7 +200,7 @@
 							if (stuScoreDiff<=schScoreDiff){
 								showWord='冲'
 								showClass='chong'
-							}else if ( stuScoreDiff-schScoreDiff>3 && stuScoreDiff-schScoreDiff<=5){
+							}else if ( stuScoreDiff-schScoreDiff>=2 && stuScoreDiff-schScoreDiff<=5){
 								showWord='稳'
 								showClass='wen'
 							}else if ( stuScoreDiff-schScoreDiff>5 && stuScoreDiff-schScoreDiff<8){
@@ -209,6 +209,9 @@
 							}else if ( stuScoreDiff-schScoreDiff>=8 && stuScoreDiff-schScoreDiff<=10){
 								showWord='垫'
 								showClass='dian'
+							}else{
+								showWord='冲'
+								showClass='chong'
 							}
 
 							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="'+data.Data[i][23]+'">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer linkCollegeName ellipses" data_college_id="1" >'+data.Data[i][0]+'</a>		                        <span class="collectBox  pointer" style="color:#00BFEC;overflow:hidden;">'+data.Data[i][16]+'</span>		                    </div>	</div>		                <div class="hanggao">		                    <span class="hanggao_font">'+data.Data[i][1]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][3]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][4]+'</span><span class="hanggao_font gc211">'+data.Data[i][5]+'</span>		                    <span class="hanggao_font"></span>		                </div>	<div class="hanggao" name="link_nav3" data_college_id="1" >	<a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		   <a href="/schoolmajor?schoolName='+data.Data[i][0]+'"class="pointer fontSize12" data_link_id="zsjh">招生计划</a>&nbsp;|	<a href="/schoolenrol?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div> <div class="zhpm">'+data.Data[i][8]+'</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>'+data.Data[i][18]+'录取 </span></div>		                    <div class="bfb"><span class="high"></span>平均分数线/平均位次/分差</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">'+data.Data[i][20]+'/'+data.Data[i][21]+'/'+data.Data[i][22]+'</a>	 </div>	 </div>	<div class="lqgl lqgl_zhpm fl">	<div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" >考生与批次线分差</div><div class="rmb">'+data.Data[i][17]+'<span class="key_word '+showClass+'">'+showWord+'</span></div> </div> </div>	 </div>	 </div>');
@@ -278,6 +281,7 @@
 				if (subject=='不限'){
 					subject=''
 				}
+
 				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&page="+page;
 				// alert(url)
 				ajax_data(url)
@@ -285,7 +289,7 @@
 	        }
 	    }
 	    
-
+		// alert("{{ tempUser.stuProvince }}")
 		$("#page").initPage(100,1,GG.kk);
 	});
 
@@ -369,7 +373,7 @@
 		            <ul class="select_items fl mul" id="subject">
 		                <li class="pull-left mySelected" data_value="不限">不限</li>
 		                <li class="pull-left" data_value="综合">综合</li>
-		                <li class="pull-left" data_value="理工">理工</li>
+		                <li class="pull-left" data_value="工科">工科</li>
 		                <li class="pull-left" data_value="农林">农林</li>
 		                <li class="pull-left" data_value="医药">医药</li>
 		                <li class="pull-left" data_value="政法">政法</li>
@@ -380,7 +384,8 @@
 		                <li class="pull-left" data_value="艺术">艺术</li>
 		                <li class="pull-left" data_value="军事">军事</li>
 		                <li class="pull-left" data_value="体育">体育</li>
-		                <li class="pull-left" data_value="其他">其他</li>
+		                <li class="pull-left" data_value="农业">农业</li>
+		                <li class="pull-left" data_value="林业">林业</li>
 		            </ul>
 		        </div>
 		        <!--

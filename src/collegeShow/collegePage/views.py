@@ -352,37 +352,29 @@ def recommendSchoolName(stuProvince, stuType, Year, score, page):
         return schoolData
     except:
         return []
+    
+
 #按分推荐学校
 def recommendschool(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        tempUser = {}
-        #学校名称
-        tempUser['stuProvince'] = request.GET.get("stuProvince")
-        tempUser['stuType'] = request.GET.get("stuType")
-#        tempUser['year'] = request.GET.get("year")
-        tempUser['score'] = request.GET.get("score")
-#        tempUser['page'] = request.GET.get("page")
-        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
-        print tempUser
-        #保存临时的用户成绩分数
-        request.session["tempUser"] = tempUser
-        return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool, 'loginUser':loginUser})
-    except:
-        tempUser = {}
-        #学校名称
-        tempUser['stuProvince'] = request.GET.get("stuProvince")
-        tempUser['stuType'] = request.GET.get("stuType")
-        tempUser['year'] = request.GET.get("year")
-        tempUser['score'] = request.GET.get("score")
-        tempUser['page'] = request.GET.get("page")
-        recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
-        print tempUser
-        #保存临时的用户成绩分数
-        request.session["tempUser"] = tempUser
-        return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool})
-    
+    if request.method == 'POST':
+        try:
+            loginUserID = request.session.get("loginUser", "none")
+            loginUser = Users.objects.get(id = loginUserID)
+            return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
+        except:
+            tempUser = {}
+            #学校名称
+            tempUser['stuProvince'] = request.POST.get("stuProvince")
+            tempUser['stuType'] = request.POST.get("stuType")
+            tempUser['score'] = request.POST.get("score")
+            print '------------get'
+            print tempUser
+            #recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
+            #保存临时的用户成绩分数
+            request.session["tempUser"] = tempUser
+            return render_to_response("reportedCollege.html", {'tempUser':tempUser})
+    else:
+        return render_to_response("reportedCollege.html")
 def auth(func):
     def inner(reqeust, *args, **kwargs):
         v = reqeust.COOKIES.get('user')
