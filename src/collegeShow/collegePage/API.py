@@ -10,7 +10,6 @@ from django.shortcuts import render, render_to_response, redirect
 from models import *
 
 import json
-import numpy as np
 
 SchoolTypeList = ["综合", "工科", "农业", "林业", "医药", "政法", "师范", "财经", "民族", "语言", "艺术", "军事", "体育", "其他"]
 # BatchList = ["本科提前批","本科一批","本科二批","本科三批","专科提前批","专科批","专科一批","专科二批"]
