@@ -80,7 +80,7 @@
 </style>
 
 <link href="../static/css/page.css" type="text/css" rel="stylesheet"/>
-<script type="text/javascript" src="../static/js/page.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function(){
 
@@ -118,8 +118,6 @@
 
 		})
 		function probClass(name,clasName){
-
-			
 
 			$(name).each(function(){
 				$(this).click(function(){
@@ -177,10 +175,14 @@
 			$('.data-tbody').remove();
 			$('.data_table').append('<tbody class="data-tbody"></tbody>')
 			$(document.body).mLoading("show");//显示loading组件
-			$.getJSON(url,function(data){
+				$.getJSON(url,function(data){
+				
+
+				// alert()
 				if (data.Data.length!=0){
 					$('.noData').addClass("hidden");
 					$(document.body).mLoading("hide");//显示loading组件
+					$('.pages').removeClass("hidden");
 						for (var i=0;i<data.Data.length;i++)
 						{
 							//alert(data.Data[i][0])
@@ -197,6 +199,7 @@
 				}else{
 					$(document.body).mLoading("hide");//显示loading组件
 					$('.noData').removeClass("hidden");
+					$('.pages').addClass("hidden");
 				}
 			})
 	    }
@@ -208,41 +211,37 @@
 			$(this).click(function(){
 				//院校位置
 				var sch_province = $("#sch_province li.mySelected").html(),
-				// sel_district = $("#district li.mySelected").html(),
 				//院校类型 师范工科
 	            sel_subject = $("#subject li.mySelected").html(),
 	            //公办民办
 	            sel_collegeCharacter = $("#collegeCharacter li.mySelected").html(),
-	            // sel_round = $("#round li.mySelected").html(),
-	            //院校层次 本科专科
-	            //sel_collegeNature = $("#collegeNature li.mySelected").html(),
-	            // sel_category = $("#category li.mySelected").html(),
-	            // sel_year = $("#year li.mySelected").html();
-	            // sel_zydl = $("#zydl li.mySelected").html(),
-	            // sel_xklb=$("#xklb li.mySelected").html(),
-	            // sel_mClass = $("#mclass li.mySelected").html()
-	            // sel_mClass2 = $("#mclass2 li.mySelected").html(),
-	            // sel_mClassold = $("#mclassold li.mySelected").html()
-	            // sel_mClassold2 = $("#mclassold2 li.mySelected").html();
-
-				// url="/api_collegescoreline/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1"
+	          
 				url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page=1"
 
 				// alert(url)
 		        $(".bar_word").html('<lable class="lable_key">'+sch_province+'</lable>高校,院校类型'+'<lable class="lable_key">'+sel_subject+'</lable>,院校层次'+'<lable class="lable_key">'+sel_collegeCharacter+'</lable>')
-				ajax_data(url)
+				// ajax_data(url)
+				$.getJSON(url,function(data){
+
+				$('.allPage').html(data.PageNum)
+				$("#Pagination").pagination(data.PageNum,{
+		            load_first_page:true,//插件加载时是否回调当前页码
+		            callback:function(current_page){
+		                //回调函数,当前页码为current_page，页码编号从0开始
+		               // alert(current_page+1)
+		               nextPage(current_page+1)
+
+		            }
+		      	  });
+				})
 			})
 		
 		})
 	  
 		
 		// 分页
-	
-	 	totalPage=0
-	    var GG = {
-	        "kk":function(page){
-
-	           var sch_province = $("#sch_province li.mySelected").html(),
+	  	function nextPage(page){
+	  		var sch_province = $("#sch_province li.mySelected").html(),
 				//院校类型 师范工科
 	            sel_subject = $("#subject li.mySelected").html(),
 	            //院校 公办民办
@@ -254,11 +253,73 @@
 				//alert(url)
 				//console.log(url)
 				ajax_data(url)
-	        }
-	    }
-	  
+	  	}
 		
-	    $("#page").initPage(30,1,GG.kk);
+	    function startUp(){
+	    	
+	    	var sch_province = $("#sch_province li.mySelected").html(),
+				//院校类型 师范工科
+	            sel_subject = $("#subject li.mySelected").html(),
+	            //院校 公办民办
+	            sel_collegeCharacter = $("#collegeCharacter li.mySelected").html(),
+
+		        url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page=1"
+
+	    	$.getJSON(url,function(data){
+
+				$('.allPage').html(data.PageNum)
+
+				// nextPage(1)
+				$("#Pagination").pagination(data.PageNum,{
+		            load_first_page:true,//插件加载时是否回调当前页码
+		            callback:function(current_page){
+		                //回调函数,当前页码为current_page，页码编号从0开始
+		               // alert(current_page+1)
+		               nextPage(current_page+1)
+		            }
+		      	  });
+			})
+	    	
+	    }
+	    startUp()
+	    //go-to -page
+	     $(".page-btn").click(function(){
+		     var allPage = $(".allPage").text();
+		    	//console.log(allPage);
+		      var goPage = $(".page-go input").val()-1; //跳转页数
+
+		     
+		      if(goPage > -1 && goPage < allPage){
+		      		// $('.pagination a').removeClass('current')
+		      		//$('.pagination a:eq('+goPage+')').addClass('current')
+		      			
+					var sch_province = $("#sch_province li.mySelected").html(),
+					//院校类型 师范工科
+		            sel_subject = $("#subject li.mySelected").html(),
+		            //院校 公办民办
+		            sel_collegeCharacter = $("#collegeCharacter li.mySelected").html(),
+
+			        url="/api_college/?schoolProvince="+sch_province+"&schoolType="+sel_subject+"&character="+sel_collegeCharacter+"&page=1"
+
+			    	$.getJSON(url,function(data){
+
+						$('.allPage').html(data.PageNum)
+
+						// nextPage(1)
+						$("#Pagination").pagination(data.PageNum,{
+				            load_first_page:true,//插件加载时是否回调当前页码
+				            current_page:goPage,
+				             callback:function(current_page){
+				               
+				               nextPage(current_page+1)
+				            }
+				      	  });
+					})
+		      }
+		      //清空用户跳转页数
+		      $(".page-go input").val("");
+		});
+	   
 	});
 	
 	
@@ -325,7 +386,8 @@
                 <div class="select_inputDom">院校类型：</div>
             </div>
             <ul class="select_items fl" id="subject">
-			    <li class="pull-left mySelected" data_value="综合">综合</li>
+			    <li class="pull-left mySelected" data_value="不限">不限</li>
+			    <li class="pull-left " data_value="综合">综合</li>
 			    <li class="pull-left" data_value="理工">工科</li>
 			    <li class="pull-left" data_value="农林">农林</li>
 			    <li class="pull-left" data_value="林业">林业</li>
@@ -404,7 +466,9 @@
 		</div>	
 	 
 		    {# <div id="pager" class="pager clearfix"></div>	 #}
-		    <div style="margin:0px auto; width:600px;"><ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page"></ul></div>
+		    {# <div style="margin:0px auto; width:600px;"><ul class="page" maxshowpageitem="5" pagelistcount="10"  id="page"></ul></div> #}
+		    {# 引入分页 #}
+		    {% include "dividePage.html" %}
         </div>
  </div>
 	</div>

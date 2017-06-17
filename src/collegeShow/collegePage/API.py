@@ -44,8 +44,16 @@ def showCollege(request):
         character = request.GET.get("character")
         page = int(request.GET.get("page"))
         
-        SchoolList = CollegeDetailEwt.objects.filter(character = character, address = schoolProvince, schooltype = schoolType).order_by("school_rank")
+        if schoolType != u"不限":
+            print schoolType
+            SchoolList = CollegeDetailEwt.objects.filter(character = character, address = schoolProvince, schooltype = schoolType).order_by("school_rank")
+        else:
+            print u"不限"
+            SchoolList = CollegeDetailEwt.objects.filter(character = character, address = schoolProvince).order_by("school_rank")
+        
         ListLength = len(SchoolList)
+        print ListLength
+        
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
         resultList = []
@@ -71,7 +79,7 @@ def showCollege(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         
@@ -112,7 +120,7 @@ def showCollegeSchoolScoreLine(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)#int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
@@ -347,7 +355,7 @@ def sameScore(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
@@ -422,6 +430,8 @@ def professionscore(request):
         studentType = request.GET.get("stuType")
         #高考年份
         year = int(request.GET.get("year"))
+        #学院名称
+        schoolName = request.GET.get("schoolName")
         
         page = int(request.GET.get("page"))
         print studentProvince, batch, studentType, year, page
@@ -430,7 +440,11 @@ def professionscore(request):
             
         else:
             return HttpResponse(json.dumps(ErrorResponse))
-        DataList = tempObject.objects.filter(province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
+        #按院校名称查询
+        if schoolName != None:
+            DataList = tempObject.objects.filter(schoolname__contains = schoolName, province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
+        else:
+            DataList = tempObject.objects.filter(province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
         ListLength = len(DataList)
         
         if ListLength == 0:
@@ -452,12 +466,12 @@ def professionscore(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
-        print u'数据库不存在该表:' 
+        print u'没有该省数据'
         return HttpResponse(json.dumps(ErrorResponse))
 
 def editUser(request):

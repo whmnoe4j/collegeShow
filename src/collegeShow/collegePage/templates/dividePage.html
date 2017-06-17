@@ -1,17 +1,8 @@
-<div id='next_pre'>  
-             <div id='next_pre_content'>
-                <span id="next_pre_box">
-                     <!-- 如果当前是第一页，就不显示【上一页】链接 --> 
-                    <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageFirst">首页  </a>
-                    {% ifnotequal curPage 1 %}  
-                        <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageUp" > 上一页  </a>  
-                    {% endifnotequal %}
-                                     第<label style="color:red;">{{ curPage }}</label>/{{ allPage }}页   
-                     <!-- 如果当前是最后一页，就不显示【下一页】链接 -->  
-                    {% ifnotequal curPage allPage %} 
-                        <a href="?curPage={{ curPage }}&&allPage={{ allPage }}&&pageType=pageDown">下一页  </a>  
-                    {% endifnotequal %}
-                    <a href="?curPage={{ allPage }}&&allPage={{ allPage }}&&pageType=pageLast">尾页  </a>
-                </span> 
-            </div>
+<div class="pages">
+    <div id="Pagination"></div>
+    <div class="searchPage">
+      <span class="page-sum">共<strong class="allPage">15</strong>页</span>
+      <span class="page-go">跳转<input type="text">页</span>
+      <a href="javascript:;" class="page-btn">GO</a>
+    </div>
 </div>
