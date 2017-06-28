@@ -91,6 +91,21 @@
 	    text-align: center;
 	    margin-right: 5px;
 	}
+	.bar_word{
+	    font-family: '微软雅黑 Bold', '微软雅黑';
+	    /* font-weight: 700; */
+	    font-size: 16px;
+	    height: 52px;
+	    line-height: 52px;
+	    float: left;
+	    color: #333;
+	    /* background: #00D0FF; */
+	    text-indent: 24px;
+	
+	}
+	.lable_key{
+		color: red;
+	}
 </style>
 {# <link href="../static/css/page.css" type="text/css" rel="stylesheet"/> #}
 {# <script type="text/javascript" src="../static/js/page.js"></script> #}
@@ -185,38 +200,61 @@
 
 		function ajax_data(url){
 			$.getJSON(url,function(data){
-					
+
+				if (data.Data.length!=0){
+						
+					$(".bar_word").html('<lable class="lable_key">'+data.Batch['Year']+'</lable>年<lable class="lable_key">'+data.Batch['Province']+data.Batch['StuType']+'</lable>考生'+'<lable class="lable_key">'+data.Batch['Bacth']+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+data.Batch['BatchLine']+'</lable>'+'）')
 					//alert(data.PageNum)
-					if (data.Data.length!=0){
+
 						$('.noData').addClass("hidden");
 						$('.pages').removeClass("hidden");
 
 						$('#recommend_data div').remove();
 						$(document.body).mLoading("hide");//显示loading组件
 						//alert(data.Data)
+
 						for (var i=0;i<data.Data.length;i++)
 						{
 							
 							var stuScoreDiff=data.Data[i][17]
 							var schScoreDiff=data.Data[i][22]
-							if (stuScoreDiff<=schScoreDiff){
-								showWord='冲'
-								showClass='chong'
-							}else if ( stuScoreDiff-schScoreDiff>=2 && stuScoreDiff-schScoreDiff<=5){
-								showWord='稳'
-								showClass='wen'
-							}else if ( stuScoreDiff-schScoreDiff>5 && stuScoreDiff-schScoreDiff<8){
-								showWord='保'
-								showClass='bao'
-							}else if ( stuScoreDiff-schScoreDiff>=8 && stuScoreDiff-schScoreDiff<=10){
-								showWord='垫'
-								showClass='dian'
-							}else{
-								showWord='冲'
-								showClass='chong'
-							}
+							var stuScore=data.Data[i][24]
+							var stuRank=data.Data[i][25]
+							var schRank=data.Data[i][21]
+							if (parseInt(stuRank)!=0){
 
-							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="'+data.Data[i][23]+'">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer linkCollegeName ellipses" data_college_id="1" >'+data.Data[i][0]+'</a>		                        <span class="collectBox  pointer" style="color:#00BFEC;overflow:hidden;">'+data.Data[i][16]+'</span>		                    </div>	</div>		                <div class="hanggao">		                    <span class="hanggao_font">'+data.Data[i][1]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][3]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][4]+'</span><span class="hanggao_font gc211">'+data.Data[i][5]+'</span>		                    <span class="hanggao_font"></span>		                </div>	<div class="hanggao" name="link_nav3" data_college_id="1" >	<a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		   <a href="/schoolmajor?schoolName='+data.Data[i][0]+'"class="pointer fontSize12" data_link_id="zsjh">招生计划</a>&nbsp;|	<a href="/schoolenrol?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div> <div class="zhpm">'+data.Data[i][8]+'</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>'+data.Data[i][18]+'录取 </span></div>		                    <div class="bfb"><span class="high"></span>平均分数线/平均位次/分差</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">'+data.Data[i][20]+'/'+data.Data[i][21]+'/'+data.Data[i][22]+'</a>	 </div>	 </div>	<div class="lqgl lqgl_zhpm fl">	<div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" >考生与批次线分差</div><div class="rmb">'+data.Data[i][17]+'<span class="key_word '+showClass+'">'+showWord+'</span></div> </div> </div>	 </div>	 </div>');
+								if (schRank-stuRank<100){
+									showWord='冲'
+									showClass='chong'
+								}else if (schRank-stuRank>=100 && schRank-stuRank<=1000){
+									showWord='稳'
+									showClass='wen'
+								}else if (schRank-stuRank>1000 && schRank-stuRank<1500){
+									showWord='保'
+									showClass='bao'
+								}else if (schRank-stuRank>=1500 && schRank-stuRank<=2000){
+									showWord='垫'
+									showClass='dian'
+								}
+							}else{
+								if (stuScoreDiff<=schScoreDiff){
+									showWord='冲'
+									showClass='chong'
+								}else if ( stuScoreDiff-schScoreDiff>=2 && stuScoreDiff-schScoreDiff<=5){
+									showWord='稳'
+									showClass='wen'
+								}else if ( stuScoreDiff-schScoreDiff>5 && stuScoreDiff-schScoreDiff<8){
+									showWord='保'
+									showClass='bao'
+								}else if ( stuScoreDiff-schScoreDiff>=8 && stuScoreDiff-schScoreDiff<=10){
+									showWord='垫'
+									showClass='dian'
+								}else{
+									showWord='冲'
+									showClass='chong'
+								}
+							}
+							$('#recommend_data').append('<div class="pagers collegeId reported_school" data_college_id="1">       <div class="xiaohui fl">		            <img alt="校徽" class="xiaohui_left" src="'+data.Data[i][23]+'">		        </div>		        <div class="fl school_info">		            <div class="school_indu fl">		                <div class="hanggao">		                    <div class="schoolName">		                        <a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer linkCollegeName ellipses" title="'+data.Data[i][0]+'" >'+data.Data[i][0]+'</a>		                        <span class="collectBox  pointer" style="color:#00BFEC;overflow:hidden;">'+data.Data[i][16]+'</span>		                    </div>	</div>		                <div class="hanggao">		                    <span class="hanggao_font">'+data.Data[i][1]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][3]+'</span>		                    <span class="hanggao_font gc211">'+data.Data[i][4]+'</span><span class="hanggao_font gc211">'+data.Data[i][5]+'</span>		                    <span class="hanggao_font"></span>		                </div>	<div class="hanggao" name="link_nav3" data_college_id="1" >	<a href="/schoolinfo?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="xxjj">学校简介</a>&nbsp;|		   <a href="/schoolmajor?schoolName='+data.Data[i][0]+'"class="pointer fontSize12" data_link_id="zsjh">开设专业</a>&nbsp;|	<a href="/schoolenrol?schoolName='+data.Data[i][0]+'" class="pointer fontSize12" data_link_id="lqsj">录取数据</a>		                </div>		            </div>		            <div class="right_lqgl fl">		                <div class="lqgl lqgl_zhpm fl">		                    <div class="hanggao_font">综合排名</div> <div class="zhpm">'+data.Data[i][8]+'</div>		                </div>		                <div class="lqgl lqgl_gl fl">		                    <div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" data-delay="1000" data-original-title="" title="">		                        <span>'+data.Data[i][18]+'录取 </span></div>		                    <div class="bfb"><span class="high"></span>平均分数线/平均位次/分差</div>		                    		                    <div class="lqpjf">		                    	<a class="historyScore fontSize12" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="left auto" data-delay="200" data-content="" data-original-title="" title="">'+data.Data[i][20]+'/'+data.Data[i][21]+'/'+data.Data[i][22]+'</a>	 </div>	 </div>	<div class="lqgl lqgl_zhpm fl">	<div class="pointer hanggao_font" data-trigger="hover" data-container="body" data-toggle="popover" data-placement="auto" >考生与批次线分差</div><div class="rmb">'+data.Data[i][17]+'<span class="key_word '+showClass+'">'+showWord+'</span></div> </div> </div>	 </div>	 </div>');
 
 						}
 							
@@ -236,7 +274,7 @@
 		// 	var stuProvince=$('#userInfo_district').html(),
 		// 	stuType=$('#userInfo_category').html(),
 		// 	stuScore=$('#userInfo_score').html();
-		// 	url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&page=1";
+		// 	url="/recommendschool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&page=1";
 		// 	location.href=url
 		// 	// alert(url)
 		// 	// ajax_data(url)
@@ -248,20 +286,21 @@
 		$('.pull-left').each(function(){
 
 			$(this).click(function(){
-
+				$('#inputCollege').val("");
 				$(document.body).mLoading("show");//显示loading组件
 				var stuProvince = $("#userInfo_district").html(),
 				schoolProvince=$('#district li.mySelected').html(),
 				stuType=$('#userInfo_category').html(),
 	            subject = $("#subject li.mySelected").html(),
-	            stuScore=$('#userInfo_score').html();
+	            stuScore=$('#userInfo_score').html(),
+				stuRank=$('#userInfo_rank').html();
 				if (schoolProvince=='不限'){
 					schoolProvince=''
 				}
 				if (subject=='不限'){
 					subject=''
 				}
-				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&page=1";
+				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&rank="+stuRank+"&page=1";
 				// console.log(url)
 				//ajax_data(url)
 
@@ -283,7 +322,46 @@
 		
 		})
 		
+		//增加按院校名称查询
+		$('.collegeSearch').click(function(){
 
+			var stuProvince = $("#userInfo_district").html(),
+			schoolProvince=$('#district li.mySelected').html(),
+			stuType=$('#userInfo_category').html(),
+            subject = $("#subject li.mySelected").html(),
+            stuScore=$('#userInfo_score').html(),
+	        schoolName=$('#inputCollege').val().replace(/(^\s*)|(\s*$)/g, "")
+	        stuRank=$('#userInfo_rank').html();
+	        if (schoolProvince=='不限'){
+					schoolProvince=''
+				}
+				if (subject=='不限'){
+					subject=''
+				}
+	        if (schoolName!=""){
+	        	$(document.body).mLoading("show");//显示loading组件
+		        url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&rank="+stuRank+"&page=1&schoolName="+schoolName
+
+			        // url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page=1&schoolName="+schoolName
+					
+					// console.log(url)
+					// ajax_data(url)
+					$.getJSON(url,function(data){
+
+						$('.allPage').html(data.PageNum)
+
+						// nextPage(1)
+						$("#Pagination").pagination(data.PageNum,{
+				            load_first_page:true,//插件加载时是否回调当前页码
+				            callback:function(current_page){
+				                //回调函数,当前页码为current_page，页码编号从0开始
+				               // alert(current_page+1)
+				               nextPage(current_page+1)
+				            }
+				      	  });
+					})
+			}
+		})
 		// 分页
 	  	function nextPage(page){
 	  		$(document.body).mLoading("show");//显示loading组件
@@ -291,20 +369,25 @@
 				schoolProvince=$('#district li.mySelected').html(),
 				stuType=$('#userInfo_category').html(),
 	            subject = $("#subject li.mySelected").html(),
-	            stuScore=$('#userInfo_score').html();
+	            stuScore=$('#userInfo_score').html(),
+	            schoolName=$('#inputCollege').val().replace(/(^\s*)|(\s*$)/g, "")
+	            stuRank=$('#userInfo_rank').html();
 				if (schoolProvince=='不限'){
 					schoolProvince=''
 				}
 				if (subject=='不限'){
 					subject=''
 				}
-
-				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&page="+page;
+				if (schoolName!=""){
+					 url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&page="+page+"&rank="+stuRank+"&schoolName="+schoolName
+				}
+				else{
+					url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&rank="+stuRank+"&page="+page;
+				}
 				//alert(url)
 				//console.log(url)
 				ajax_data(url)
 	  	}
-		
 	    function startUp(){
 	    	
 	    	$(document.body).mLoading("show");//显示loading组件
@@ -312,7 +395,8 @@
 				schoolProvince=$('#district li.mySelected').html(),
 				stuType=$('#userInfo_category').html(),
 	            subject = $("#subject li.mySelected").html(),
-	            stuScore=$('#userInfo_score').html();
+	            stuScore=$('#userInfo_score').html()
+	            stuRank=$('#userInfo_rank').html();
 				if (schoolProvince=='不限'){
 					schoolProvince=''
 				}
@@ -320,8 +404,8 @@
 					subject=''
 				}
 
-				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&page=1";
-
+				url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&rank="+stuRank+"&page=1";
+			
 	    	$.getJSON(url,function(data){
 
 				$('.allPage').html(data.PageNum)
@@ -355,7 +439,8 @@
 					schoolProvince=$('#district li.mySelected').html(),
 					stuType=$('#userInfo_category').html(),
 		            subject = $("#subject li.mySelected").html(),
-		            stuScore=$('#userInfo_score').html();
+		            stuScore=$('#userInfo_score').html()
+		            stuRank=$('#userInfo_rank').html();
 					if (schoolProvince=='不限'){
 						schoolProvince=''
 					}
@@ -363,7 +448,7 @@
 						subject=''
 					}
 
-					url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2014&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&page=1";
+					url= "/api_recommendSchool/?stuProvince="+stuProvince+"&stuType="+stuType+"&year=2015&score="+stuScore+"&schoolType="+subject+"&schoolProvince="+schoolProvince+"&rank="+stuRank+"&page=1";
 
 			    	$.getJSON(url,function(data){
 
@@ -502,6 +587,10 @@
 			        <div class="headTab lt">50%以下(0)</div>
 		    </div>
 		    -->
+		    <span class="bar_word">
+		    	2015年江西文科考生本科二批的专业录取分数线（487）
+	        </span>
+		   
 		    <div class="sortBar">
 		        <div class="fl searchTitle">搜索结果列表：</div>
 		        <div class="sortByCollege lt">
@@ -509,9 +598,9 @@
 		            <span class="collegeSearch"></span>
 		            
 		        </div>
-		        <div class="sortItem lt">综合排名</div>
-		        <div class="sortItem lt sortChecked sortPng">录取位次</div>
-		        <div class="sortItem lt sortChecked">稳冲保垫</div>
+		        {# <div class="sortItem lt">综合排名</div> #}
+		        {# <div class="sortItem lt sortChecked sortPng">录取位次</div> #}
+		        {# <div class="sortItem lt sortChecked">稳冲保垫</div> #}
 		    </div>
 		<div id="recommend_data">
 		   {%if recoSchool%}

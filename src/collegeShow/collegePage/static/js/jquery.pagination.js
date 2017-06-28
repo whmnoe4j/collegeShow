@@ -135,7 +135,7 @@
 			num_display_entries:4,
 			current_page:0,
 			num_edge_entries:1,
-			link_to:"#",
+			link_to:"javascript:;",
 			prev_text:"<i></i>上一页",
 			next_text:"下一页 <i></i>",
 			ellipse_text:"...",

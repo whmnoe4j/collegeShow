@@ -58,11 +58,23 @@
 					
 			// })
 		      
-
+				
 	});
 
 
-
+function check(){
+	var rank=$('.year_rank input').val()
+	var score=$('.year_score input').val()
+	if (rank!=""&&rank!=null||score!="" &&score!=null){
+		
+		return true
+	}
+	else{
+		alert('排名和分数不能都为空')
+		return false
+		
+	}
+}	
 </script>
 <style type="text/css">
 		/* flexslider */
@@ -100,7 +112,7 @@
 		{# 悬浮框 #}
 		<div class="suspendBox">
                 <div class="suspend">
-                    <form class="form-horizontal goform" id='recommendForm' action="/recommendschool/" method="post">
+                    <form class="form-horizontal goform" id='recommendForm' action="/reportedCollege/" method="post" onsubmit="return check()">
                         <div>
                             <label class="labelTitle">大学智能推荐系统</label>
                         </div>
@@ -160,7 +172,7 @@
                                     <!--<label class="text-right">分</label>-->
                                 </div>
                                 <div class="year_rank" >
-                                    <input type="text" name="ranking" class="ranking" maxlength="6"onkeyup="this.value=this.value.replace(/\D/g,'')" >
+                                    <input type="text" name="rank" class="ranking" maxlength="6"onkeyup="this.value=this.value.replace(/\D/g,'')" >
                                     <!--<label class="text-right">名</label>-->
                                 </div>
                        	     </div>
@@ -233,25 +245,25 @@
 			   		 <!--<div class="level_line"></div>-->
 			    
 				    <div class="dataSearch_text moveTop fl">
-				            <a class="dataSearch_img" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cdx"><img class="pointer" src="../static/images/index_img1.jpg" alt=""></a>
+				            <a class="dataSearch_img" href="/collegescoreline"><img class="pointer" src="../static/images/index_img1.jpg" alt=""></a>
 				        <div class="dataSearch_report">
-				            <p class="data_dxfsx pointer"><a class="hc" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cdx">大学分数线</a></p>
+				            <p class="data_dxfsx pointer"><a class="hc" href="/collegescoreline">大学分数线</a></p>
 				            <p class="data_introduce">2008--2016年，2500多所大学，在全国31个省市自治区（除西藏外）的录取分数。与当地考试院同步。</p>
 				        </div>
 				    </div>
 
 				    <div class="dataSearch_text moveTop fl ml30">
-				            <a class="dataSearch_img" href="dataSearch.html?nav_1=sjcx&amp;nav_2=zyfsx"><img class="pointer" src="../static/images/index_img2.jpg" alt=""></a>
+				            <a class="dataSearch_img" href="/professionscore"><img class="pointer" src="../static/images/index_img2.jpg" alt=""></a>
 				            <div class="dataSearch_report">
-				            <p class="data_dxfsx pointer"><a class="hc" href="dataSearch.html?nav_1=sjcx&amp;nav_2=zyfsx">专业分数线</a></p>
+				            <p class="data_dxfsx pointer"><a class="hc" href="/professionscore">专业分数线</a></p>
 				            <p class="data_introduce">2008-2016年，2500多所大学的1300种大学专业在31个省市自治区（除西藏外）的录取分数。与当地考试院同步。</p>
 				        </div>
 				    </div>
 
 				    <div class="dataSearch_text moveTop fl ml30">
-				            <a class="dataSearch_img" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cfsx"><img class="pointer" src="../static/images/index_img3.jpg" alt=""></a>
+				            <a class="dataSearch_img" href="/areascoreline"><img class="pointer" src="../static/images/index_img3.jpg" alt=""></a>
 				            <div class="dataSearch_report">
-				            <p class="data_dxfsx pointer"><a class="hc" href="dataSearch.html?nav_1=sjcx&amp;nav_2=cfsx">地区批次线</a></p>
+				            <p class="data_dxfsx pointer"><a class="hc" href="/areascoreline">地区批次线</a></p>
 				            <p class="data_introduce">2008--2016年，全国各地所有考生类别，所有层次（本专科）的地区最低控制线。与当地考试院同步。</p>
 				    </div>
 				    </div>

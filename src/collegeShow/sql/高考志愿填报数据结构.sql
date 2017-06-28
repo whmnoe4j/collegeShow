@@ -237,3 +237,6 @@ CREATE TABLE `users` (
 #修改表
 UPDATE ewt_new_jx_mean a,
 (SELECT schoolname,schooltype FROM college_detail_ewt ) b SET a.schooltype=b.schooltype WHERE a.schoolname=b.schoolname
+
+#创建带有分差和地区批次线的表
+CREATE TABLE ewt_new_jx4 (SELECT a.*,b.`score` AS 'province_score',a.score-b.score AS 'score_diff' FROM ewt_new_jx2 a LEFT JOIN province_score b ON a.year=b.year AND a.batch=b.batch AND a.studenttype=b.type AND a.province=b.province)

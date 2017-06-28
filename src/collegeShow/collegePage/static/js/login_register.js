@@ -29,18 +29,16 @@ function login() {
         type: "POST",
         data: {
             "username": username,
-            "password": password
+            "password": password,
         },
         url: "/login/",
-        cache: false,
         dataType: "html",
         success: function(data, status, xml) {
             data = JSON.parse(data);
-            alert(data.Msg);
-            
+            //alert(data.Msg);
             hideMask();
-            //window.location.href = "/";
-            location.reload()
+            window.location.href =window.document.location.pathname;
+            //location.reload()
         }
     })
 }
@@ -66,11 +64,8 @@ function register() {
         success: function(data, status, xml) {
             data = JSON.parse(data);
             alert(data.Msg);
-            window.location.href = "/";
+            location.reload();
         }
     })
 }
 
-function logout() {
-    window.location.href = 'http://127.0.0.1:8000/logout/';
-}

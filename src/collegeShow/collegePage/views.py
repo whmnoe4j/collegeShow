@@ -3,130 +3,109 @@ from django.shortcuts import render, render_to_response, redirect
 
 from models import *
 from django.http.response import HttpResponse
-import json
 
-#跳转到主页面
-def index(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        if loginUser:
-            return render_to_response("index.html", {"loginUser":loginUser})
-    except:
-        return render_to_response("index.html")
-
-
-def dataSearch(request):
-#     Search("江西")
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("dataSearch.html", {"loginUser":loginUser})
-    except:
-        print '获取登录用户失败'
-        tempUser = request.session.get("tempUser", "none")
-        print tempUser
-        if tempUser == "none":
-            return render_to_response("dataSearch.html")
-        else:
-            return render_to_response("dataSearch.html", {'tempUser':tempUser})
 def reportedCollege(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("reportedCollege.html", {"loginUser":loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser == "none":
-            return render_to_response("reportedCollege.html")
-        else:
-            recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
-            return render_to_response("reportedCollege.html", {'tempUser':tempUser, 'recoSchool':recoSchool})
+    if request.method == 'POST':
+        try:
+            loginUserID = request.session.get("loginUser", "none")
+            loginUser = Users.objects.get(id = loginUserID)
+            return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
+        except:
+            tempUser = {}
+            #学校名称
+            tempUser['stuProvince'] = request.POST.get("stuProvince")
+            tempUser['stuType'] = request.POST.get("stuType")
+            tempUser['score'] = request.POST.get("score", '0')
+            tempUser['rank'] = request.POST.get("rank", '0')
+            
+            if tempUser['score'] == "":
+                tempUser['score'] = "0"
+            if tempUser['rank'] == "":
+                tempUser['rank'] = "0"
+            #保存临时的用户成绩分数
+            request.session["tempUser"] = tempUser
+            return render_to_response("reportedCollege.html", {'tempUser':tempUser})
+    else:
+        #return render_to_response("reportedCollege.html")
+        try:
+            loginUserID = request.session.get("loginUser", "none")
+            loginUser = Users.objects.get(id = loginUserID)
+            return render_to_response("reportedCollege.html", {"loginUser":loginUser})
+        except:
+            tempUser = request.session.get("tempUser", "none")
+            if tempUser == "none":
+                return render_to_response("reportedCollege.html")
+            else:
+                return render_to_response("reportedCollege.html", {'tempUser':tempUser})
 
+#带参数的装饰器 登录用户和临时用户的验证
+def auth_user(webName = None):
+    def decorator(func):
+        def inner(request, *args, **kwargs):
+            print '=============='
+            print webName
+            #判断是否是登录用户
+            try:
+                loginUserID = request.session.get("loginUser", "none")
+                loginUser = Users.objects.get(id = loginUserID)
+                return render_to_response(webName, {'loginUser':loginUser})
+            except:
+                #如果是用户中心 没有登录状态直接返回到主页面
+                if webName == "user.html":
+                    return render_to_response("index.html")
+                else:
+                    #临时用户
+                    tempUser = request.session.get("tempUser", "none")
+                    
+                    if tempUser == "none":
+                        return render_to_response(webName)
+                    else:
+                        return render_to_response(webName, {'tempUser':tempUser})
+        return inner
+    return decorator
+
+@auth_user(webName = "collegescoreline.html")
 def collegescoreline(request):
-    try:
-        #从get中提取参数
-        #API.showCollegeSchoolScoreLine(request)
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("collegescoreline.html", {'loginUser':loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser == "none":
-            return render_to_response("collegescoreline.html")
-        else:
-            return render_to_response("collegescoreline.html", {'tempUser':tempUser})
+    pass
+    
+#跳转到主页面
+@auth_user(webName = "index.html")
+def index(request):
+    pass
+   
+@auth_user(webName = "dataSearch.html")
+def dataSearch(request):
+    pass
+
+@auth_user(webName = "user.html")
 def user(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        if loginUser:
-            return render_to_response("user.html", {"loginUser":loginUser})
-        else:
-            return render_to_response("index.html")
-    except:
-        return render_to_response("index.html")
+    pass
 
 #地区批次线
+@auth_user(webName = "areascoreline.html")
 def areascoreline(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("areascoreline.html", { 'loginUser':loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser == 'none':
-            return render_to_response("areascoreline.html")
-        else:
-            return render_to_response("areascoreline.html", {'tempUser':tempUser})
+    pass
+
 #一分一段
+@auth_user(webName = "scoreparam.html")
 def scoreparam(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("scoreparam.html", {'loginUser':loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none':
-            return render_to_response("scoreparam.html", {'tempUser':tempUser})
-        else:
-            return render_to_response("scoreparam.html")
+    pass
+
 #专业排名
+@auth_user(webName = "professionrank.html")
 def professionrank(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("professionrank.html", {'loginUser':loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none':
-            return render_to_response("professionrank.html", {'tempUser':tempUser})
-        else:
-            return render_to_response("professionrank.html")
+    pass
+
 #专业信息
+@auth_user(webName = "professiongroup.html")
 def professiongroup(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("professiongroup.html", { 'loginUser':loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none':
-            return render_to_response("professiongroup.html", {'tempUser':tempUser})
-        else:
-            return render_to_response("professiongroup.html")
+    pass
+
 #专业分数线
+@auth_user(webName = "professionscore.html")
 def professionscore(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        return render_to_response("professionscore.html", {'loginUser':loginUser})
-    except:
-        tempUser = request.session.get("tempUser", "none")
-        if tempUser != 'none' :
-            return render_to_response("professionscore.html", {'tempUser':tempUser})
-        else:
-            return render_to_response("professionscore.html")
+    pass
+
 #院校信息
 def schoolinfo(request):
     try:
@@ -137,17 +116,13 @@ def schoolinfo(request):
     except:
         SchoolData = getSchoolInfo(request)
         return render_to_response("school_info.html", {'schoolinfo':SchoolData})
-
 #获取学校信息
 def getSchoolInfo(request):
     SchoolInfo = {}
     try:
         #学校名称
         schoolName = request.GET.get("schoolName")
-        #为什么会连续访问两次呢？
-        print '-----------' + schoolName
         SchoolList = CollegeDetailEwt.objects.filter(schoolname = schoolName)
-        
         ListLength = len(SchoolList)
         if ListLength == 0:
             return HttpResponse('没有该学校信息!')
@@ -250,136 +225,3 @@ def schoolenrol(request):
         proidInfo['stuProvince'] = stuProvince
         proidInfo['stuType'] = stuType
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
-def PageSplit(page, length):
-    "提供页数和数据总长度返回切片起点和终点"
-    start = (int(page) - 1) * 10
-    if length - start < 10:
-        end = length
-    else:
-        end = start + 10
-    return start, end
-def recommendSchoolName(stuProvince, stuType, Year, score, page):
-    """推荐学校
-    http://127.0.0.1:8000/api_recommendSchool/?stuProvince=江西&stuType=文科&year=2014&score=468&page=1
-    Get：studentProvince(生源地)studentType(1为文科,2为理科)year(当年年限)score(分数)page(数据切页数，每页10条数据)
-    Response:{"PageNum": 11, , "Result": "True", "Msg": "Success", "Page": 1,
-        "Data": [["江西服装学院", "服装与服饰设计", 2015, "本科三批", 18, 447, 25327, -9]], 
-        "Batch": {"Province": "江西", "Bacth": "本科三批", "StuType": "文科", "BatchLine": 450, "Year": "2014"}}
-    """
-#    stuProvince = request.GET.get("stuProvince")
-#    stuType = request.GET.get("stuType")
-#    Year = request.GET.get("year")
-#    score = request.GET.get("score")
-##     rank = request.GET.get("rank")
-#    page = int(request.GET.get("page"))
-    try:
-    #     计算分数对应批次线
-        Batch = CollegeAreascoreline.objects.filter(provincearea = stuProvince, studentclass = stuType, dateyear = Year)
-        if Batch:
-            Batch = [[x.batch, x.scoreline] for x in Batch]#查询所有批次线
-            BatchNum = len(Batch) #计算存在多少个批次线
-            batchDiff = [int(score) - int(batch[1])  for batch in Batch]#计算当前分数到所有分数线的分差
-            batchDiff_abs = [abs(n) for n in batchDiff]
-            minDiff = min(batchDiff_abs)#存入最小的分差绝对值
-            minDiff_index = batchDiff_abs.index(minDiff)#获取最小分差对应的索引
-            scoreDiff = batchDiff[minDiff_index] #应投报的档次线的分差值
-            if minDiff > 10 and scoreDiff < 0:  #若最小分值差绝对值大于10而且实际值为负数，说明无法进行补录跳批次录取，需降级
-                if batch.index(min(batch)) - 1 <= BatchNum - 1: 
-                    stuBatch = Batch[minDiff_index + 1]
-                else:
-                    return HttpResponse(json.dumps({"Result":"True", "Msg":"请确认是否达到批次线"}))
-            else:
-                stuBatch = Batch[minDiff_index]
-        #查询在分差上下3分区间的学校
-        if score:
-            schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + 3), diffscore__gt = (scoreDiff - 3)).order_by("-year", "-meanscore", "diffscore", "-getnum")
-        ListLength = len(schoolList)
-        schoolData = []
-        for schoollist in schoolList:
-            SchoolInfo = {}
-            profession = schoollist.profession
-            year = schoollist.year
-            batch = schoollist.batch
-            getnum = schoollist.getnum
-            meanscore = schoollist.meanscore
-            meanrank = schoollist.meanrank
-            diffscore = schoollist.diffscore
-            #获取学校名
-            SchoolsDetail = ''
-            try:
-                schoolNames = schoollist.schoolname
-                SchoolsDetail = CollegeDetailEwt.objects.get(schoolname = schoolNames)
-    #            if "(" in schoolNames:
-    #                schoolNames = schoolNames[:schoolNames.index('(')]
-    #                SchoolsDetail = CollegeDetailEwt.objects.get(schoolname = schoolNames)
-    #            else:
-    #                SchoolsDetail = CollegeDetailEwt.objects.get(schoolname = schoolNames)
-            except:
-                SchoolsDetail = CollegeDetailEwt.objects.get(schoolname = schoollist.schoolname)
-                print schoollist.schoolname
-                print '匹配学校出错'
-            else:   
-                SchoolInfo["SchoolName"] = schoollist.schoolname
-                SchoolInfo["f985"] = SchoolsDetail.f985
-                SchoolInfo["f211"] = SchoolsDetail.f211 
-                SchoolInfo["fyan"] = SchoolsDetail.fyan 
-                SchoolInfo["Province"] = SchoolsDetail.address if SchoolsDetail.address else "暂无"
-                SchoolInfo["Levels"] = SchoolsDetail.levels if SchoolsDetail.levels else "暂无"
-                SchoolInfo["attach_to"] = SchoolsDetail.attach_to if SchoolsDetail.attach_to else "暂无"
-                SchoolInfo["Rank"] = SchoolsDetail.school_rank 
-                SchoolInfo["schoolType"] = SchoolsDetail.schooltype 
-                SchoolInfo["character"] = SchoolsDetail.character if SchoolsDetail.character else "不详"
-                SchoolInfo["Code"] = SchoolsDetail.schoolid if SchoolsDetail.schoolid else "00000"
-                SchoolInfo["Address"] = SchoolsDetail.postal_address.replace("\r", "") if SchoolsDetail.postal_address else "暂无"
-                SchoolInfo["Tel"] = SchoolsDetail.tel.replace("\r", "") if SchoolsDetail.tel else "暂无"
-                SchoolInfo["KeyDiscipline"] = SchoolsDetail.key_discipline if SchoolsDetail.key_discipline else "不详"
-                SchoolInfo["Facukty"] = SchoolsDetail.faculty if SchoolsDetail.faculty else "不详"
-                SchoolInfo["OfficeWebsite"] = SchoolsDetail.official_website if SchoolsDetail.official_website else "不详"
-                SchoolInfo["school_img"] = SchoolsDetail.school_img
-                SchoolInfo["profession"] = profession
-                SchoolInfo["year"] = year
-                SchoolInfo["batch"] = batch
-                SchoolInfo["getnum"] = getnum
-                SchoolInfo["meanscore"] = meanscore
-                SchoolInfo["meanrank"] = meanrank
-                SchoolInfo["diffscore"] = diffscore
-           
-            schoolData.append(SchoolInfo)
-        if page:
-            start, end = PageSplit(page, ListLength)
-            schoolData = schoolData[start:end]
-        
-        return schoolData
-    except:
-        return []
-    
-
-#按分推荐学校
-def recommendschool(request):
-    if request.method == 'POST':
-        try:
-            loginUserID = request.session.get("loginUser", "none")
-            loginUser = Users.objects.get(id = loginUserID)
-            return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
-        except:
-            tempUser = {}
-            #学校名称
-            tempUser['stuProvince'] = request.POST.get("stuProvince")
-            tempUser['stuType'] = request.POST.get("stuType")
-            tempUser['score'] = request.POST.get("score")
-            print '------------get'
-            print tempUser
-            #recoSchool = recommendSchoolName(tempUser['stuProvince'], tempUser['stuType'], '2014', tempUser['score'], 1)
-            #保存临时的用户成绩分数
-            request.session["tempUser"] = tempUser
-            return render_to_response("reportedCollege.html", {'tempUser':tempUser})
-    else:
-        return render_to_response("reportedCollege.html")
-def auth(func):
-    def inner(reqeust, *args, **kwargs):
-        v = reqeust.COOKIES.get('user')
-        if not v:
-            return redirect('/index')
-        return func(reqeust, *args, **kwargs)
-    return inner
-

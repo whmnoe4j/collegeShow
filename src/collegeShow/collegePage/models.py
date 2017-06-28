@@ -405,6 +405,11 @@ class Users(models.Model):
     stutype = models.CharField(max_length = 2)
     schooladdress = models.CharField(db_column = 'schoolAddress', max_length = 30, blank = True, null = True)  # Field name made lowercase.
     score = models.IntegerField(blank = True, null = True)
+    rank = models.IntegerField(blank = True, null = True)
+    status = models.IntegerField(blank = True, null = True)
+    type = models.IntegerField(blank = True, null = True)
+    regression_date = models.CharField(max_length = 30, blank = True, null = True)
+    lastlogin_date = models.CharField(max_length = 30, blank = True, null = True)
 
     class Meta:
         managed = False

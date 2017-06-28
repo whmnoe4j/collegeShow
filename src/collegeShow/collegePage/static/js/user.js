@@ -32,6 +32,13 @@ function editInfo() {
     var inputHTML_score = "<input type='text' class='edit_input' id='Edited_score' value='" + userInfo_score.text() + "'>";
     userInfo_score.html(inputHTML_score);
 
+
+
+    var userInfo_rank = $("#userInfo_rank");
+    
+    var inputHTML_rank = "<input type='text' class='edit_input' id='Edited_rank' value='" + userInfo_rank.text() + "'>";
+    userInfo_rank.html(inputHTML_rank);
+
     var buttonHTML = "<a onclick='SaveInfo();'>保存信息</a>";
     var button = $("#userInfo_Edit");
     button.html(buttonHTML);
@@ -45,6 +52,8 @@ function SaveInfo() {
     var stuType = $("#Edited_stuType").val();
     var schoolAddress = $("#Edited_schoolAddress").val();
     var score = $("#Edited_score").val();
+    var rank = $("#Edited_rank").val();
+    //alert(rank)
     $.ajax({
         type: "POST",
         data: {
@@ -54,6 +63,7 @@ function SaveInfo() {
             "stuType": stuType,
             "schoolAddress": schoolAddress,
             "score": score,
+            "rank": rank,
         },
         url: "/edit_user/",
         cache: false,
@@ -73,6 +83,9 @@ function SaveInfo() {
             userInfo_schoolAddress.html(schoolAddress);
             var userInfo_score = $("#userInfo_score");
             userInfo_score.html(score);
+            var userInfo_rank = $("#userInfo_rank");
+            userInfo_rank.html(rank);
+
             var buttonHTML = "<a onclick='editInfo();'>编辑信息</a>";
             var button = $("#userInfo_Edit");
             button.html(buttonHTML);

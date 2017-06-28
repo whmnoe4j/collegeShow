@@ -211,7 +211,7 @@
 		$('.pull-left').each(function(){
 
 			$(this).click(function(){
-
+				$(document.body).mLoading("show");//显示loading组件
 				//清空搜索框
 				//$('#inputCollege').val('');
 				var sel_district = $("#district li.mySelected").html(),
@@ -249,49 +249,49 @@
 		//$("#mark").mLoading();
 		// 分页
 	
-	 	totalPage=0
-	    var GG = {
-	        "kk":function(page){
+	 	// totalPage=0
+	  //   var GG = {
+	  //       "kk":function(page){
 
-	            var sel_district = $("#district li.mySelected").html(),
-		        sel_round = $("#round li.mySelected").html(),
-		        sel_category = $("#category li.mySelected").html(),
-		        sel_year = $("#year li.mySelected").html(),
-		        sch_province= $("#sch_province li.mySelected").html()
-		        schoolName=$('#inputCollege').val();
+	  //           var sel_district = $("#district li.mySelected").html(),
+		 //        sel_round = $("#round li.mySelected").html(),
+		 //        sel_category = $("#category li.mySelected").html(),
+		 //        sel_year = $("#year li.mySelected").html(),
+		 //        sch_province= $("#sch_province li.mySelected").html()
+		 //        schoolName=$('#inputCollege').val();
 
-		        if(schoolName!=''){
-		        	url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="+page+"&schoolName="+schoolName
-		        }else{
-		        	url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="+page
-		        }
+		 //        if(schoolName!=''){
+		 //        	url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="+page+"&schoolName="+schoolName
+		 //        }else{
+		 //        	url="/api_professionscore/?stuProvince="+sel_district+"&schProvince="+sch_province+"&batch="+sel_round+"&stuType="+sel_category+"&year="+sel_year+"&page="+page
+		 //        }
 
 		        
-		        // console.log(url)
-				$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable><lable class="lable_key">年'+sch_province+'</lable>高校在'+'<lable class="lable_key">'+sel_district+''+sel_round+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
+		 //        // console.log(url)
+			// 	$(".bar_word").html('<lable class="lable_key">'+sel_year+'</lable><lable class="lable_key">年'+sch_province+'</lable>高校在'+'<lable class="lable_key">'+sel_district+''+sel_round+'</lable>的专业录取分数线'+'（'+'<lable class="lable_key">'+sel_category+'</lable>'+'）')
 				
-				// ajax_data(url)
-				$.getJSON(url,function(data){
+			// 	// ajax_data(url)
+			// 	$.getJSON(url,function(data){
 
-					$('.allPage').html(data.PageNum)
+			// 		$('.allPage').html(data.PageNum)
 
-					// nextPage(1)
-					$("#Pagination").pagination(data.PageNum,{
-			            load_first_page:true,//插件加载时是否回调当前页码
-			            callback:function(current_page){
-			                //回调函数,当前页码为current_page，页码编号从0开始
-			               // alert(current_page+1)
-			               nextPage(current_page+1)
-			            }
-			      	  });
-				})
-	        }
-	    }
+			// 		// nextPage(1)
+			// 		$("#Pagination").pagination(data.PageNum,{
+			//             load_first_page:true,//插件加载时是否回调当前页码
+			//             callback:function(current_page){
+			//                 //回调函数,当前页码为current_page，页码编号从0开始
+			//                // alert(current_page+1)
+			//                nextPage(current_page+1)
+			//             }
+			//       	  });
+			// 	})
+	  //       }
+	  //   }
 	  
 		//增加按院校名称查询
 		$('.collegeSearch').click(function(){
 
-	
+			$(document.body).mLoading("show");//显示loading组件
 			var sel_district = $("#district li.mySelected").html(),
 		        sel_round = $("#round li.mySelected").html(),
 		        sel_category = $("#category li.mySelected").html(),
@@ -321,6 +321,7 @@
 	    // $("#page").initPage(500,1,GG.kk);
 	    // 分页
 	  	function nextPage(page){
+	  		$(document.body).mLoading("show");//显示loading组件
 	  		 var sel_district = $("#district li.mySelected").html(),
 		        sel_round = $("#round li.mySelected").html(),
 		        sel_category = $("#category li.mySelected").html(),
@@ -343,7 +344,8 @@
 	  	}
 		
 	    function startUp(){
-	    	
+	    	$(document.body).mLoading("show");//显示loading组件
+
 	    	var sel_district = $("#district li.mySelected").html(),
 		        sel_round = $("#round li.mySelected").html(),
 		        sel_category = $("#category li.mySelected").html(),
@@ -559,10 +561,10 @@
 		            </div>
 		            <ul class="select_items fl" id="round">
 		            	
-		            	<li class="pull-left mySelected" data_value="本科提前批">本科提前批</li>
-		                <li class="pull-left" data_value="本科一批">本科一批</li>
+		                <li class="pull-left mySelected" data_value="本科一批">本科一批</li>
 		                <li class="pull-left" data_value="本科二批">本科二批</li>
 		                <li class="pull-left" data_value="本科三批">本科三批</li>
+		                <li class="pull-left " data_value="本科提前批">本科提前批</li>
 		                <li class="pull-left" data_value="专科提前批">专科提前批</li>
 		                <li class="pull-left" data_value="专科批">专科批</li>
 		                <li class="pull-left" data_value="专科一批">专科一批</li>

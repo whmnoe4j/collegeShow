@@ -31,6 +31,14 @@
                     <li>省&nbsp;&nbsp;&nbsp;份:
                         <p id="userInfo_stuProvince">{{loginUser.stuprovince}}</p>
                     </li>
+                    <li>用户类型:
+                        {% ifequal loginUser.type 1%}
+                        <p id="userInfo_stuProvince">普通用户</p>
+                        {% else %}
+                        <p id="userInfo_stuProvince" style="color:red">Vip用户</p>
+                        {%endifequal%}
+                      
+                    </li>
                 </ul>
             </div>
         </div>
@@ -59,15 +67,17 @@
         </div>
         <div class="UserInfoDiv UserScoreDiv">
             <ul>
-                {% if loginUser.score %}
                 <li>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数:
                     <p id="userInfo_score">{{loginUser.score}}</p>
                 </li>
-                {% else %}
-                <li>分&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数:
-                    <p id="userInfo_score">尚未填写</p>
+            </ul>
+        </div>
+        <div class="UserInfoDiv UserScoreDiv">
+            <ul>
+
+                <li>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:
+                    <p id="userInfo_rank">{{loginUser.rank }}</p>
                 </li>
-                {% endif %}
                 <li class="UserInfo_button" id="userInfo_Edit"><a onclick="editInfo();">编辑信息</a></li>
             </ul>
         </div>

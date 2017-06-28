@@ -1,36 +1,36 @@
-
 {%if loginUser%}
+    <div class="no_userinfo">
+        <div class="rFrame_userInfo">
       {%ifnotequal loginUser.stuProvince 'undefined'%}
-
-        <div class="no_userinfo">
-            <div class="rFrame_userInfo">
+            
                 <ul class="userInfo" id="searchOrUserInfo">
                     <li id="userInfo">
                     	<span id="userInfo_district">{{loginUser.stuprovince}}</span>
                     	<span id="userInfo_category">{{loginUser.stutype}}</span>
-                    	<span id="userInfo_score">{{loginUser.score}}</span>分
-
+                        <span id="userInfo_score">{{loginUser.score}}</span>分
+                        <span id="userInfo_rank">{{loginUser.rank}}</span>名
                     	<a href="/user" class="changeUserInfo " ><img src="../static/images/write.png" alt="修改分数"></a>
                     </li>
                 </ul>
-            </div>
-        </div>
+            
         {%endifnotequal%}
-{%else%}
- {%if tempUser%}
+     </div>
+    </div>
 
-        <div class="no_userinfo">
-            <div class="rFrame_userInfo">
+    {%elif tempUser%}
+    <div class="no_userinfo">
+        <div class="rFrame_userInfo">
                 <ul class="userInfo" id="searchOrUserInfo">
                     <li id="userInfo">
                         <span id="userInfo_district">{{tempUser.stuProvince}}</span>
                         <span id="userInfo_category">{{tempUser.stuType}}</span>
                         <span id="userInfo_score">{{tempUser.score}}</span>分
-
+                        <span id="userInfo_rank">{{tempUser.rank}}</span>名
                         <a href="/" class="changeUserInfo " ><img src="../static/images/write.png" alt="修改分数"></a>
                     </li>
                 </ul>
-            </div>
-        </div>
+      </div>
+     </div>
+     {%else%}
+        <div class="no_userinfo">    <div class="rFrame_userInfo"></div></div>
  {%endif%}
-{%endif%}

@@ -76,14 +76,14 @@
                         </div>
                     </ul>
                 </li>
-                <li><a href="/dataSearch">数据查询</a>
+                <li><a href="/dataSearch"  target="_blank">数据查询</a>
 
                     <ul class="drop">
                         <div>
-                            <dt><a href="/dataSearch">院校大全</a></dt>
-                            <dt><a href="/professiongroup">专业大全</a></dt>
-                            <dt><a href="/professionscore">专业分数线</a></dt>
-                            <dt><a href="/collegescoreline">大学分数线</a></dt>
+                            <dt><a href="/dataSearch"  target="_blank">院校大全</a></dt>
+                            <dt><a href="/professiongroup" target="_blank">专业大全</a></dt>
+                            <dt><a href="/professionscore"  target="_blank">专业分数线</a></dt>
+                            <dt><a href="/collegescoreline"  target="_blank">大学分数线</a></dt>
                         </div>
                     </ul>
 
@@ -120,7 +120,7 @@
             <div id='unlogin'>
                 <form method="post" id="searchform" action="#">
                     <span class="btn-login btn-color" onclick="location='/user/'">{{loginUser.username}}</span>
-                    <span onclick="logout()" class="btn-register">登出</span>
+                    <a href="/logout"><span class="btn-register">登出</span></a>
                 </form>
             </div>
             {% else %}
