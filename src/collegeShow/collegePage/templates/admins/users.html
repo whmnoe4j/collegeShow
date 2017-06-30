@@ -24,20 +24,20 @@
             });
        }
 
-       function ajax_add(username,nickname,password,biography,address,business){
+       function ajax_add(username,password,sex,stutype,schooladdress,score,rank,status,type){
             $.ajax({
                   type:"POST",
-                  data: {'username':username,'nickname':nickname,'password':password,'biography':biography,'address':address,'business':business},
+                  data: {'username':username,'password':password,'sex':sex,'stutype':stutype,'schooladdress':schooladdress,'score':score,'rank':rank,'status':status,'type':type},
                   url: "/addUser/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
                   cache: false,
                   dataType: "html",
                   success: function(error, statues, xml){
                       
-                     $("input[name='nickname']").val(nickname);
-                     $("input[name='password']").val(password);
-                     $("input[name='biography']").val(biography);
-                     $("input[name='address']").val(address);
-                     $("input[name='business']").val(business);
+                     $('input[name="username"]').val(username);
+                      $('input[name="password"]').val(password);
+                      $('input[name="schooladdress"]').val(schooladdress);
+                      $('input[name="score"]').val(score);
+                      $('input[name="rank"]').val(rank);
                      $('.flah_error').text("添加成功！");
                      window.location.reload();//刷新当前页面.
                       error=JSON.parse(error)
@@ -64,17 +64,20 @@
       $('#addUser').click(function(){
 
 
-          var username = $("input[name='username']").val();
-          var nickname = $("input[name='nickname']").val();
-          var password = $("input[name='password']").val();
-          var biography = $("input[name='biography']").val();
-          var address = $("input[name='address']").val();
-          var business = $("input[name='business']").val();
+          var username=$('input[name="username"]').val();
+          var password=$('input[name="password"]').val();
+          var sex=$('#select_sex option:selected').text();
+          var stutype=$('#select_stutype option:selected').text();
+          var schooladdress=$('input[name="schooladdress"]').val();
+          var score=$('input[name="score"]').val();
+          var rank=$('input[name="rank"]').val();
+          var status=$('#select_status option:selected').val();
+          var type=$('#select_type option:selected').val();
           
           
 
-          if(nickname ==  null || nickname == ''){
-               $('.flah_error').text("昵称不能为空");
+          if(username ==  null || username == ''){
+               $('.flah_error').text("用户名不能为空");
                return false;
           }else if(password==null ||password==""){
             $('.flah_error').text("密码不能为空");
@@ -84,7 +87,7 @@
                return false;
            }
            
-           ajax_add(username,nickname,password,biography,address,business)
+           ajax_add(username,password,sex,stutype,schooladdress,score,rank,status,type)
           
           return true;
       })
@@ -129,12 +132,18 @@
     <table class="table">
       <thead>
         <tr>
-          <th>用户编号</th>
+
+           <th>用户编号</th>
           <th>用户名</th>
-          <th>用户昵称</th>
           <th>用户密码</th>
-          <th>用户性别</th>
-          <th>简介</th>
+          <th>性别</th>
+          <th>考生类型</th>
+          <th>所在高校</th>
+          <th>高考分数</th>
+          <th>高考排名</th>
+          <th>用户状态</th>
+          <th>用户类型</th>
+           
            <th style="width: 40px;">操作</th>
         </tr>
       </thead>
@@ -145,15 +154,33 @@
            {%for user in users%}
                 <tr>
                   <td>{{user.id}}</td>
-                  <td>{{user.personid}}</td>
-                  <td>{{user.personname}}</td>
+                  <td><a href="/adminUser/?id={{user.id}}">{{user.username}}</a></td>
                   <td>{{user.password}}</td>
-                  <td>{{user.persongender}}</td>
-                  <td>{{user.personbiography}}</td>
+                  <td>{{user.sex}}</td>
+                  <td>{{user.stutype}}</td>
+                  <td>{{user.schooladdress}}</td>
+                  <td>{{user.score}}</td>
+                  <td>{{user.rank}}</td>
+                     {%ifequal user.status 0%}
+                       <td style="color:red;">冻结</td>
+                      {%endifequal%}
+                      {%ifequal user.status 1%}
+                         <td >正常</td>
+                      {%endifequal%}
+
+                      {%ifequal user.type 0%}
+                       <td>非会员</td>
+                      {%endifequal%}
+                      {%ifequal user.type 1%}
+                         <td style="color:red;">Vip会员</td>
+                      {%endifequal%}
+                      {%ifequal user.type 2%}
+                         <td style="color:blue;">管理员</td>
+                      {%endifequal%}
                   <td>
-                    <a href="/user/?id={{user.id}}"><i class="icon-pencil"></i></a>
+                    <a href="/adminUser/?id={{user.id}}"><i class="icon-pencil"></i></a>
                     <!--删除提示框改回来就是了myModal -->
-                    {%if user.personid != 'admin'%}
+                    {%if user.type != 2%}
                     <a href="#myModal2" class="delete" role="button" data-toggle="modal" ><i class="icon-remove"></i></a>
                     {%endif%}
                    
@@ -197,7 +224,7 @@
 </div>
 
 
-<div class="modal  hide fade"  id="myModal"  role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal  hide fade"  id="myModal" style="height:400px;" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 
    <div class="well">
@@ -209,18 +236,40 @@
 
             <form id="tab">
                  
+
                 <label>用户名</label>
-                <input type="text" placeholder="用户名将不能修改" class="input-xlarge" name="username">
-                <label>用户昵称</label>
-                <input type="text" placeholder="请输入用户名"  class="input-xlarge" name="nickname">
+                <input type="text" value="{{user.username}}" class="input-xlarge" name="username">
                 <label>用户密码</label>
-                <input type="password" placeholder="请输入大于6位数的密码"  class="input-xlarge" name="password">
-                <label>用户简介</label>
-                <input type="text" placeholder="请输入用户简介"  class="input-xlarge" name="biography">
-                <label>用户地址</label>
-                <input type="text" placeholder="请输入用户地址"  class="input-xlarge" name="address">
-                <label>所在公司</label>
-                <input type="text" placeholder="请输入所在公司"  class="input-xlarge" name="business">
+                <input type="password" value="{{user.password}}" class="input-xlarge" name="password">
+                <label>性别</label>
+                <select id="select_sex">
+                  <option value="1" selected="selected">男</option>
+                  <option value="0">女</option>
+                </select>
+                <label>考生类型</label>
+                <select id="select_stutype">
+                  <option value="文科" selected="selected">文科</option>
+                  <option value="理科">理科</option>
+                </select>
+                <label>所在高校</label>
+                <input type="text" value="江西" class="input-xlarge" name="schooladdress">
+                <label>高考分数</label>
+                <input type="text" value="0" class="input-xlarge" name="score" maxlength="3">
+                <label>高考排名</label>
+                <input type="text" value="1" class="input-xlarge" name="rank" maxlength="6">
+
+                <label>用户状态</label>
+                <select id="select_status">
+                  <option value="1" selected="selected">正常</option>
+                  <option value="0">冻结</option>
+                </select>
+
+                <label>用户类型</label>
+                <select id="select_type">
+                   <option value="1"  selected="selected">非Vip</option>
+                   <option value="2">Vip用户</option>
+                </select>
+               
 
             </form>
             <span class="flah_error" style="color:red;font-weight:800;height:20px; float:left;"></span> 
@@ -242,9 +291,9 @@
                         <hr>
 
                         <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                        <p class="pull-right"><a href="javascript:void();" target="_blank">Design by </a> by <a href="https://github.com/zuoakang" target="_blank">zuoakang</a></p>
+                        <p class="pull-right"><a href="javascript:void();" target="_blank">Design by </a> by <a href="https://github.com/zuoakang" target="_blank">zuoakang_tangqi</a></p>
 
-                        <p>&copy; 2017 <a href="/index" target="_blank">知乎数据</a></p>
+                        <p>&copy; 2017 <a href="/index" target="_blank">高考志愿填报后台管理</a></p>
                     </footer>
                     
             </div>

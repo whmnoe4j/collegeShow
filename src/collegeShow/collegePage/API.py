@@ -17,7 +17,7 @@ SchoolTypeList = ["综合", "工科", "农业", "林业", "医药", "政法", "�
 # SubjectTypeList = ["本科","高职专科"]
 ProvinceDict = {"安徽":EwtNewAnhui, "甘肃":EwtNewGansu, "河南":EwtNewHenan, "湖南":EwtNewHunan, "江西":EwtNewJiangxi, "吉林":EwtNewJilin, "山东":EwtNewShandong, "山西":EwtNewShanxi, "四川":EwtNewSichuan}
 spcProvinceDict = {"江苏":EwtNewJiangsu, "浙江":EwtNewZhejiang}
-PageCount = 30 
+PageCount = 15
 def PageSplit(page, length):
     "提供页数和数据总长度返回切片起点和终点"
     
@@ -80,7 +80,7 @@ def showCollege(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)
+            SuccessResponse["PageNum"] = int((ListLength + PageCount - 1) / PageCount)
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         
@@ -121,7 +121,7 @@ def showCollegeSchoolScoreLine(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)#int(ListLength / 10) + 1
+            SuccessResponse["PageNum"] = int((ListLength + PageCount - 1) / PageCount)#int(ListLength / 10) + 1
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
@@ -355,7 +355,7 @@ def sameScore(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)
+            SuccessResponse["PageNum"] = int((ListLength + PageCount - 1) / PageCount)
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
@@ -370,12 +370,14 @@ def login(request):
         PassWd = request.POST.get("password")
         if Name and PassWd:
             try:
+                
                 loginUser = Users.objects.get(username = Name, password = PassWd)
-                print loginUser.username
+                
             except:
                 return HttpResponse(json.dumps({"Result":"False", "Msg":"用户不存在或密码错误"}))
             else:
-                request.session["loginUser"] = loginUser.id
+                request.session["loginUser"] = loginUser
+                print 'login success'
 #                     request.session["loginUser"] = loginUser
                 return HttpResponse(json.dumps({"Result":"True", "Msg":"登录成功"}))
     else:
@@ -468,7 +470,7 @@ def professionscore(request):
         if page:
             start, end = PageSplit(page, ListLength)
             resultList = resultList[start:end]
-            SuccessResponse["PageNum"] = int((ListLength + 10 - 1) / 10)
+            SuccessResponse["PageNum"] = int((ListLength + PageCount - 1) / PageCount)
             SuccessResponse["Page"] = page
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
@@ -487,9 +489,9 @@ def editUser(request):
         score = request.POST.get("score")
         rank = request.POST.get("rank")
         
-        loginUserID = request.session.get("loginUser", "none")
-        if loginUserID:
-            loginUser = Users.objects.get(id = loginUserID)
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != "none":
+            loginUser = Users.objects.get(id = loginUser.id)
             loginUser.username = Name
             loginUser.sex = sex
             loginUser.stuprovince = stuProvince
@@ -499,6 +501,7 @@ def editUser(request):
             loginUser.rank = rank
            
             loginUser.save()
+            request.session["loginUser"] = loginUser
             return HttpResponse(json.dumps({"Result":"True", "Msg":"Success"}))
         else:
             return render_to_response("index.html")
@@ -535,7 +538,6 @@ def recommendSchool(request):
         rank = 0
     else:
         rank = int(rank)
-    print rank
     page = int(request.GET.get("page"))
     schoolProvince = request.GET.get("schoolProvince")
     schoolType = request.GET.get("schoolType")
@@ -544,27 +546,29 @@ def recommendSchool(request):
     #排名在上下500名波动
     if rank > 0:
         stuBatch = []
-        if stuType == '文科':
+        
+        if stuType == u'文科':
             if rank < 6082:
-                stuBatch. append('本科一批')
+                stuBatch. append(u'本科一批')
             elif rank < 18886:
-                stuBatch. append('本科二批')
+                stuBatch. append(u'本科二批')
             elif rank < 32033:
-                stuBatch. append('本科三批')
-        elif stuType == '理科':
+                stuBatch. append(u'本科三批')
+        elif stuType == u'理科':
             if rank < 25591:
-                stuBatch. append('本科一批')
+                stuBatch. append(u'本科一批')
             elif rank < 57758:
-                stuBatch. append('本科二批')
+                stuBatch. append(u'本科二批')
             elif rank < 81636:
-                stuBatch. append('本科三批')
-        areasCoreLine = CollegeAreascoreline.objects.get(provincearea = stuProvince, studentclass = stuType, dateyear = Year, batch = stuBatch[0])
-        provincScore = areasCoreLine.scoreline
+                stuBatch. append(u'本科三批')
+        
+        areaScoreLine = CollegeAreascoreline.objects.get(provincearea = stuProvince, studentclass = stuType, dateyear = Year, batch = stuBatch[0])
+        provincScore = areaScoreLine.scoreline
         if score != '0':
             stuScoreDiff = int(score) - provincScore
         else:
             stuScoreDiff = '暂无' 
-        stuBatch.append(areasCoreLine.scoreline)
+        stuBatch.append(areaScoreLine.scoreline)
         print stuBatch[0]
         #江西    文史类 本科一批 6082
         #江西    文史类 本科二批 18886

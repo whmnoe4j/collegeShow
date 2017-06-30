@@ -17,6 +17,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from collegePage import views
 from collegePage import API
+from collegePage import adminViews
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -77,5 +78,17 @@ urlpatterns = [
     #url(r'^recommendschool/$', views.recommendschool, name = 'recommendschool'),
     #推荐学校
     url(r'^api_collegescoreLine/$', API.CollegeScoreLine, name = 'CollegeScoreLine'),
-
+    #管理员
+    
+#    url(r'^adminIndex/$', views.adminIndex, name = 'adminIndex'),
+    
+    #后台用户管理页面
+    url(r'adminIndex/', adminViews.adminIndex, name = 'adminIndex'),
+    url(r'adminUser/', adminViews.adminUser, name = 'user'),
+    url(r'adminUsers/', adminViews.adminUsers, name = 'adminUsers'),
+    url(r'sign_in/', adminViews.sign_in, name = 'sign_in'),
+    url(r'sign_out/', adminViews.sign_out, name = 'sign_out'),
+    url(r'deleteUser/', adminViews.deleteUser, name = 'deleteUser'),
+    url(r'updateUser/', adminViews.updateUser, name = 'updateUser'),
+    url(r'addUser/', adminViews.addUser, name = 'addUser'),
 ]

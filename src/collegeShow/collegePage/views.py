@@ -6,11 +6,10 @@ from django.http.response import HttpResponse
 
 def reportedCollege(request):
     if request.method == 'POST':
-        try:
-            loginUserID = request.session.get("loginUser", "none")
-            loginUser = Users.objects.get(id = loginUserID)
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != 'none':
             return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
-        except:
+        else:
             tempUser = {}
             #学校名称
             tempUser['stuProvince'] = request.POST.get("stuProvince")
@@ -27,11 +26,10 @@ def reportedCollege(request):
             return render_to_response("reportedCollege.html", {'tempUser':tempUser})
     else:
         #return render_to_response("reportedCollege.html")
-        try:
-            loginUserID = request.session.get("loginUser", "none")
-            loginUser = Users.objects.get(id = loginUserID)
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != 'none':
             return render_to_response("reportedCollege.html", {"loginUser":loginUser})
-        except:
+        else:
             tempUser = request.session.get("tempUser", "none")
             if tempUser == "none":
                 return render_to_response("reportedCollege.html")
@@ -44,12 +42,16 @@ def auth_user(webName = None):
         def inner(request, *args, **kwargs):
             print '=============='
             print webName
+            if request.META.has_key('HTTP_X_FORWARDED_FOR'):  
+                ip = request.META['HTTP_X_FORWARDED_FOR']  
+            else:  
+                ip = request.META['REMOTE_ADDR']
+            print ip 
             #判断是否是登录用户
-            try:
-                loginUserID = request.session.get("loginUser", "none")
-                loginUser = Users.objects.get(id = loginUserID)
+            loginUser = request.session.get("loginUser", "none")
+            if loginUser != 'none':
                 return render_to_response(webName, {'loginUser':loginUser})
-            except:
+            else:
                 #如果是用户中心 没有登录状态直接返回到主页面
                 if webName == "user.html":
                     return render_to_response("index.html")
@@ -71,6 +73,7 @@ def collegescoreline(request):
 #跳转到主页面
 @auth_user(webName = "index.html")
 def index(request):
+     
     pass
    
 @auth_user(webName = "dataSearch.html")
@@ -108,12 +111,11 @@ def professionscore(request):
 
 #院校信息
 def schoolinfo(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != "none":
         SchoolData = getSchoolInfo(request)
         return render_to_response("school_info.html", {'schoolinfo':SchoolData, 'loginUser':loginUser})
-    except:
+    else:
         SchoolData = getSchoolInfo(request)
         return render_to_response("school_info.html", {'schoolinfo':SchoolData})
 #获取学校信息
@@ -121,7 +123,7 @@ def getSchoolInfo(request):
     SchoolInfo = {}
     try:
         #学校名称
-        schoolName = request.GET.get("schoolName")
+        schoolName = request.GET.get("schoolName", "江西师范大学")
         SchoolList = CollegeDetailEwt.objects.filter(schoolname = schoolName)
         ListLength = len(SchoolList)
         if ListLength == 0:
@@ -151,77 +153,75 @@ def getSchoolInfo(request):
 #招生专业
 def schoolmajor(request):
     SchoolInfo = getSchoolInfo(request)
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        #学校名称
-        schoolName = request.GET.get("schoolName")
-        #为什么会连续访问两次呢？
-        print '-----------' + schoolName
-        SchoolMajor = CollegeMajor.objects.filter(schoolname = schoolName)
-        
-        ListLength = len(SchoolMajor)
-        if ListLength == 0:
-            return HttpResponse('没有该学校信息!')
-        SchoolMajors = []
-        print ListLength
-        for school in SchoolMajor:
-            SchoolData = {}
-            SchoolData["SchoolName"] = school.schoolname 
-            SchoolData["edudirectly"] = school.edudirectly 
-            SchoolData["f985"] = school.f985 
-            SchoolData["f211"] = school.f211 
-            SchoolData["schoolprovince"] = school.schoolprovince 
-            SchoolData["specialtype"] = school.specialtype 
-            SchoolData["specialtyname"] = school.specialtyname 
-            SchoolData["level"] = school.level 
-            SchoolMajors.append(SchoolData)
+    loginUser = request.session.get("loginUser", "none")
+    #学校名称
+    schoolName = request.GET.get("schoolName")
+    #为什么会连续访问两次呢？
+    SchoolMajor = CollegeMajor.objects.filter(schoolname = schoolName)
+    ListLength = len(SchoolMajor)
+    if ListLength == 0:
+        return HttpResponse('没有该学校信息!')
+    SchoolMajors = []
+    print ListLength
+    for school in SchoolMajor:
+        SchoolData = {}
+        SchoolData["SchoolName"] = school.schoolname 
+        SchoolData["edudirectly"] = school.edudirectly 
+        SchoolData["f985"] = school.f985 
+        SchoolData["f211"] = school.f211 
+        SchoolData["schoolprovince"] = school.schoolprovince 
+        SchoolData["specialtype"] = school.specialtype 
+        SchoolData["specialtyname"] = school.specialtyname 
+        SchoolData["level"] = school.level 
+        SchoolMajors.append(SchoolData)
+    if loginUser != "none":
         return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo, 'loginUser':loginUser})
-    except:
-        #学校名称
-        schoolName = request.GET.get("schoolName")
-        #为什么会连续访问两次呢？
-        print '-----------' + schoolName
-        SchoolMajor = CollegeMajor.objects.filter(schoolname = schoolName)
+    else:
         
-        ListLength = len(SchoolMajor)
-        if ListLength == 0:
-            return HttpResponse('没有该学校信息!')
-        SchoolMajors = []
-        print ListLength
-        for school in SchoolMajor:
-            SchoolData = {}
-            SchoolData["SchoolName"] = school.schoolname 
-            SchoolData["edudirectly"] = school.edudirectly 
-            SchoolData["f985"] = school.f985 
-            SchoolData["f211"] = school.f211 
-            SchoolData["schoolprovince"] = school.schoolprovince 
-            SchoolData["specialtype"] = school.specialtype 
-            SchoolData["specialtyname"] = school.specialtyname 
-            SchoolData["level"] = school.level 
-            SchoolMajors.append(SchoolData)
         return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo})
 #历年分数线
 def schoolenrol(request):
-    try:
-        loginUserID = request.session.get("loginUser", "none")
-        loginUser = Users.objects.get(id = loginUserID)
-        SchoolData = getSchoolInfo(request)
-        stuProvince = SchoolData["Province"]
-        schoolName = SchoolData["SchoolName"]
-        stuType = '理科'
-        proidInfo = {}
-        proidInfo['schoolName'] = schoolName
-        proidInfo['stuProvince'] = stuProvince
-        proidInfo['stuType'] = stuType
+    loginUser = request.session.get("loginUser", "none")
+    SchoolData = getSchoolInfo(request)
+    stuProvince = SchoolData["Province"]
+    schoolName = SchoolData["SchoolName"]
+    stuType = '理科'
+    proidInfo = {}
+    proidInfo['schoolName'] = schoolName
+    proidInfo['stuProvince'] = stuProvince
+    proidInfo['stuType'] = stuType
+    print loginUser
+    if loginUser != "none":
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
-    except:
-        SchoolData = getSchoolInfo(request)
-        stuProvince = SchoolData["Province"]
-        schoolName = SchoolData["SchoolName"]
-        stuType = '理科'
-        proidInfo = {}
-        proidInfo['schoolName'] = schoolName
-        proidInfo['stuProvince'] = stuProvince
-        proidInfo['stuType'] = stuType
+    else:
+        
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
+    
+    
+#用户管理界面
+#带参数的装饰器 登录用户和临时用户的验证
+#def auth_admin(func):
+#    def inner(request, *args, **kwargs):
+#        if request.META.has_key('HTTP_X_FORWARDED_FOR'):  
+#            ip = request.META['HTTP_X_FORWARDED_FOR']  
+#        else:  
+#            ip = request.META['REMOTE_ADDR']
+#        print ip 
+#        #判断是否是登录用户
+#        try:
+#            loginUserID = request.session.get("loginUser", "none")
+#            loginUser = Users.objects.get(id = loginUserID)
+#            print loginUser.type
+#            if loginUser.type == 2:
+#                return render_to_response("admins/index.html", {'loginUser':loginUser})
+#            else:
+#                return render_to_response("index.html")
+#        except:
+#            #临时用户
+#            return render_to_response("index.html")
+#    return inner
+##历年分数线
+#@auth_admin
+#def adminIndex(request):
+#    pass
+        

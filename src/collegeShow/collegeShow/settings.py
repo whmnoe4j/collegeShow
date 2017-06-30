@@ -121,3 +121,5 @@ DEFAULT_CHARSET = "UTF-8"
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+#使得cookie可以存入一个对象
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

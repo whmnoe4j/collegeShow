@@ -1,5 +1,5 @@
 {% extends 'admins/adminBase.html' %}
-{% block title %}知乎数据后台管理{% endblock %}
+{% block title %}高考志愿填报后台管理{% endblock %}
 {% block content %}
     
     
@@ -7,16 +7,16 @@
         
         <div class="header">
             <div class="stats">
-                <p class="stat"><span class="number">53</span>tickets</p>
-                <p class="stat"><span class="number">27</span>tasks</p>
-                <p class="stat"><span class="number">15</span>waiting</p>
+                <p class="stat"><span class="number">{{counts.vipUserCount}}</span>VIP</p>
+                <p class="stat"><span class="number">{{counts.adminUserCount}}</span>Manage</p>
+                <p class="stat"><span class="number">{{counts.warnUserCount}}</span>WarnUser</p>
             </div>
 
                         <h1 class="page-title">功能面板</h1>
         </div>
         
                 <ul class="breadcrumb">
-            <li><a href="index.html">首页</a> <span class="divider">/</span></li>
+            <li><a href="/">首页</a> <span class="divider">/</span></li>
             <li class="active">功能面板</li>
         </ul>
 
@@ -28,7 +28,7 @@
 
     <div class="alert alert-info">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <strong>Just a quick note:</strong> Hope you like the theme!
+        <strong>高考志愿填报:</strong> 用户管理!
     </div>
 
     <div class="block">
@@ -45,22 +45,22 @@
 
                 <div class="stat-widget">
                     <div class="stat-button">
-                        <p class="title">{{counts.topicCount}}</p>
-                        <p class="detail">话题总数</p>
+                        <p class="title">{{counts.professionCount}}</p>
+                        <p class="detail">专业总数</p>
                     </div>
                 </div>
 
                 <div class="stat-widget">
                     <div class="stat-button">
-                        <p class="title">{{counts.questionCount}}</p>
-                        <p class="detail">问题总数</p>
+                        <p class="title">{{counts.collegeCount}}</p>
+                        <p class="detail">大学总数</p>
                     </div>
                 </div>
 
                 <div class="stat-widget">
                     <div class="stat-button">
-                        <p class="title">675</p>
-                        <p class="detail">访问量</p>
+                        <p class="title">{{counts.jianxiCount}}</p>
+                        <p class="detail">江西数据</p>
                     </div>
                 </div>
 
@@ -76,24 +76,46 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>用户编号</th>
-                  <th>用户名</th>
-                  <th>用户昵称</th>
-                  <th>用户密码</th>
-                  <th>用户性别</th>
-                  <th>简介</th>
+		          <th>用户编号</th>
+		          <th>用户名</th>
+		          <th>用户密码</th>
+		          <th>性别</th>
+		          <th>考生类型</th>
+		          <th>所在高校</th>
+		          <th>高考分数</th>
+		          <th>高考排名</th>
+		          <th>用户状态</th>
+		          <th>用户类型</th>
                 </tr>
               </thead>
               <tbody>
                 {%if users%}
                    {%for user in users%}
                         <tr>
-                          <td>{{user.id}}</td>
-                          <td>{{user.personid}}</td>
-                          <td>{{user.personname}}</td>
-                          <td>{{user.password}}</td>
-                          <td>{{user.persongender}}</td>
-                          <td>{{user.personbiography}}</td>
+                         <td>{{user.id}}</td>
+		                  <td><a href="/adminUser/?id={{user.id}}">{{user.username}}</a></td>
+		                  <td>{{user.password}}</td>
+		                  <td>{{user.sex}}</td>
+		                  <td>{{user.stutype}}</td>
+		                  <td>{{user.schooladdress}}</td>
+		                  <td>{{user.score}}</td>
+		                  <td>{{user.rank}}</td>
+		                  {%ifequal user.status 0%}
+		                 	 <td>冻结</td>
+		                  {%endifequal%}
+		                  {%ifequal user.status 1%}
+		                  	 <td >正常</td>
+		                  {%endifequal%}
+		                  
+		                  {%ifequal user.type 0%}
+		                  	 <td >非会员</td>
+		                  {%endifequal%}
+		                  {%ifequal user.type 1%}
+		                 	 <td style="color:red;">Vip会员</td>
+		                  {%endifequal%}
+		                  {%ifequal user.type 2%}
+		                  	 <td style="color:red;">管理员</td>
+		                  {%endifequal%}
                         </tr>
 
                    {%endfor%}
@@ -101,12 +123,11 @@
                 
               </tbody>
             </table>
-            <p><a href="/users">More...</a></p>
+            <p><a href="/adminUsers">More...</a></p>
         </div>
     </div>
    
 </div>
-
 
 
                     
@@ -114,9 +135,9 @@
                         <hr>
 
                         <!-- Purchase a site license to remove this link from the footer: http://www.portnine.com/bootstrap-themes -->
-                        <p class="pull-right"><a href="javascript:void();" target="_blank">Design by </a> by <a href="https://github.com/zuoakang" target="_blank">zuoakang</a></p>
+                        <p class="pull-right"><a href="javascript:void();" target="_blank">Design by </a> by <a href="https://github.com/zuoakang" target="_blank">zuoakang_tangqi</a></p>
 
-                        <p>&copy; 2017 <a href="/index" target="_blank">知乎数据</a></p>
+                        <p>&copy; 2017 <a href="/index" target="_blank">高考志愿填报后台管理</a></p>
                     </footer>
                     
             </div>

@@ -119,7 +119,12 @@
             {# 登入注册按钮 #} {% if loginUser %}
             <div id='unlogin'>
                 <form method="post" id="searchform" action="#">
+                    {%ifequal loginUser.type 2%}
+                    <span class="btn-login btn-color" onclick="location='/adminIndex/'">{{loginUser.username}}</span>
+                    {%else%}
                     <span class="btn-login btn-color" onclick="location='/user/'">{{loginUser.username}}</span>
+                    {%endifequal%}
+                    
                     <a href="/logout"><span class="btn-register">登出</span></a>
                 </form>
             </div>

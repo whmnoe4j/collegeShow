@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>{% block title %}知乎数据后台管理{% endblock %}</title>
+    <title>{% block title %}高考志愿填报后台管理{% endblock %}</title>
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -49,7 +49,7 @@
                         <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon-user"></i> 
                             {%if adminUser%}
-                            {{adminUser.personname}}
+                            {{adminUser.username}}
                             {%else%}
                             admin
                             {%endif%}
@@ -57,7 +57,7 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a tabindex="-1" href="/user">个人中心</a></li>
+                            <li><a tabindex="-1" href="/adminUser">个人中心</a></li>
                             <li class="divider"></li>
                             <li><a tabindex="-1" class="visible-phone" href="#">设置</a></li>
                             <li class="divider visible-phone"></li>
@@ -66,7 +66,7 @@
                     </li>
                     
                 </ul>
-                <a class="brand" href="index.html"><span class="first">知乎数据</span> <span class="second">后台管理</span></a>
+                <a class="brand" href="/"><span class="first">高考志愿填报系统</span> <span class="second">后台管理</span></a>
         </div>
     </div>
     
@@ -77,23 +77,15 @@
         <a href="#功能面板-menu" class="nav-header" data-toggle="collapse"><i class="icon-功能面板"></i>功能面板</a>
         <ul id="功能面板-menu" class="nav nav-list collapse in">
             <li><a href="/adminIndex">首页</a></li>
-            <li ><a href="/users">用户中心</a></li>
-            <li ><a href="/user">用户资料</a></li>
+            <li ><a href="/adminUsers">用户中心</a></li>
+            <li ><a href="/adminUser">用户资料</a></li>
             <!-- <li class="active"><a href="/calendar">日历</a></li> -->
         </ul>
 
-        <a href="#accounts-menu" class="nav-header" data-toggle="collapse"><i class="icon-briefcase"></i>Account<span class="label label-info">+3</span></a>
+        <a href="#accounts-menu" class="nav-header" data-toggle="collapse"><i class="icon-briefcase"></i>Account<span class="label label-info">+2</span></a>
         <ul id="accounts-menu" class="nav nav-list collapse">
-            <li ><a href="/sign_in">登入</a></li>
+            <li ><a href="/sign_in">登录</a></li>
             <li ><a href="/sign_out">退出</a></li>
-        </ul>
-
-        <a href="#error-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-exclamation-sign"></i>Error Pages <i class="icon-chevron-up"></i></a>
-        <ul id="error-menu" class="nav nav-list collapse">
-            <li ><a href="/error/?pageInfo=403">403 page</a></li>
-            <li ><a href="/error/?pageInfo=404">404 page</a></li>
-            <li ><a href="/error/?pageInfo=500">500 page</a></li>
-            <li ><a href="/error/?pageInfo=503">503 page</a></li>
         </ul>
 
         
