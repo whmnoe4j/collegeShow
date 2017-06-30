@@ -11,16 +11,19 @@
 <body> 
 
 <div class="login">
-    <div class="message">知乎数据-管理登录</div>
+    <div class="message">高考志愿填报-管理登录</div>
     <div id="darkbannerwrap"></div>
     
      <form method="post" action="/sign_in/">
                 
-		<input name="username" placeholder="用户名" required="" type="text">
+		<input name="username" placeholder="用户名" required="" value="{{username}}" type="text">
 		<hr class="hr15">
-		<input name="password" placeholder="密码" required="" type="password">
+		<input name="password" placeholder="密码" required="" value="{{password}}" type="password">
+		<hr class="hr15">
+		<span style="width:100%;color:red;margin:10px;height:20px;text-align:center;">{{loginError}}</span>
 		<hr class="hr15">
 		<input value="登录" style="width:100%;" type="submit">
+
 		<hr class="hr20">
 	</form>
 	

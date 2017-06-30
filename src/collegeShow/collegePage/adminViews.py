@@ -12,7 +12,7 @@ def adminIndex(request):
     loginUser = request.session.get("loginUser", "none")
     print loginUser
     if loginUser.type != 2:
-        return redirect("/index")
+        return HttpResponse("用户没有权限访问！")
     else:
         users = Users.objects.order_by('-id')[0:10]
         adminUserCount = Users.objects.filter(type = 2).count()
@@ -23,7 +23,7 @@ def adminIndex(request):
         userCount = Users.objects.all().count()
         professionCount = Profession.objects.all().count()
         collegeCount = CollegeDetailEwt.objects.all().count()
-        jianxiCount = EwtNewJiangxi.objects.all().count()
+        jianxiCount = EwtNewJxMean.objects.all().count()
         counts = {}
         counts['adminUserCount'] = adminUserCount
         counts['vipUserCount'] = vipUserCount
@@ -67,22 +67,22 @@ def adminUser(request):
 def sign_in(request):
     
     if request.method == "POST":
-        username = str(request.POST.get("username"))
-        password = str(request.POST.get("password"))
+        username = request.POST.get("username")
+        password = request.POST.get("password")
         print username, password
-        if username != ""and password != "" and username == "admin":
-            try:
-                loginUser = Users.objects.get(username = username)
-            except:
-                loginError = u"用户名不存在"
-                return render_to_response("admins/sign-in.html", {'loginError':loginError})
-            else: 
-                if adminUser.password == password:
-                    request.session["loginUser"] = loginUser
-                    return redirect("/adminIndex")
-                else:
-                    loginError = "密码错误"
-                    return render_to_response("admins/sign-in.html", {'loginError':loginError})
+        try:
+            loginUser = Users.objects.get(username = username)
+        except:
+            loginError = u"用户名不存在"
+            print loginError
+            return render_to_response("admins/sign-in.html", {'loginError':loginError, 'username':username, 'password':password})
+        else: 
+            if loginUser.password == password:
+                request.session["loginUser"] = loginUser
+                return redirect("/adminIndex")
+            else:
+                loginError = "密码错误"
+                return render_to_response("admins/sign-in.html", {'loginError':loginError, 'username':username, 'password':password})
     return render_to_response("admins/sign-in.html")
 
 #退出登入
