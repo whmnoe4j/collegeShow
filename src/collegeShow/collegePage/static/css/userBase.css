@@ -1,0 +1,419 @@
+.sk-event-box {
+    width: 800px;
+}
+.por-h-p-set {
+    margin-bottom: 120px;
+}
+.radio label, .sk-event-box {
+    position: relative;
+}
+.common-box {
+    width: 1080px;
+    margin: 0 auto;
+}
+.por-h-p-set .sk-tab-box {
+    border-bottom: 1px solid #dedede;
+    position: relative;
+    padding-top: 38px;
+    height: 38px;
+    margin-top: 56px;
+}
+.por-h-p-set .tab-con.active {
+    border-bottom-color: #22bfa7;
+    color: #555;
+}
+.por-h-p-set .tab-con {
+    display: inline-block;
+    font-size: 16px;
+    color: #aaa;
+    height: 36px;
+    width: 134px;
+    text-align: center;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+    transition: color .2s ease;
+}
+.sk-user-info-set-box {
+    background: #fff;
+    border: 1px solid #eee;
+    margin: 40px 0 0;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    word-break: break-all;
+    word-wrap: break-word;
+    list-style: none;
+    font-size: inherit;
+}
+}
+.sk-user-info-set-box .cy-info-box {
+    margin: 0;
+    padding: 31px 0 20px;
+    position: relative;
+}
+.cy-info-box {
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    margin: 40px 0 10px;
+}
+.sk-user-info-set-box .cy-info-line {
+    width: 300px;
+}
+.cy-info-line {
+    width: 100px;
+    height: 1px;
+    background-color: #dedede;
+    margin-bottom: 5px;
+}
+.cy-info-box .info-title {
+    font-size: 18px;
+    color: #555;
+    margin: 0 25px;
+}
+.sk-user-info-set-box .cy-info-box .set-btn-box {
+    position: absolute;
+    background: #fff;
+    top: 31px;
+    right: 30px;
+}
+.sk-user-info-set-box .set-btn-box {
+    padding-left: 35px;
+}
+.sk-user-info-set-box .cy-info-box .set-btn {
+    line-height: 36px;
+}
+
+.sk-user-info-set-box .set-btn {
+    position: relative;
+    padding: 0 0 0 19px;
+    font-size: 14px;
+    color: #22bfa7;
+    cursor: pointer;
+}
+button {
+    background: 0 0;
+    border: none;
+    outline: 0;
+}
+.sk-user-info-set-box .set-btn.edit:after {
+    content: '';
+    position: absolute;
+    width: 11px;
+    height: 12px;
+    top: 50%;
+    left: 0;
+    background-position: 0 0;
+    margin-top: -6px;
+}
+.sk-setting-after-icon:after, .sk-setting-icon, .sk-user-info-set-box .c-v-spe .spe-icon, .sk-user-info-set-box .lock-tip, .sk-user-info-set-box .set-btn.edit:after {
+    background-image: url(../img/sk_setting_icon_4.5.png);
+    background-repeat: no-repeat;
+    background-position: -10000px -10000px;
+}
+.sk-user-info-set-box .cy-info-box .set-btn-box {
+    position: absolute;
+    background: #fff;
+    top: 31px;
+    right: 30px;
+}
+.sk-user-info-set-box .set-btn-box {
+    padding-left: 35px;
+}
+.cy-info-box .info-title, .per-wallet-bs-table b, .pop-modal .cy-info-box .info-title, .por-h-p-set .cy-info-box .info-title {
+    font-weight: 600;
+}
+.cy-info-box .info-title {
+    font-size: 18px;
+    color: #555;
+    margin: 0 25px;
+}
+.sk-user-info-set-box .cy-info-line {
+    width: 300px;
+}
+.sk-user-info-set-box .cy-info-box {
+    margin: 0;
+    padding: 31px 0 20px;
+    position: relative;
+}
+.cy-info-line {
+    width: 100px;
+    height: 1px;
+    background-color: #dedede;
+    margin-bottom: 5px;
+}
+.sk-user-basic-info-box {
+    background: #fbfbfb;
+    padding: 20px 30px;
+}
+.clearfix {
+    zoom: 1;
+}
+.sk-user-basic-info-box .item-img, .sk-user-basic-info-box .item-img-box {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+}
+.sk-user-basic-info-box .item-img-box {
+    border: 2px solid #fff;
+    box-shadow: 0 2px 2px 2px rgba(0,0,0,.15);
+    margin: 0 28px 0 0;
+    overflow: hidden;
+    text-align: center;
+
+}
+.fl {
+    float: left;
+}
+a {
+    text-decoration: none;
+    transition: color .2s ease;
+}
+.sk-user-basic-info-box .item-img, .sk-user-basic-info-box .item-img-box {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+}
+.fl {
+    float: left;
+}
+.sk-user-basic-info-box .item-ul li {
+    width: 550px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    color: #666;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.clearfix:after {
+    content: "";
+    display: block;
+    clear: both;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+
+.clearfix:after, .ofh {
+    overflow: hidden;
+}
+.sk-user-info-set-form {
+    padding: 0 29px 29px;
+    background: #fdfcf8;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+.cy-common-form-line-box {
+    margin-right: -30px;
+    margin-bottom: 20px;
+}
+.sk-user-info-set-box .basic-info-box {
+    width: auto;
+}
+.por-h-p-set .basic-info-box {
+    width: 422px;
+}
+.sk-user-info-set-form .common-form-line {
+    position: relative;
+}
+
+.sk-user-info-set-box .common-form-line {
+    margin-right: 30px;
+}
+.por-h-p-set .common-form-line {
+    margin-top: 30px;
+}
+.common-form-label {
+    font-size: 16px;
+    height: 26px;
+}
+.clearfix {
+    zoom: 1;
+}
+.common-form-label {
+    font-size: 16px;
+    height: 26px;
+}
+
+.clearfix {
+    zoom: 1;
+}
+.common-input .input, .common-input input, .common-textarea textarea {
+    background: #fff;
+    border-radius: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    width: 100%;
+    line-height: inherit;
+    padding: 0 15px;
+}
+
+.sk-user-info-set-box .cy-info-box {
+    margin: 0;
+    padding: 31px 0 20px;
+    position: relative;
+}
+.pop-modal .cy-info-box, .por-h-p-set .cy-info-box {
+    margin-bottom: 0;
+}
+.cy-info-box {
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    margin: 40px 0 10px;
+}
+.sk-user-info-set-box .cy-info-line {
+    width: 300px;
+}
+.cy-info-box .info-title {
+    font-size: 18px;
+    color: #555;
+    margin: 0 25px;
+}
+.sk-user-info-set-box .cy-info-line {
+    width: 300px;
+}
+.cy-info-line {
+    width: 100px;
+    height: 1px;
+    background-color: #dedede;
+    margin-bottom: 5px;
+}
+.sk-user-info-set-box .cy-info-box .set-btn-box {
+    position: absolute;
+    background: #fff;
+    top: 31px;
+    right: 30px;
+}
+.sk-user-info-set-box .set-btn-box {
+    padding-left: 35px;
+}
+.sk-user-info-set-box .cy-info-box {
+    margin: 0;
+    padding: 31px 0 20px;
+    position: relative;
+}
+.cy-info-box {
+    text-align: center;
+    height: 36px;
+    line-height: 36px;
+    margin: 40px 0 10px;
+}
+.sk-user-info-list .item-title {
+    font-size: 16px;
+    color: #666;
+    max-width: 590px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.sk-user-info-list .item-sub-title {
+    margin: 10px 0 0;
+    color: #aaa;
+    font-size: 14px;
+}
+.sk-user-info-list .item-con {
+    line-height: 1;
+    padding: 30px;
+    position: relative;
+    background: #fbfbfb;
+}
+
+.showName{
+    color: #fff;
+    width: 100%;
+    height:100%;
+    display: block;
+    font-size: 85px;
+    
+    text-align: center;
+    background: #00BFED;
+}
+.fr{
+    float: right;
+}
+.item-ul{
+    /*background: red;*/
+    /*margin-top: 18px;*/
+    /*border-left:1px solid #00BFED;*/
+}
+.item-info{
+    padding: 20px;
+    border-bottom: 3px solid #00BFED;
+    margin: 10px;
+}
+
+
+
+
+
+input,select{
+     width: 100px;
+    border: 1px solid #E0E0E0;
+    font-size: 14px;
+}
+
+input[disabled], select[disabled], textarea[disabled], input[readonly], select[readonly], textarea[readonly] {
+    cursor: not-allowed;
+    background-color: #eeeeee;
+
+}
+.hide{
+    display: none;
+}
+
+
+.por-h-p-set .sk-btn-box {
+    padding-top: 20px;
+    /*position: relative;*/
+}
+
+.por-h-p-set .sk-btn {
+    width: 80px;
+    margin-right: 15px;
+}
+.sk-btn-green {
+    background-color: #00d6b5;
+    color: #fff;
+}
+
+
+.por-h-p-set .sk-btn.cancle {
+    background: #ccc;
+    border: 1px solid #ccc;
+}
+.sk-user-info-set-box .sk-btn {
+    width: 98px;
+    padding: 0;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+}
+.por-h-p-set .sk-btn {
+    width: 80px;
+    margin-right: 15px;
+}
+.sk-btn {
+    display: inline-block;
+    font-size: 16px;
+    padding: 0 22px;
+    text-align: center;
+    border: 1px solid #00d6b5;
+    transition: all .2s ease;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    cursor: pointer;
+}
+.sk-btn:hover {
+    color: blue;
+}

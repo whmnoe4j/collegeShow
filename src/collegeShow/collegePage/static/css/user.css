@@ -10,8 +10,6 @@
 }
 
 .Center_UserDiv {
-    margin-top: 100px;
-    height: 500px;
     background-color: #fff;
     width: 50%;
     text-align: center;
@@ -152,4 +150,43 @@
 .UserInfo_button a:hover{
     color: blue;
     font-weight: 600;
+}
+
+#collect{
+    height: 100px;
+    margin-left: 50px;
+}
+.collect_title{
+    float: left;
+    margin-top: 3px;
+}
+.collect_text{
+    font-size: 18px;
+    color: black;
+}
+.fl{
+    float: left;
+}
+.fr{
+    float: right;
+}
+.collect_college{
+    float: left;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    margin: 0 8px 5px;
+    font-size: 14px;
+    color: #5D5D5D;
+    padding: 0 26px;
+    background: #E4F7FC!important;
+    color: #999!important;
+    cursor: pointer;
+}
+#collect_ul a:hover{
+    background: red;
 }

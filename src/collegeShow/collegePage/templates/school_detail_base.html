@@ -28,6 +28,56 @@ $(document).ready(function(){
 		$('.upper-readLess').addClass('hide')
 	})
     
+    //ajax向后台传送数据
+   function ajax_data(userId,username,password,sex,stutype,schooladdress,score,rank,status,type){
+        $.ajax({
+              type:"POST",
+              data: {'userId':userId,'username':username,'password':password,'sex':sex,'stutype':stutype,'schooladdress':schooladdress,'score':score,'rank':rank,'status':status,'type':type},
+              url: "/updateUser/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+              cache: false,
+              dataType: "html",
+              success: function(auc, statues, xml){
+                  $('input[name="username"]').val(username);
+                  $('input[name="password"]').val(password);
+                  //$('input[name="sex"]').val(sex);
+                  //$('input[name="stutype"]').val(stutype);
+                  $('input[name="schooladdress"]').val(schooladdress);
+                  $('input[name="score"]').val(score);
+                  $('input[name="rank"]').val(rank);
+                  //$('input[name="status"]').val(status);
+                 // $('input[name="type"]').val(type);
+                 $('.flah_error').text("修改成功！");
+              },
+              error: function(){
+                  $('.flah_error').text("修改失败！");
+              }
+
+        });
+   }
+    $('.upper-collect').click(function(){
+
+        college_id=$('.upper-name').attr('college_id')
+        if ("{{loginUser}}"==""|| "{{loginUser}}" ==null){
+            show_login()
+        }else{
+
+            $.ajax({
+                  type:"POST",
+                  data: {'user_id':"{{loginUser.id}}",'college_id':college_id},
+                  url: "/collect/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                  cache: false,
+                  dataType: "html",
+                  success: function(auc, statues, xml){
+                     
+                    alert("收藏成功");
+                  },
+                  error: function(){
+                     alert("收藏失败");
+                  }
+
+            });
+        }
+    })
 })
 	
 	
@@ -111,8 +161,8 @@ $(document).ready(function(){
                 <div class="right-wrap-top">
                     <div class="upper-schoolMajorInfo upper-school-index"><img class="upper-logo" src="{{schoolinfo.school_img}}">
                         <div class="upper-head">
-                            <span class="upper-name" data-fill="sch_name">{{schoolinfo.SchoolName}}</span>
-                            <span class="upper-collect" data-type_id="10414" data-fav_type="SCHOOL" data-collect="false">
+                            <span class="upper-name" data-fill="sch_name" college_id="{{schoolinfo.id}}">{{schoolinfo.SchoolName}}</span>
+                            <span class="upper-collect" data-collect="false">
                                 <div class="upper-icon commonIcon"></div>
                             </span>
                             <span class="upper-schoolLabel">

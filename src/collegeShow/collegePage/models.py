@@ -428,3 +428,13 @@ class CollegeMajor(models.Model):
     class Meta:
         managed = False
         db_table = 'college_major'
+        
+
+class Collection(models.Model):
+    user = models.ForeignKey('Users', models.DO_NOTHING)
+    college = models.ForeignKey('CollegeDetailEwt', models.DO_NOTHING)
+    #major = models.ForeignKey('CollegeMajor', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'collection'

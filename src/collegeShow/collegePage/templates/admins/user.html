@@ -12,7 +12,7 @@
                   url: "/updateUser/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
                   cache: false,
                   dataType: "html",
-                  success: function(auc, statues, xml){
+                  success: function(data, statues, xml){
                       $('input[name="username"]').val(username);
                       $('input[name="password"]').val(password);
                       //$('input[name="sex"]').val(sex);
@@ -41,7 +41,6 @@
         var rank=$('input[name="rank"]').val();
         var status=$('#select_status option:selected').val();
         var type=$('#select_type option:selected').val();
-
           if(username ==  null || username == ''){
                $('.flah_error').text("昵称不能为空");
                return false;
@@ -135,14 +134,15 @@
         {%ifequal user.type 2%}
           <input type="text" disabled="disabled" value="管理员" class="input-xlarge" name="userId">
           {%else%}
-            <select id="select_type">
-            {%ifequal user.type 1%}
-            <option value="0" selected="selected">非Vip</option>
-            <option value="1">Vip用户</option>
-            {%else%}
-            <option value="0">非Vip</option>
-             <option value="1" selected="selected">Vip用户</option>
-            {%endifequal%}
+           <select id="select_type">
+            {%ifequal user.type 0%}
+              <option value="0" selected="selected">非Vip</option>
+              <option value="1">Vip用户</option>
+              {%endifequal%}
+             {%ifequal user.type 1%}
+               <option value="0">非Vip</option>
+               <option value="1" selected="selected">Vip用户</option>
+              {%endifequal%}
           </select>
         {%endifequal%}
          

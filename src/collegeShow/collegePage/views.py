@@ -3,38 +3,7 @@ from django.shortcuts import render, render_to_response, redirect
 
 from models import *
 from django.http.response import HttpResponse
-
-def reportedCollege(request):
-    if request.method == 'POST':
-        loginUser = request.session.get("loginUser", "none")
-        if loginUser != 'none':
-            return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
-        else:
-            tempUser = {}
-            #学校名称
-            tempUser['stuProvince'] = request.POST.get("stuProvince")
-            tempUser['stuType'] = request.POST.get("stuType")
-            tempUser['score'] = request.POST.get("score", '0')
-            tempUser['rank'] = request.POST.get("rank", '0')
-            
-            if tempUser['score'] == "":
-                tempUser['score'] = "0"
-            if tempUser['rank'] == "":
-                tempUser['rank'] = "0"
-            #保存临时的用户成绩分数
-            request.session["tempUser"] = tempUser
-            return render_to_response("reportedCollege.html", {'tempUser':tempUser})
-    else:
-        #return render_to_response("reportedCollege.html")
-        loginUser = request.session.get("loginUser", "none")
-        if loginUser != 'none':
-            return render_to_response("reportedCollege.html", {"loginUser":loginUser})
-        else:
-            tempUser = request.session.get("tempUser", "none")
-            if tempUser == "none":
-                return render_to_response("reportedCollege.html")
-            else:
-                return render_to_response("reportedCollege.html", {'tempUser':tempUser})
+import json
 
 #带参数的装饰器 登录用户和临时用户的验证
 def auth_user(webName = None):
@@ -50,7 +19,12 @@ def auth_user(webName = None):
             #判断是否是登录用户
             loginUser = request.session.get("loginUser", "none")
             if loginUser != 'none':
-                return render_to_response(webName, {'loginUser':loginUser})
+                if loginUser.status == 0:
+                    print u'该账号被冻结'
+                    del request.session['loginUser']
+                    return HttpResponse("该账号被冻结，请联系管理员！返回<a href='/'>首页</a>")
+                else:
+                    return render_to_response(webName, {'loginUser':loginUser})
             else:
                 #如果是用户中心 没有登录状态直接返回到主页面
                 if webName == "user.html":
@@ -63,8 +37,55 @@ def auth_user(webName = None):
                         return render_to_response(webName)
                     else:
                         return render_to_response(webName, {'tempUser':tempUser})
+                #return func(request, *args, **kwargs)
         return inner
     return decorator
+
+#判断用户是否被冻结
+def auth_isStatus(func):
+    def inner(request, *args, **kwargs):
+        #判断是否是登录用户
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != 'none':
+            if loginUser.status == 0:
+                print u'该账号被冻结'
+                del request.session['loginUser']
+                return HttpResponse("该账号被冻结，请联系管理员！返回<a href='/'>首页</a>")
+            else:
+                return func(request, *args, **kwargs)
+        else:
+            #临时用户
+            return func(request, *args, **kwargs)
+    return inner
+
+
+@auth_isStatus
+def reportedCollege(request):
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != 'none':
+        return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
+    if request.method == 'POST':
+        tempUser = {}
+        #学校名称
+        tempUser['stuProvince'] = request.POST.get("stuProvince")
+        tempUser['stuType'] = request.POST.get("stuType")
+        tempUser['score'] = request.POST.get("score", '0')
+        tempUser['rank'] = request.POST.get("rank", '0')
+        
+        if tempUser['score'] == "":
+            tempUser['score'] = "0"
+        if tempUser['rank'] == "":
+            tempUser['rank'] = "0"
+        #保存临时的用户成绩分数
+        request.session["tempUser"] = tempUser
+        return render_to_response("reportedCollege.html", {'tempUser':tempUser})
+    else:
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser == "none":
+            return render_to_response("reportedCollege.html")
+        else:
+            return render_to_response("reportedCollege.html", {'tempUser':tempUser})
+
 
 @auth_user(webName = "collegescoreline.html")
 def collegescoreline(request):
@@ -110,6 +131,7 @@ def professionscore(request):
     pass
 
 #院校信息
+@auth_isStatus
 def schoolinfo(request):
     loginUser = request.session.get("loginUser", "none")
     if loginUser != "none":
@@ -119,6 +141,7 @@ def schoolinfo(request):
         SchoolData = getSchoolInfo(request)
         return render_to_response("school_info.html", {'schoolinfo':SchoolData})
 #获取学校信息
+@auth_isStatus
 def getSchoolInfo(request):
     SchoolInfo = {}
     try:
@@ -130,6 +153,8 @@ def getSchoolInfo(request):
             return HttpResponse('没有该学校信息!')
         
         for school in SchoolList:
+            SchoolInfo["id"] = school.id
+            print SchoolInfo["id"]
             SchoolInfo["SchoolName"] = school.schoolname
             SchoolInfo["f985"] = school.f985
             SchoolInfo["f211"] = school.f211 
@@ -151,6 +176,7 @@ def getSchoolInfo(request):
     except:
         return []
 #招生专业
+@auth_isStatus
 def schoolmajor(request):
     SchoolInfo = getSchoolInfo(request)
     loginUser = request.session.get("loginUser", "none")
@@ -180,6 +206,7 @@ def schoolmajor(request):
         
         return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo})
 #历年分数线
+@auth_isStatus
 def schoolenrol(request):
     loginUser = request.session.get("loginUser", "none")
     SchoolData = getSchoolInfo(request)
@@ -198,30 +225,86 @@ def schoolenrol(request):
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
     
     
-#用户管理界面
-#带参数的装饰器 登录用户和临时用户的验证
-#def auth_admin(func):
-#    def inner(request, *args, **kwargs):
-#        if request.META.has_key('HTTP_X_FORWARDED_FOR'):  
-#            ip = request.META['HTTP_X_FORWARDED_FOR']  
-#        else:  
-#            ip = request.META['REMOTE_ADDR']
-#        print ip 
-#        #判断是否是登录用户
-#        try:
-#            loginUserID = request.session.get("loginUser", "none")
-#            loginUser = Users.objects.get(id = loginUserID)
-#            print loginUser.type
-#            if loginUser.type == 2:
-#                return render_to_response("admins/index.html", {'loginUser':loginUser})
-#            else:
-#                return render_to_response("index.html")
-#        except:
-#            #临时用户
-#            return render_to_response("index.html")
-#    return inner
-##历年分数线
-#@auth_admin
-#def adminIndex(request):
-#    pass
+#添加收藏
+@auth_isStatus
+def collect(request):
+    if request.method == 'POST':
+        userId = int(request.POST['user_id'])
+        print userId
+        collegeId = int(request.POST['college_id'])
+        print collegeId
         
+        collection = Collection()
+        collection.user = Users.objects.get(id = userId)
+        if collegeId != -1:
+            collection.college = CollegeDetailEwt.objects.get(id = collegeId)
+        collection.save()
+        return HttpResponse('collect success')
+
+#收藏功能
+@auth_isStatus
+def showCollect(request):
+    if request.method == 'GET':
+        #判断是否是登录用户
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != 'none':
+            collections = Collection.objects.filter(user = loginUser)
+            collectSchools = []
+            for collect in collections:
+                SchoolData = {}
+                print collect.college.schoolname 
+                SchoolData["SchoolName"] = collect.college.schoolname 
+                collectSchools.append(SchoolData)
+            return HttpResponse(json.dumps(collectSchools))
+        else:
+            return HttpResponse(json.dumps([]))
+        
+    #CollegeMajor.objects.filter(schoolname = schoolName)      
+@auth_isStatus
+def userInfo(request):
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != 'none':
+        collections = Collection.objects.filter(user = loginUser)
+    
+        return render_to_response("user_info.html", {"loginUser":loginUser, "collections":collections})
+    else:
+        return redirect("/")
+#修改信息
+@auth_isStatus
+def updateInfo(request):
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != "none":
+        if request.method == "POST":
+            #Name = request.POST.get("username")
+            sex = request.POST.get("sex")
+            stuProvince = request.POST.get("stuProvince")
+            stuType = request.POST.get("stuType")
+            schoolAddress = request.POST.get("schoolAddress")
+            score = request.POST.get("score")
+            rank = request.POST.get("rank")
+            loginUser = Users.objects.get(id = loginUser.id)
+            #loginUser.username = Name
+            loginUser.sex = sex
+            loginUser.stuprovince = stuProvince
+            loginUser.stutype = stuType
+            loginUser.schooladdress = schoolAddress
+            loginUser.score = score
+            loginUser.rank = rank
+           
+            loginUser.save()
+            request.session["loginUser"] = loginUser
+        return redirect("/userInfo")
+    else:
+        
+        return redirect("/")
+
+#删除收藏
+@auth_isStatus
+def deleCollect(request):
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != "none":
+        collect_id = int(request.GET.get("collect_id"))
+        Collection.objects.filter(user = loginUser, college_id = collect_id).delete()
+        return redirect("/userInfo")
+    else:
+        return redirect("/")

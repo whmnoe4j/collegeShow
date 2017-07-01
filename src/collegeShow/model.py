@@ -10,6 +10,16 @@ from __future__ import unicode_literals
 from django.db import models
 
 
+class Collection(models.Model):
+    user = models.ForeignKey('Users', models.DO_NOTHING)
+    college = models.ForeignKey('CollegeDetailEwt', models.DO_NOTHING)
+    major = models.ForeignKey('CollegeMajor', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'collection'
+
+
 class CollegeAreascoreline(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)  # Field name made lowercase.
     dateyear = models.IntegerField(db_column='DateYear')  # Field name made lowercase.

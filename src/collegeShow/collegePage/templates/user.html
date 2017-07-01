@@ -9,8 +9,38 @@
         // 生成头像
         var userFrameStr = "{{loginUser.username}}";
         infoFrame(userFrameStr);
+
+
+        //alert($('#userInfo_name').html())
+        function showCollect(){
+
+             $.ajax({
+                  type:"GET",
+                  data: {'user_id':"{{loginUser.id}}"},
+                  url: "/showCollect/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+                  cache: false,
+                  dataType: "html",
+                  success: function(data, statues, xml){
+                    data=JSON.parse(data)
+                        if (data.length>0){
+                            for (i=0;i<data.length;i++){
+                                    $('#collect_ul').append('<a href="/schoolinfo?schoolName='+data[i].SchoolName+'"><li class="collect_college" data_value="不限">'+data[i].SchoolName+'</li></a>')
+                                    console.log(data[i].SchoolName);
+                            }
+                        }
+
+                        
+                  },
+                  error: function(){
+                     alert("收藏失败");
+                  }
+
+              });
+       }
+       showCollect()
     }
 </script>
+
 <div class="head_height"></div>
 
 <div class="UserPageDiv">
@@ -32,12 +62,15 @@
                         <p id="userInfo_stuProvince">{{loginUser.stuprovince}}</p>
                     </li>
                     <li>用户类型:
-                        {% ifequal loginUser.type 1%}
+                        {% ifequal loginUser.type 0%}
                         <p id="userInfo_stuProvince">普通用户</p>
-                        {% else %}
+                        {%endifequal%}
+                        {% ifequal loginUser.type 1%}
                         <p id="userInfo_stuProvince" style="color:red">Vip用户</p>
                         {%endifequal%}
-                      
+                        {% ifequal loginUser.type 2%}
+                        <p id="userInfo_stuProvince" style="color:red">管理员</p>
+                        {%endifequal%}
                     </li>
                 </ul>
             </div>
@@ -78,6 +111,25 @@
                 <li>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:
                     <p id="userInfo_rank">{{loginUser.rank }}</p>
                 </li>
+                {# <li class="UserInfo_button" id="userInfo_Edit"><a onclick="editInfo();">编辑信息</a></li> #}
+            </ul>
+        </div>
+
+        <div class="UserInfo_hrDiv">
+            <hr class="UserInfo_hr">
+        </div>
+
+        <div id="collect">
+            <div class="collect_title">
+                <div class="collect_text">收藏院校:</div>
+            </div>
+            <ul id="collect_ul">
+                {# <a href="#"><li class="collect_college" data_value="不限">不限</li></a> #}
+              
+            </ul>
+        </div>
+         <div >
+            <ul>
                 <li class="UserInfo_button" id="userInfo_Edit"><a onclick="editInfo();">编辑信息</a></li>
             </ul>
         </div>

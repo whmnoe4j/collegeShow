@@ -91,4 +91,13 @@ urlpatterns = [
     url(r'deleteUser/', adminViews.deleteUser, name = 'deleteUser'),
     url(r'updateUser/', adminViews.updateUser, name = 'updateUser'),
     url(r'addUser/', adminViews.addUser, name = 'addUser'),
+    
+    #收藏功能
+    url(r'collect/', views.collect, name = 'collect'),
+    url(r'showCollect/', views.showCollect, name = 'showCollect'),
+    #用户个人中心
+    url(r'userInfo/', views.userInfo, name = 'userInfo'),
+    url(r'updateInfo/', views.updateInfo, name = 'updateInfo'),
+    url(r'deleCollect/', views.deleCollect, name = 'deleCollect'),
+    
 ]

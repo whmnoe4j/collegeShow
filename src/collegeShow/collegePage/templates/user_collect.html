@@ -1,0 +1,163 @@
+{% extends 'base.html' %} {% block title %}个人中心{% endblock %} {% block content %}
+<style type="text/css">
+
+</style>
+<link rel="stylesheet" href="../static/css/userBase.css">
+<script type="text/javascript">
+    window.onload = function() {
+
+        $('.cancle').click(function(){
+            $("#edit_user_info").addClass('hide')
+            $('#user_info').removeClass('hide')
+
+        })
+        //alert($('#userInfo_name').html())
+        $('.js_edit_btn').click(function(){
+
+            $("#edit_user_info").removeClass('hide')
+            $('#user_info').addClass('hide')
+            
+        })
+      $('.js_edit_btn').click(function(){
+
+            $("#edit_user_info").removeClass('hide')
+            $('#user_info').addClass('hide')
+            
+        })
+            
+    }
+</script>
+
+<div class="head_height"></div>
+
+<div class="common-box sk-event-box creat-cy-box team-view por-h-p-set">
+    <div class="sk-tab-box">
+        <a href="javascript:;" class="tab-con active">个人信息</a>
+        <a href="#" class="tab-con">账号安全</a>
+        <a href="#" class="tab-con">我的钱包</a>
+    </div>
+    <div class="sk-user-info-set-box" id="userInfoSetBox">
+        <!-- 基本资料 -->
+        <div class="js_item">
+            <div class="cy-info-box">
+                <span class="public cy-info-line"></span>
+                <span class="public info-title">基本资料</span>
+                <span class="public cy-info-line"></span>
+                <span class="set-btn-box">
+                  <button class="set-btn edit js_edit_btn">编辑</button>
+                </span>
+            </div>
+            <div class="sk-user-basic-info-box clearfix" id="user_info">
+                <a href="#" class="fl item-img-box"><span class="showName">{{loginUser.username}}</span></a>
+                <ul class="fl item-ul" style="">
+                    <li title="{{loginUser.username}}">用户名：{{loginUser.username}}</li>
+                    <li>性别：{{loginUser.sex}} </li>
+                    <li>省份：{{loginUser.stuprovince}}</li>
+                    <li title="">分数：{{loginUser.score}}分</li>
+                    <li title="">排名：{{loginUser.rank}}名</li>
+                    <li>文理科：{{loginUser.stutype}}</li>
+                    <li>院校：{{loginUser.schooladdress}}</li>
+
+
+                    {% ifequal loginUser.type 0%}
+                    <li id="userInfo_stuProvince">用户类型: 普通用户</li>
+                    {%endifequal%}
+                    {% ifequal loginUser.type 1%}
+                    <li id="userInfo_stuProvince" style="color:red">用户类型: Vip用户</li>
+                    {%endifequal%}
+                    {% ifequal loginUser.type 2%}
+                    <li id="userInfo_stuProvince" style="color:red">用户类型: 管理员</li>
+                    {%endifequal%}
+                </ul>
+                
+            </div>
+             <form class="sk-user-basic-info-box clearfix hide" id="edit_user_info" action="/updateInfo/" method="post">
+                <a href="#" class="fl item-img-box"><span class="showName">{{loginUser.username}}</span></a>
+                <ul class="fl item-ul" style="">
+                    <li>
+                        用户名：<input type="text" name='username' disabled="disabled" value="{{loginUser.username}}" >
+                    </li>
+                    <li>
+                        性别：<select id="select_sex" name="sex">
+                          {%ifequal loginUser.sex '男'%}
+                          <option selected="selected">男</option>
+                          <option >女</option>
+                          {%else%}
+                          <option>男</option>
+                           <option selected="selected">女</option>
+                          {%endifequal%}
+                        </select>
+                    </li>
+                    <li>省份：
+                         <input type="text" value="{{loginUser.stuprovince}}" class="input-xlarge" name="stuProvince" >
+                    </li>
+                    <li> 
+                        分数：<input type="text" value="{{loginUser.score}}" class="input-xlarge" name="score" maxlength="3">
+                    </li>
+                    <li>
+                        排名：
+                        <input type="text" value="{{loginUser.rank}}" class="input-xlarge" name="rank" maxlength="6">
+                    </li>
+                    <li>
+                        考生类型：
+                        <select id="select_stutype" name="stuType">
+                          {%ifequal loginUser.stutype '文科'%}
+                          <option  selected="selected">文科</option>
+                          <option >理科</option>
+                          {%else%}
+                          <option >文科</option>
+                           <option  selected="selected">理科</option>
+                          {%endifequal%}
+                        </select>
+                    </li>
+                    <li>院校：
+                        <input type="text" value="{{loginUser.schooladdress}}" class="input-xlarge" name="schoolAddress">
+                    </li>
+                  
+                </ul>
+                <div class="sk-btn-box">
+                    <input type="submit" value="保存" class="sk-btn sk-btn-green">
+                    <input type="reset" value="取消" class="sk-btn cancle">
+                    {# <div class="success-tip js_success_tip">保存成功</div> #}
+                </div>
+            </form>
+        </div>
+        <!-- 教育经历 -->
+        <div class="js_item">
+            <div class="cy-info-box">
+                <span class="public cy-info-line"></span>
+                <span class="public info-title">我的收藏</span>
+                <span class="public cy-info-line"></span>
+                
+            </div>
+          
+        </div>
+        <div class="sk-user-info-list" id="userEduInfoList">
+
+            <div class="item js_item">
+                <div class="item-con js_user_info_show_box">
+                {%for collect in collections%}
+                        <div class="item-info">
+                            <a href="/deleCollect?collect_id={{collect.college.id}}" class="set-btn edit fr js_edit_btn">删除</a>
+                            <div class="item-title">
+                               <a href="/schoolinfo?schoolName={{collect.college.schoolname}}">{{collect.college.schoolname}}</a> &nbsp{{collect.college.f211}}&nbsp{{collect.college.f985}}&nbsp{{collect.college.fyan}}</div>
+                            <div class="item-sub-title clearfix">
+                                <div class="fl">  </div>
+                                {# <div class="fr">2013-2017</div> #}
+                            </div>
+                             <div class="item-sub-title clearfix">
+                                <div class="fl">地理位置：{{collect.college.address}}</div>
+                            </div>
+                        </div>
+                {%endfor%}
+                    
+                </div>
+            </div>
+
+        </div>
+     
+        <div class="sk-user-info-list award" id="userAwardInfoList">
+                    </div>
+    </div>
+</div>
+{% endblock %}

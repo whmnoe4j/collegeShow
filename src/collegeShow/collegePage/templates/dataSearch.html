@@ -189,9 +189,9 @@
 							//alert(data.Data.SchoolName)
 							//console.log(data.Data[i].SchoolName)
                             if(i%2==0){
-                            	$('.data-tbody').append('<tr><td class="collegeId" data_college_id="1"><a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'"class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" ></td></tr>')  
+                            	$('.data-tbody').append('<tr><td class="collegeId" ><a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'"class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" collegeId="'+data.Data[i].id+'"></td></tr>')  
                             }else{
-                            	$('.data-tbody').append('<tr style="background:#EBFBFF;"><td class="collegeId" data_college_id="1"><a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'"class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" ></td></tr>')
+                            	$('.data-tbody').append('<tr style="background:#EBFBFF;"><td class="collegeId"><a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'"class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" collegeId="'+data.Data[i].id+'"></td></tr>')
                             }
 								
 						}
@@ -319,8 +319,34 @@
 		      //清空用户跳转页数
 		      $(".page-go input").val("");
 		});
+
+	     //收藏功能
+	    $(document).on('click','.collect',function(){
+	    	
+	        college_id=$(this).attr('collegeId')
+	        if ("{{loginUser}}"==""|| "{{loginUser}}" ==null){
+	            show_login()
+	        }else{
+
+	            $.ajax({
+		                  type:"POST",
+		                  data: {'user_id':"{{loginUser.id}}",'college_id':college_id},
+		                  url: "/collect/", //后台处理函数的url 这里用的是static url 需要与urls.py中的name一致
+		                  cache: false,
+		                  dataType: "html",
+		                  success: function(auc, statues, xml){
+		                     
+		                    alert("收藏成功");
+		                  },
+		                  error: function(){
+		                     alert("收藏失败");
+		                  }
+
+			          });
+			      }
+		    })
 	   
-	});
+});
 	
 	
 </script>

@@ -5,45 +5,59 @@ import json
 from django.http.response import HttpResponse
 from models import *
 
-
+def auth_admin(func):
+    def inner(request, *args, **kwargs):
+        #判断是否是登录用户
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser == 'none':
+            return redirect('/sign_in')
+        else:
+            if loginUser.status == 0:
+                print u'该账号被冻结'
+                return HttpResponse("该账号被冻结，请联系管理员！返回<a href='/sign_in'>登录</a>")
+            #该用户权限不足够
+            if loginUser.type != 2:
+                print u'该用户权限不足'
+                return HttpResponse("该用户权限不足！返回<a href='/sign_in'>登录</a>")
+            else:
+                print u'管理员!'
+                #下面的返回是执行被装饰的函数
+                return func(request, *args, **kwargs)
+    return inner
 #跳转至用户管理后台中心
+@auth_admin
 def adminIndex(request):
     
     loginUser = request.session.get("loginUser", "none")
-    print loginUser
-    if loginUser.type != 2:
-        return HttpResponse("用户没有权限访问！")
-    else:
-        users = Users.objects.order_by('-id')[0:10]
-        adminUserCount = Users.objects.filter(type = 2).count()
-        vipUserCount = Users.objects.filter(type = 1).count()
-        #冻结用户
-        warnUserCount = Users.objects.filter(status = 0).count()
-        
-        userCount = Users.objects.all().count()
-        professionCount = Profession.objects.all().count()
-        collegeCount = CollegeDetailEwt.objects.all().count()
-        jianxiCount = EwtNewJxMean.objects.all().count()
-        counts = {}
-        counts['adminUserCount'] = adminUserCount
-        counts['vipUserCount'] = vipUserCount
-        counts['warnUserCount'] = warnUserCount
-        counts['userCount'] = userCount
-        counts['professionCount'] = professionCount
-        counts['collegeCount'] = collegeCount
-        counts['jianxiCount'] = jianxiCount
-        return render_to_response("admins/index.html", {"users":users, 'adminUser':loginUser, 'counts':counts})
+    users = Users.objects.order_by('-id')[0:10]
+    adminUserCount = Users.objects.filter(type = 2).count()
+    vipUserCount = Users.objects.filter(type = 1).count()
+    #冻结用户
+    warnUserCount = Users.objects.filter(status = 0).count()
+    
+    userCount = Users.objects.all().count()
+    professionCount = Profession.objects.all().count()
+    collegeCount = CollegeDetailEwt.objects.all().count()
+    jianxiCount = EwtNewJxMean.objects.all().count()
+    counts = {}
+    counts['adminUserCount'] = adminUserCount
+    counts['vipUserCount'] = vipUserCount
+    counts['warnUserCount'] = warnUserCount
+    counts['userCount'] = userCount
+    counts['professionCount'] = professionCount
+    counts['collegeCount'] = collegeCount
+    counts['jianxiCount'] = jianxiCount
+    return render_to_response("admins/index.html", {"users":users, 'adminUser':loginUser, 'counts':counts})
 
 #跳转至所有用户管理
+@auth_admin
 def adminUsers(request):
     loginUser = request.session.get("loginUser", "none")
-    if loginUser == 'none':
-        return redirect("/sign_in")
-    else:
-        users = find(request, Users)
-        return render_to_response("admins/users.html", {"users":users['datas'], 'allPage':users["allPage"], 'curPage':users["curPage"], 'adminUser':loginUser})
+    users = find(request, Users)
+    return render_to_response("admins/users.html", {"users":users['datas'], 'allPage':users["allPage"], 'curPage':users["curPage"], 'adminUser':loginUser})
 
 #跳转个体用户管理
+@auth_admin
 def adminUser(request):
     loginUser = request.session.get("loginUser", "none")
     if loginUser == 'none':
@@ -65,7 +79,6 @@ def adminUser(request):
 
 #跳转登入
 def sign_in(request):
-    
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -129,6 +142,7 @@ def find(request, dbName):
     result["allPage"] = allPage
     result["curPage"] = curPage
     return result
+@auth_admin
 def deleteUser(request):
     if request.method == "POST":
         userId = int(request.POST.get('id', 0))
@@ -139,8 +153,9 @@ def deleteUser(request):
             
             return redirect("/adminUsers")
     else:
-        return redirect('/adminUsers')
-        
+        return redirect("/sign_in")
+    
+@auth_admin      
 def updateUser(request):
     if request.method == "POST":
         userId = int(request.POST['userId'])
@@ -170,7 +185,8 @@ def updateUser(request):
             user.save()
             return redirect("/adminUsers")
     else:
-        return redirect('/adminUsers')
+        return redirect("/sign_in")
+@auth_admin 
 def addUser(request):
     if request.method == "POST":
         username = request.POST['username']
@@ -206,5 +222,5 @@ def addUser(request):
                 user.save()
             return redirect('/adminUsers')
     else:
-        return redirect('/adminUsers')
+        return redirect("/sign_in")
     

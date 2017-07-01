@@ -122,7 +122,7 @@
                     {%ifequal loginUser.type 2%}
                     <span class="btn-login btn-color" onclick="location='/adminIndex/'">{{loginUser.username}}</span>
                     {%else%}
-                    <span class="btn-login btn-color" onclick="location='/user/'">{{loginUser.username}}</span>
+                    <span class="btn-login btn-color" onclick="location='/userInfo/'">{{loginUser.username}}</span>
                     {%endifequal%}
                     
                     <a href="/logout"><span class="btn-register">登出</span></a>
