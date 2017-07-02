@@ -8,21 +8,12 @@
     -moz-opacity: 0.8;
 }
 
-.NullDiv {
-    width: 100%;
-    height: 50px;
-}
-
-.NullDiv2 {
-    width: 100%;
-    height: 20px;
-}
 
 .login_register {
     position: absolute;
     z-index: 3000;
-    width: 35%;
-    height: 500px;
+    width: 400px;
+    height: 460px;
     left: 35%;
     top: 100px;
     background-color: #fff;
@@ -79,4 +70,126 @@
     background-color: #dadada;
     border: 1px solid #dadada;
     border-radius: 5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.cd-form{
+    margin-top: 180px;
+}
+
+@media only screen and (min-width: 600px)
+.cd-form .fieldset:first-child {
+    margin-top: 0;
+}
+.cd-form .fieldset:first-child {
+    margin-top: 0;
+}
+@media only screen and (min-width: 600px)
+.cd-form .fieldset {
+    margin: 2em 0;
+}
+.cd-form .fieldset {
+    position: relative;
+    margin: 1.4em 0;
+}
+
+.cd-form label.image-replace {
+    display: inline-block;
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    bottom: auto;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    overflow: hidden;
+    text-indent: 100%;
+    white-space: nowrap;
+    color: transparent;
+    text-shadow: none;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+}
+.cd-form label {
+    font-size: 16px;
+    font-size: 0.875rem;
+}
+@media only screen and (min-width: 600px)
+.cd-form input.has-padding {
+    padding: 16px 20px 16px 50px;
+}
+.cd-form input{
+    border: 1px solid #d2d8d8;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.cd-form input.has-padding {
+    padding: 12px 20px 12px 50px;
+}
+.cd-form input.full-width {
+    width: 80%;
+}
+.cd-form input {
+    margin: 0;
+    padding: 0;
+    border-radius: 0.25em;
+}
+@media only screen and (min-width: 600px)
+.cd-form input[type=submit] {
+    padding: 16px 0;
+}
+.cd-form input[type=submit] {
+    padding: 16px 0;
+    cursor: pointer;
+    background: #2f889a;
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+.cd-form input.full-width2 {
+    width: 94%;
+}
+.cd-form input {
+    margin: 0;
+    padding: 0;
+    border-radius: 0.25em;
+}
+
+.no-count{
+    color: #999;
+}
+input:focus {
+     border: 1px solid #333;
+
+}
+.has-border{
+   border: 1px solid #d2d8d8;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
 }

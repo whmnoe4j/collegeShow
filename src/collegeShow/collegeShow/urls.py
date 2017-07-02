@@ -27,10 +27,10 @@ urlpatterns = [
     url(r'^reportedCollege/', views.reportedCollege, name = 'reportedCollege'),
     url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreline'),
     url(r'^areascoreline/', views.areascoreline, name = 'areascoreline'),
-    #登录注册
-    url(r'^login/', API.login, name = "login"),
-    url(r'^logout/', API.logout, name = "logout"),
-    url(r'^register/', API.register, name = "register"),
+#    #登录注册
+#    url(r'^login/', API.login, name = "login"),
+#    url(r'^logout/', API.logout, name = "logout"),
+#    url(r'^register/', API.register, name = "register"),
     
     #API
     #院校信息
@@ -100,4 +100,8 @@ urlpatterns = [
     url(r'updateInfo/', views.updateInfo, name = 'updateInfo'),
     url(r'deleCollect/', views.deleCollect, name = 'deleCollect'),
     
+    #登录注册
+    url(r'^login/', views.login, name = "login"),
+    url(r'^logout/', views.logout, name = "logout"),
+    url(r'^register/', views.register, name = "register"),
 ]

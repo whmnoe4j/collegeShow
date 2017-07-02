@@ -4,6 +4,7 @@ from django.shortcuts import render, render_to_response, redirect
 from models import *
 from django.http.response import HttpResponse
 import json
+import time
 
 #带参数的装饰器 登录用户和临时用户的验证
 def auth_user(webName = None):
@@ -308,3 +309,62 @@ def deleCollect(request):
         return redirect("/userInfo")
     else:
         return redirect("/")
+    
+
+#登录注册
+def login(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        print username, password
+        try:
+            loginUser = Users.objects.get(username = username, password = password)
+        except:
+            return HttpResponse(json.dumps({"result":False, "errorMsg":"用户名或密码错误"}))
+        else:
+            if loginUser:
+                lastlogin_date = time.strftime("%Y-%m-%d %X", time.localtime(time.time()))
+                loginUser.lastlogin_date = lastlogin_date
+                loginUser.save()
+                request.session["loginUser"] = loginUser
+                return HttpResponse(json.dumps({"result":True, "errorMsg":"登录成功"}))
+def logout(request):
+    try: 
+        del request.session["loginUser"]  #删除session
+        return redirect("index")
+    except:
+        return redirect("index")
+    
+def register(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        realname = request.POST.get("realname")
+        tel = request.POST.get("tel")
+        
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        
+        stuProvince = request.POST.get("stuProvince")
+        stuType = request.POST.get("stuType")
+        stuScore = request.POST.get("score")
+        sex = request.POST.get("sex")
+        
+        print email, realname, tel
+        try:
+            user = Users.objects.get(email = email)
+            if user:
+                return HttpResponse(json.dumps({"Result":"False", "Msg":"该邮箱已经注册"}))
+        except:
+            regression_date = time.strftime("%Y-%m-%d %X", time.localtime(time.time()))
+            user = Users(email = email, username = username, password = password, stuprovince = stuProvince, stutype = stuType, sex = sex, score = stuScore, tel = tel, real_name = realname, rank = 0, status = 1, type = 0, schooladdress = '', regression_date = regression_date)
+            user.save()
+            request.session["loginUser"] = user
+            return redirect("reportedCollege")
+        else:
+            return HttpResponse("注册失败")
+    else:
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != "none":
+            return render_to_response("register.html", {"loginUser":loginUser})
+        else:
+            return render_to_response("register.html")

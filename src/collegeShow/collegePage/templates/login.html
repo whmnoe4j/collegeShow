@@ -1,0 +1,89 @@
+<style type="text/css">
+    .login_register{
+
+        background-image:url(../static/images/login.png);
+        background-size:400px 460px;
+        background-repeat: repeat-y;
+    }
+    .cd-username {
+        background-image: url(../static/images/cd-icon-username.svg);
+    }
+    .cd-password {
+        background-image: url(../static/images/cd-icon-password.svg);
+    }
+    .close_btn{
+        width: 40px;
+        height: 40px;
+        position: relative;
+        top: -468px;
+        border-radius: 8px;
+        float: right;
+        cursor: pointer;
+    }
+</style>
+<script type="text/javascript">
+
+    
+    $(document).ready(function() { 
+         $('.close_btn').click(function(){
+
+            hideMask();
+         })
+
+    });
+    function login() {
+        var username = $("#login_username").val();
+        var password = $("#login_password").val();
+        $.ajax({
+            type: "POST",
+            data: {
+                "username": username,
+                "password": password,
+            },
+            url: "/login/",
+            dataType: "html",
+            success: function(data, status, xml) {
+                data = JSON.parse(data);
+                //alert(data.Msg);
+                if (data.result){
+                    $('.login_tips').html(data.errorMsg)
+                    hideMask();
+                    history.go(0)
+                }
+                $('.login_tips').html(data.errorMsg)
+            }
+        })
+    }
+
+</script>
+<div>
+    <div class="mask" onclick="hideMask()"></div>
+    <div class="login login_register" >
+
+        <div class="cd-form">
+          
+            <p class="fieldset">
+                    <label class="image-replace cd-username" for="signin-username">用户名</label>
+                    <input class="full-width has-padding has-border" id="login_username" type="text" placeholder="输入用户名">
+             </p>
+
+             <p class="fieldset">
+                    <label class="image-replace cd-password" for="signin-password">密码</label>
+                    <input class="full-width has-padding has-border" id="login_password" type="password" placeholder="输入密码">
+             </p>
+             <p class="fieldset">
+                {# <input type="checkbox" id="remember-me" checked="" style="border: 1px solid #d2d8d8;"> #}
+                {# <label for="remember-me">记住登录状态</label> #}
+                 <label class="no-count">没有账号？<a href="/register"class="inputText logpointer" style="color:red" >立即注册</a></label><br/>
+                 <label class="login_tips"style="color:red">&nbsp</label>
+            </p>
+            <p class="fieldset">
+                 <input class="full-width2" type="submit" onclick="login()" value="登 录">
+             </p>
+            <div class="fieldset close_btn"> 
+           </div> 
+            <div class="NullDiv"></div>
+        </div>
+    </div>
+   
+</div>

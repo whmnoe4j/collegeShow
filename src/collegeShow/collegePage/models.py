@@ -398,6 +398,9 @@ class ProfessionRank(models.Model):
 
 
 class Users(models.Model):
+    real_name = models.CharField(max_length = 30, blank = True, null = True)
+    email = models.CharField(max_length = 50)
+    tel = models.CharField(max_length = 11, blank = True, null = True)
     username = models.CharField(max_length = 10)
     password = models.CharField(max_length = 10)
     sex = models.CharField(max_length = 2, blank = True, null = True)

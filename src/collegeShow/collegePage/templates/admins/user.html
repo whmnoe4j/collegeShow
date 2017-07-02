@@ -132,7 +132,9 @@
 
         <label>用户类型</label>
         {%ifequal user.type 2%}
-          <input type="text" disabled="disabled" value="管理员" class="input-xlarge" name="userId">
+         <select id="select_type">
+            <option value="2" selected="selected" >管理员</option>
+          </select>
           {%else%}
            <select id="select_type">
             {%ifequal user.type 0%}

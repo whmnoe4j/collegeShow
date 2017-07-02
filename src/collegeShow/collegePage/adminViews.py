@@ -167,7 +167,7 @@ def updateUser(request):
         score = request.POST['score']
         rank = request.POST['rank']
         status = request.POST['status']
-        type = request.POST['type']
+        types = request.POST['type']
         if username == "" or rank == '' or password == "":
             return redirect("/adminUsers")
         else:
@@ -181,7 +181,7 @@ def updateUser(request):
             user.score = score
             user.rank = rank
             user.status = status
-            user.type = type
+            user.type = types
             user.save()
             return redirect("/adminUsers")
     else:
@@ -197,7 +197,8 @@ def addUser(request):
         score = int(request.POST['score'])
         rank = int(request.POST['rank'])
         status = int(request.POST['status'])
-        type = int(request.POST['type'])
+        types = int(request.POST['type'])
+        print types
         if username == "" or username == '' or password == "":
             return redirect('/adminUsers')
         else:
@@ -217,7 +218,7 @@ def addUser(request):
                 user.score = score
                 user.rank = rank
                 user.status = status
-                user.type = type
+                user.type = types
                 print user
                 user.save()
             return redirect('/adminUsers')
