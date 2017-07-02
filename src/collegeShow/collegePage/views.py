@@ -318,23 +318,30 @@ def login(request):
         password = request.POST.get("password")
         print username, password
         try:
-            loginUser = Users.objects.get(username = username, password = password)
+            if "@" in username:
+                loginUser = Users.objects.get(email = username)
+            else:
+                loginUser = Users.objects.get(username = username)
         except:
-            return HttpResponse(json.dumps({"result":False, "errorMsg":"用户名或密码错误"}))
+            print u'用户名不存在'
+            return HttpResponse(json.dumps({"result":False, "errorMsg":"用户名不存在"}))
         else:
             if loginUser:
-                lastlogin_date = time.strftime("%Y-%m-%d %X", time.localtime(time.time()))
-                loginUser.lastlogin_date = lastlogin_date
-                loginUser.save()
-                request.session["loginUser"] = loginUser
-                return HttpResponse(json.dumps({"result":True, "errorMsg":"登录成功"}))
+                if loginUser.password == password:
+                    lastlogin_date = time.strftime("%Y-%m-%d %X", time.localtime(time.time()))
+                    loginUser.lastlogin_date = lastlogin_date
+                    loginUser.save()
+                    request.session["loginUser"] = loginUser
+                    return HttpResponse(json.dumps({"result":True, "errorMsg":"登录成功"}))
+                else:
+                    return HttpResponse(json.dumps({"result":False, "errorMsg":"密码错误"}))
 def logout(request):
     try: 
         del request.session["loginUser"]  #删除session
         return redirect("index")
     except:
         return redirect("index")
-    
+@auth_isStatus
 def register(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -353,7 +360,7 @@ def register(request):
         try:
             user = Users.objects.get(email = email)
             if user:
-                return HttpResponse(json.dumps({"Result":"False", "Msg":"该邮箱已经注册"}))
+                return HttpResponse("注册失败,该邮箱已经注册,请重新注册！")
         except:
             regression_date = time.strftime("%Y-%m-%d %X", time.localtime(time.time()))
             user = Users(email = email, username = username, password = password, stuprovince = stuProvince, stutype = stuType, sex = sex, score = stuScore, tel = tel, real_name = realname, rank = 0, status = 1, type = 0, schooladdress = '', regression_date = regression_date)

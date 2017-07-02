@@ -37,21 +37,21 @@
                     var verifyCode = $('.verifyCode').val();
                     var tel = $('.tel').val();
 
-                    var usernameReg = /^[\u4E00-\u9FA5]{2,4}$/;
+                    var usernameReg = /^[a-zA-Z]{1,30}$/;
                     var EmailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
                     var TelRegex = /^1[3|4|5|8][0-9]\d{4,8}$/;
                     if(email == ''){
                         showTips('请填写您的邮箱~');
                     }else if(!EmailReg.test(email)){
                         showTips('您的邮箱格式错咯~');
+                    }else if(!usernameReg.test(username)){
+                        showTips('请输入正确的用户名~');
                     }else if(passwd == ''){
                         showTips('请填写您的密码~');
                     }else if(passwd2 == ''){
                         showTips('请再次输入您的密码~');
                     }else if(passwd != passwd2 || passwd2 != passwd){
                         showTips('两次密码输入不一致呢~');
-                    }else if(!usernameReg.test(username)){
-                        showTips('请输入正确的用户名~');
                     }else if(passwd.length<6){
                         showTips('密码必须大于6位数~');
                     }else{
@@ -67,10 +67,10 @@
 
             $('#finishedBtn').click(function(){
                 var realname = $('.realname').val();
-                var usernameReg = /^[\u4E00-\u9FA5]{2,4}$/;
+                var realnameReg = /^[\u4E00-\u9FA5]{2,4}$/;
                 var tel = $('.tel').val();
                 var TelRegex = /^1[3|4|5|8][0-9]\d{4,8}$/;
-                if(!usernameReg.test(realname)){
+                if(!realnameReg.test(realname)){
                         showTips('请输入正确的名字~');
                 }else if(!TelRegex.test(tel)){
                         showTips('请输入正确的手机号码~');
@@ -128,7 +128,7 @@
                     <li>
                         <div class="step_inner fr">
                             <span class="icon_step">3</span>
-                            <h4>完善开发者资料</h4>
+                            <h4>完善用户资料</h4>
                         </div>
                     </li>
                 </ol>
@@ -146,10 +146,10 @@
                                 </div>
                             </div>
                             <div class="frm_control_group">
-                                <label class="frm_label">用户昵称</label>
+                                <label class="frm_label">用户名</label>
                                 <div class="frm_controls">
-                                    <input type="text" name="username" class="frm_input username" maxlength="32"/>
-                                    <p class="frm_tips">必须是中文</p>
+                                    <input type="text" name="username" class="frm_input username" maxlength="30"/>
+                                    <p class="frm_tips">只能输入1-30个以字母开头的字符串，不能有空格</p>
                                 </div>
                             </div>
                             <div class="frm_control_group">
@@ -235,8 +235,8 @@
                             <div class="frm_control_group">
                                 <label class="frm_label">真实姓名</label>
                                 <div class="frm_controls">
-                                    <input type="text" name="realname" class="frm_input realname" maxlength="10"/>
-                                    <p class="frm_tips">请填写真实姓名</p>
+                                    <input type="text" name="realname" class="frm_input realname" maxlength="11"/>
+                                    <p class="frm_tips">请填写真实姓名，5个汉字以内</p>
                                 </div>
                             </div>
                             <div class="frm_control_group">
