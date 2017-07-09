@@ -13,14 +13,14 @@ def auth_admin(func):
             return redirect('/sign_in')
         else:
             if loginUser.status == 0:
-                print u'该账号被冻结'
+                #print u'该账号被冻结'
                 return HttpResponse("该账号被冻结，请联系管理员！返回<a href='/sign_in'>登录</a>")
             #该用户权限不足够
             if loginUser.type != 2:
-                print u'该用户权限不足'
+                #print u'该用户权限不足'
                 return HttpResponse("该用户权限不足！返回<a href='/sign_in'>登录</a>")
             else:
-                print u'管理员!'
+                #print u'管理员!'
                 #下面的返回是执行被装饰的函数
                 return func(request, *args, **kwargs)
     return inner
@@ -65,7 +65,7 @@ def adminUser(request):
         return redirect("/sign_in")
     else:
         userId = int(request.GET.get('id', -1))
-        print userId
+        #print userId
         if userId == -1:
             #默认找到admin的资料
             user = Users.objects.get(id = loginUser.id)
@@ -73,7 +73,7 @@ def adminUser(request):
             return render_to_response("admins/user.html", {'user':user, 'adminUser':loginUser})
         else:
             user = Users.objects.get(id = userId)
-            print user.username
+            #print user.username
             return render_to_response("admins/user.html", {'user':user, 'adminUser':loginUser})
 
 
@@ -82,12 +82,12 @@ def sign_in(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        print username, password
+        #print username, password
         try:
             loginUser = Users.objects.get(username = username)
         except:
             loginError = u"用户名不存在"
-            print loginError
+            #print loginError
             return render_to_response("admins/sign-in.html", {'loginError':loginError, 'username':username, 'password':password})
         else: 
             if loginUser.password == password:
@@ -198,14 +198,14 @@ def addUser(request):
         rank = int(request.POST['rank'])
         status = int(request.POST['status'])
         types = int(request.POST['type'])
-        print types
+        #print types
         if username == "" or username == '' or password == "":
             return redirect('/adminUsers')
         else:
             u = Users.objects.filter(username__exact = username)
             if len(u) > 0:
-                print username
-                print '用户名已经存在'
+                #print username
+                #print '用户名已经存在'
                 errorMsg = "用户名已经存在"
                 return HttpResponse(json.dumps(errorMsg), content_type = 'application/json')
             else:
@@ -219,7 +219,7 @@ def addUser(request):
                 user.rank = rank
                 user.status = status
                 user.type = types
-                print user
+                #print user
                 user.save()
             return redirect('/adminUsers')
     else:

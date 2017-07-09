@@ -46,14 +46,14 @@ def showCollege(request):
         page = int(request.GET.get("page"))
         
         if schoolType != u"不限":
-            print schoolType
+            #print schoolType
             SchoolList = CollegeDetailEwt.objects.filter(character = character, address = schoolProvince, schooltype = schoolType).order_by("school_rank")
         else:
-            print u"不限"
+            #print u"不限"
             SchoolList = CollegeDetailEwt.objects.filter(character = character, address = schoolProvince).order_by("school_rank")
         
         ListLength = len(SchoolList)
-        print ListLength
+        #print ListLength
         
         if ListLength == 0:
             return HttpResponse(json.dumps(SuccessResponse))
@@ -183,7 +183,7 @@ def showScoreParm(request):
 #         return HttpResponse(json.dumps(ErrorResponse))
 
 def showSubjectGroup(request):
-    """专业大类类别API
+    """学科类别API
     http://127.0.0.1:8000/subjectgroup/?subjectType=1
     Get：subjectType(1为本科,2为高职专科)
     Response:{"Msg": "Success", "Result": "True",
@@ -208,7 +208,7 @@ def showSubjectGroup(request):
         return HttpResponse(json.dumps(ErrorResponse))
 
 def showMajorGroupList(request):
-    """专业类型细分API
+    """学科大类API
     http://127.0.0.1:8000/majorgroup/?subjectType=1&subjectName=艺术学
     Get：subjectType(1为本科,2为高职专科)subjectName(专业大类名)
     Response:{"Msg": "Success", "Result": "True",
@@ -234,7 +234,7 @@ def showMajorGroupList(request):
         return HttpResponse(json.dumps(ErrorResponse))
 
 def showProfessionSmall(request):
-    """专业小类别API
+    """专业名称API
     http://127.0.0.1:8000/profession/?subjectType=1&subjectName=艺术学&majorClass=美术学类
     Get：subjectType(1为本科,2为高职专科)subjectName(专业大类名)majorClass(专业子类名)
     Response:{"Msg": "Success", "Result": "True",
@@ -332,7 +332,7 @@ def sameScore(request):
         studentType = request.GET.get("stuType")
         Score = int(request.GET.get("score"))
         page = int(request.GET.get("page"))
-        print studentProvince, studentType, Score, page
+        #print studentProvince, studentType, Score, page
         if ProvinceDict[studentProvince.encode("utf8")]:
             tempObject = ProvinceDict[studentProvince.encode("utf8")]
             
@@ -361,7 +361,7 @@ def sameScore(request):
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
-        print u'数据库不存在该表:' 
+        #print u'数据库不存在该表:' 
         return HttpResponse(json.dumps(ErrorResponse))
 
 
@@ -391,7 +391,7 @@ def professionscore(request):
         schoolName = request.GET.get("schoolName")
         
         page = int(request.GET.get("page"))
-        print studentProvince, batch, studentType, year, page
+        #print studentProvince, batch, studentType, year, page
         if ProvinceDict[studentProvince.encode("utf8")]:
             tempObject = ProvinceDict[studentProvince.encode("utf8")]
             
@@ -400,7 +400,7 @@ def professionscore(request):
         #按院校名称查询
         if schoolName != None:
             #DataListCount = tempObject.objects.filter(schoolname__contains = schoolName, province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank").count()
-            #print DataListCount
+            ##print DataListCount
             DataList = tempObject.objects.filter(schoolname__contains = schoolName, province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
         else:
             DataList = tempObject.objects.filter(province = studentProvince, school_province = schProvince, batch = batch, studenttype = studentType, year = year).order_by("-year", "-batch", "rank")
@@ -430,7 +430,7 @@ def professionscore(request):
         SuccessResponse["Data"] = resultList
         return HttpResponse(json.dumps(SuccessResponse, encoding = 'utf8', ensure_ascii = False))
     except:
-        print u'没有该省数据'
+        #print u'没有该省数据'
         return HttpResponse(json.dumps(ErrorResponse))
 
 def editUser(request):
@@ -525,14 +525,14 @@ def recommendSchool(request):
             else:
                 stuScoreDiff = '暂无' 
             stuBatch.append(areaScoreLine.scoreline)
-            print stuBatch[0]
+            #print stuBatch[0]
             #江西    文史类 本科一批 6082
             #江西    文史类 本科二批 18886
             #江西    文史类 本科三批 32033
             #江西    理工类 本科一批 25591
             #江西    理工类 本科二批 57758
             #江西    理工类 本科三批 81636
-            print u'按排名'
+            #print u'按排名'
             rankProid = 200
             rankNext = 2000 
             #根据用户提供的参数进行不同的搜索
@@ -544,19 +544,19 @@ def recommendSchool(request):
                 elif schoolProvince != '' and schoolType != '':
                         schoolList = EwtNewJxMean.objects.filter(schooltype = schoolType, schoolprovince = schoolProvince, province = stuProvince, studenttype = stuType, batch = stuBatch[0], meanrank__lt = (rank + rankNext), meanrank__gt = (rank - rankProid)).order_by("meanrank")
                 else: 
-                    print u'按排名不限制筛选'
+                    #print u'按排名不限制筛选'
                     #schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], meanrank__lt = (rank + rankNext), meanrank__gt = (rank - rankProid)).order_by("meanrank")  
                     schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, meanrank__lt = (rank + rankNext), meanrank__gt = (rank - rankProid)).order_by("batch")
                     
             else:
-                print '按学校名称'
+                #print '按学校名称'
                 schoolList = EwtNewJxMean.objects.filter(schoolname__icontains = schoolName, province = stuProvince, studenttype = stuType, meanrank__lt = (rank + rankNext), meanrank__gt = (rank - rankProid)).order_by("batch", "meanrank", "-getnum")
         elif score > 400:
             
             # 计算分数对应批次线
             Batch = CollegeAreascoreline.objects.filter(provincearea = stuProvince, studentclass = stuType, dateyear = Year)
             if Batch:
-                Batch = [[x.batch, x.scoreline] for x in Batch if x.batch != '军校(国防生)军检线']#查询所有批次线
+                Batch = [[x.batch, x.scoreline] for x in Batch if x.batch != u'军校(国防生)军检线']#查询所有批次线
                 
                 BatchNum = len(Batch) #计算存在多少个批次线
                 batchDiff = [score - int(batch[1])  for batch in Batch]#计算当前分数到所有分数线的分差
@@ -572,7 +572,7 @@ def recommendSchool(request):
                 else:
                     stuBatch = Batch[minDiff_index]
                 stuScoreDiff = score - stuBatch[1]
-                print u'按分数'
+                #print u'按分数'
                 startScoreDiff = 3
                 endScoreDiff = 10
                 #根据用户提供的参数进行不同的搜索
@@ -584,9 +584,9 @@ def recommendSchool(request):
                     elif schoolProvince != '' and schoolType != '':
                         schoolList = EwtNewJxMean.objects.filter(schooltype = schoolType, schoolprovince = schoolProvince, province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + startScoreDiff), diffscore__gt = (scoreDiff - endScoreDiff)).order_by("-diffscore")
                     else: 
-                        print u'按分不限制筛选'
+                        #print u'按分不限制筛选'
                         schoolList = EwtNewJxMean.objects.filter(province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + startScoreDiff), diffscore__gt = (scoreDiff - endScoreDiff)).order_by("-diffscore")  
-                        print stuBatch[0], stuProvince, stuType
+                        #print stuBatch[0], stuProvince, stuType
                 else:
                     schoolList = EwtNewJxMean.objects.filter(schoolname__icontains = schoolName, province = stuProvince, studenttype = stuType, batch = stuBatch[0], diffscore__lt = (scoreDiff + startScoreDiff), diffscore__gt = (scoreDiff - endScoreDiff)).order_by("meanrank")
         else:
@@ -632,7 +632,7 @@ def recommendSchool(request):
                 school_img = school_Detail.school_img
                 resultList.append([name, schoolprovince, schooltype, f985, f211, fyan, Levels, attach_to, Rank, character, Code, Address, Tel, KeyDiscipline, Facukty, OfficeWebsite, profession, stuScoreDiff, batch, getnum, meanscore, meanrank, diffscore, school_img, score, rank])
             else:
-                print name + u":暂无该信息"
+                #print name + u":暂无该信息"
                 resultList.append([name, schoolprovince, "暂无", "非985", "非211", "非研", "暂无", "暂无", "暂无", "不详", "00000", "暂无", "暂无", "暂无", "不详", "不详", profession, stuScoreDiff, batch, getnum, meanscore, meanrank, diffscore, ''])
         SuccessResponse["Data"] = resultList
         SuccessResponse["Batch"] = {"Province":stuProvince, "StuType":stuType, "Year":Year, "Bacth":stuBatch[0], "BatchLine":stuBatch[1], 'StuScoreDiff':stuScoreDiff}

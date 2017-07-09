@@ -441,3 +441,4 @@ class Collection(models.Model):
     class Meta:
         managed = False
         db_table = 'collection'
+        

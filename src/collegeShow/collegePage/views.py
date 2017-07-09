@@ -10,18 +10,18 @@ import time
 def auth_user(webName = None):
     def decorator(func):
         def inner(request, *args, **kwargs):
-            print '=============='
-            print webName
+            #print '=============='
+            #print webName
             if request.META.has_key('HTTP_X_FORWARDED_FOR'):  
                 ip = request.META['HTTP_X_FORWARDED_FOR']  
             else:  
                 ip = request.META['REMOTE_ADDR']
-            print ip 
+            #print ip 
             #判断是否是登录用户
             loginUser = request.session.get("loginUser", "none")
             if loginUser != 'none':
                 if loginUser.status == 0:
-                    print u'该账号被冻结'
+                    #print u'该账号被冻结'
                     del request.session['loginUser']
                     return HttpResponse("该账号被冻结，请联系管理员！返回<a href='/'>首页</a>")
                 else:
@@ -49,7 +49,7 @@ def auth_isStatus(func):
         loginUser = request.session.get("loginUser", "none")
         if loginUser != 'none':
             if loginUser.status == 0:
-                print u'该账号被冻结'
+                #print u'该账号被冻结'
                 del request.session['loginUser']
                 return HttpResponse("该账号被冻结，请联系管理员！返回<a href='/'>首页</a>")
             else:
@@ -155,7 +155,7 @@ def getSchoolInfo(request):
         
         for school in SchoolList:
             SchoolInfo["id"] = school.id
-            print SchoolInfo["id"]
+            #print SchoolInfo["id"]
             SchoolInfo["SchoolName"] = school.schoolname
             SchoolInfo["f985"] = school.f985
             SchoolInfo["f211"] = school.f211 
@@ -189,7 +189,7 @@ def schoolmajor(request):
     if ListLength == 0:
         return HttpResponse('没有该学校信息!')
     SchoolMajors = []
-    print ListLength
+    #print ListLength
     for school in SchoolMajor:
         SchoolData = {}
         SchoolData["SchoolName"] = school.schoolname 
@@ -218,7 +218,7 @@ def schoolenrol(request):
     proidInfo['schoolName'] = schoolName
     proidInfo['stuProvince'] = stuProvince
     proidInfo['stuType'] = stuType
-    print loginUser
+    #print loginUser
     if loginUser != "none":
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
     else:
@@ -231,9 +231,9 @@ def schoolenrol(request):
 def collect(request):
     if request.method == 'POST':
         userId = int(request.POST['user_id'])
-        print userId
+        #print userId
         collegeId = int(request.POST['college_id'])
-        print collegeId
+        #print collegeId
         
         collection = Collection()
         collection.user = Users.objects.get(id = userId)
@@ -253,7 +253,7 @@ def showCollect(request):
             collectSchools = []
             for collect in collections:
                 SchoolData = {}
-                print collect.college.schoolname 
+                #print collect.college.schoolname 
                 SchoolData["SchoolName"] = collect.college.schoolname 
                 collectSchools.append(SchoolData)
             return HttpResponse(json.dumps(collectSchools))
@@ -316,14 +316,14 @@ def login(request):
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
-        print username, password
+        #print username, password
         try:
             if "@" in username:
                 loginUser = Users.objects.get(email = username)
             else:
                 loginUser = Users.objects.get(username = username)
         except:
-            print u'用户名不存在'
+            #print u'用户名不存在'
             return HttpResponse(json.dumps({"result":False, "errorMsg":"用户名不存在"}))
         else:
             if loginUser:
@@ -356,7 +356,7 @@ def register(request):
         stuScore = request.POST.get("score")
         sex = request.POST.get("sex")
         
-        print email, realname, tel
+        #print email, realname, tel
         try:
             user = Users.objects.get(email = email)
             if user:
