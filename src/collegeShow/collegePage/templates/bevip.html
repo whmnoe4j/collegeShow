@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+{% block title %}成为VIP{% endblock %}
+{% block content %}
+
+
+ <link rel="stylesheet" href="../static/css/index.css">
+ <link rel="stylesheet" href="../static/css/footer.css">
+ <link rel="stylesheet" href="../static/lib/layui-v2.1.5/layui-v2.1.5/layui/css/layui.css">
+ <script type="text/javascript" src="../static/lib/layui-v2.1.5/layui-v2.1.5/layui/layui.all.js"></script>
+ <script type="text/javascript" src="../static/js/jquery-2.1.4.min.js"></script>
+ <script type="text/javascript" src="../static/js/scrollReveal.js"></script>
+    <style>
+       
+        .navbar{
+            background-color:lightblue;
+            border: none;
+            font-size: 18px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 20;
+            box-shadow: none;
+        }
+        .main-right-title {
+            width: 100%;
+            height: 80px;
+            line-height: 80px;
+            font-size: 34px;
+            color: #333;
+            margin: 10px auto 0;
+            text-align: center;
+        }
+        .spaceLine {
+            width: 186px;
+            height: 12px;
+            border-top: 1px solid #CBCBCB;
+            margin: 0 30px;
+            display: inline-block;
+        }
+        .buySubmit {
+            width: 230px;
+            height: 44px;
+            clear: both;
+            margin: 5px auto;
+
+        }
+        .submit_vip {
+            width: 230px;
+            height: 44px;
+            line-height: 44px;
+            font-size: 16px;
+            border-radius: 22px;
+            background: #00BEEC;
+            color: #fff;
+            border: 0px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .submit_vip:focus {
+             border: none; 
+        }
+        .vipPrivilege {
+            width: 100%;
+            height: 755px;
+            background-color: #EFF5F9;
+        }
+        .tab_header {
+            width: 1140px;
+            margin: 0 auto;
+        }
+        .vipPrivilege_title {
+            padding-top: 80px;
+            padding-bottom: 20px;
+            line-height: 50px;
+            font-size: 32px;
+            color: #333;
+            text-align: center;
+        }
+        .privilegeArea {
+            width: 100%;
+            height: 490px;
+            background-color: #fff;
+        }
+        .privilegeTab {
+            height: 60px;
+        }
+        .fl {
+            float: left;
+        }
+        .vipml {
+            margin-left: 10px;
+        }
+        .privilegeTab_list {
+            width: 220px;
+            height: 60px;
+            line-height: 60px;
+            font-size: 16px;
+            background-color: #F7FAFB;
+            border-radius: 4px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .myChoice {
+            background: #fff!important;
+            color: #2D95D7!important;
+        }
+        .vipball {
+            height: 430px;
+            position: relative;
+        }
+        .vipPrivilege .vipball img {
+            width: 1095px;
+            height: 346px;
+            position: absolute;
+            top: 42px;
+            vertical-align: middle;
+            border: 0;
+        }
+        .cdx_vip {
+            width: 1095px;
+            height: 346px;
+            position: absolute;
+            top: 42px;
+        }
+        .cdx_text {
+            height: 48px;
+            line-height: 48px;
+            text-indent: 62px;
+            font-size: 16px;
+            color: #5D5D5D;
+        }
+        .tobevip .layui-layer-title{
+            background-color: #00BEEC;
+            color: white;;
+        }
+        #bottom_img{
+            width: 100%;
+            height: 60%;
+            position: absolute;
+            margin-top: -60px;
+
+        }
+
+    </style>
+
+    <!-- 图片展示部分-->
+        <div style="width: 100%;">
+            <img id="bottom_img" src="../static/images/VIP_bj.jpg">
+            <h2 style="position: absolute;top:23%;left: 40%;font-size: 28px;z-index:30;color: #fff">智慧的选择，为梦想投资</h2>
+        </div>
+        <div style="width: 1140px;height: 418px;position: relative;z-index: 20;margin: 150px auto;top:50px;">
+            <div style="width: 404px;height: 418px;float: left">
+                <img src="../static/images/vip_v.png" style="margin-top: -42px;position: absolute">
+            </div>
+            <div style="line-height: 35px;color: #fdefa3;font-size: 26px;position: absolute;left: 145px;top: 65px;">没有所谓的命运<br />只有不同的选择</div>
+            <div style="line-height: 24px;color: #fdefa3;font-size: 14px;position: absolute;left: 60px;bottom: 40px;">基于大数据云计算的科学志愿填报平台，<br />让高考志愿如你所愿！</div>
+            <div style="width: 736px;height: 418px;background-color:#fff;float: left">
+                <div class="main-right-title">
+                    <span class="spaceLine"></span>
+                    <span>成为VIP</span>
+                    <span class="spaceLine"></span>
+                </div>
+                <div class="main-rigth-content">
+                    <div style="margin-left: 65px;width: 332px;float: left;">
+                        <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">成为会员，你将会拥有以下特权：</p>
+                        <p>使用全站所有功能</p>
+                        <p>可查看所有数千万组高考招生录取数据。</p>
+                        <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">温馨提示：</p>
+                        <p>适用于普通类非提前批的文理科考生，</p>
+                        <p>全国30个省市(除西藏外)均可使用</p>
+                        <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">会员有效期:<span><span style="color: orangered;font-size: 20px;">1</span>年</span></p>
+                    </div>
+                    <div style="margin-left: 65px;width: 200px;float: left;">
+                        <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">会员特价：</p>
+                        <p style="text-decoration: line-through;font-size: 18px;">￥199?</p>
+                        <p style="font-size: 28px;margin-left: 30px;color: orangered">NO!</p>
+                        <p>仅售<label style="font-size: 20px;color: orangered">9.9</label>元噢!</p>
+                    </div>
+                    <div class="buySubmit">
+                        <input type="button" class="submit_vip pointer" value="立即开通">
+                    </div>
+                </div>
+            </div>
+        </div>
+<div class="vipPrivilege">
+    <div class="tab_header">
+        <div class="vipPrivilege_title">高考志愿填报VIP五大特权</div>
+        <div class="privilegeArea">
+            <div class="privilegeTab">
+                <div class="privilegeTab_list fl myChoice">按分推荐大学</div>
+                <div class="privilegeTab_list fl vipml">大学录取概率</div>
+                <div class="privilegeTab_list fl vipml">同分考生去向</div>
+                <div class="privilegeTab_list fl vipml">专业匹配测评</div>
+                <div class="privilegeTab_list fl vipml">模拟志愿填报</div>
+            </div>
+
+            <div class="vipball_all">
+                <div class="vipball" style="display: block;">
+                    <img src="../static/images/vip_ball.jpg" alt="">
+                    <div class="cdx_vip">
+                        <div class="cdx_text">1 你的分数足够上那些大学？</div>
+                        <div class="cdx_text">2 如何选择这些大学？</div>
+                        <div class="cdx_text">3 我能选择那些985/211/教育部直属的大学？</div>
+                        <div class="cdx_text">4 我能选的大学有多大的录取可能性？</div>
+                        <div class="cdx_text">5 这些大学毕业生收入情况如何？</div>
+                        <div class="cdx_text">6 我能选择那些地方的大学？</div>
+                    </div>
+                </div>
+
+                <div class="vipball" style="display: none;">
+                    <img src="../static/images/vip_ball.jpg" alt="">
+                    <div class="cdx_vip">
+                        <div class="cdx_text">1 心目中的大学到低能否被录取？</div>
+                        <div class="cdx_text">2 全国2000多所大学的录取可能性有多大？</div>
+                        <div class="cdx_text">3 心目中的大学应该如何填报？</div>
+                        <div class="cdx_text">4 距离心目中的大学还有多远？</div>
+                        <div class="cdx_text">5 报考这所大学的都是那个分数段的考生？</div>
+                    </div>
+                </div>
+
+                <div class="vipball" style="display:none;">
+                    <img src="../static/images/vip_ball.jpg" alt="">
+                    <div class="cdx_vip">
+                        <div class="cdx_text">1 学长学姐都去了那些大学和专业？</div>
+                        <div class="cdx_text">2 往年与我分数相同的考生都去了那些大学？</div>
+                        <div class="cdx_text">3 往年与我们分数相同的考生到低有多少？</div>
+                        <div class="cdx_text">4 他们中有多少选择了外地大学/本地大学？</div>
+                        <div class="cdx_text">5 这些大学毕业生收入情况如何？</div>
+                        <div class="cdx_text">6 他们中有多少被名校录取？</div>
+                    </div>
+                </div>
+
+                <div class="vipball" style="display:none;">
+                    <img src="../static/images/vip_ball.jpg" alt="">
+                    <div class="cdx_vip">
+                        <div class="cdx_text">1 自己属于什么性格类型？</div>
+                        <div class="cdx_text">2 自己的性格适合什么专业？</div>
+                        <div class="cdx_text">3 适合自己的专业未来收入如何？</div>
+                        <div class="cdx_text">4 适合自己的专业就业情况如何？</div>
+                        <div class="cdx_text">5 这些专业的主要课程和就业方向如何？</div>
+                        <div class="cdx_text">6 有哪些大学开设了适合我的专业</div>
+                    </div>
+                </div>
+
+                <div class="vipball" style="display:none;">
+                    <img src="../static/images/vip_ball.jpg" alt="">
+                    <div class="cdx_vip">
+                        <div class="cdx_text">1  如何在志愿填报中保证自己的个性选择？</div>
+                        <div class="cdx_text">2 如何按照我的成绩和喜好填志愿？</div>
+                        <div class="cdx_text">3 如何掌握大学志愿的“梯度”？</div>
+                        <div class="cdx_text">4 如何优先选择自己喜欢的大学/专业？</div>
+                        <div class="cdx_text">5 如何确定志愿的优先顺序？</div>
+                        <div class="cdx_text">6 如何确定专业志愿？</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".privilegeTab_list").click(function(){
+        $(this).addClass("myChoice").siblings().removeClass("myChoice"); //切换选中的按钮高亮状态
+        var index=$(this).index(); //获取被按下按钮的索引值，需要注意index是从0开始的
+        $(".vipball").eq(index).show().siblings().hide();
+    });
+    $(".submit_vip").click(function(){
+        layer.open({
+            type: 1,
+            skin: 'tobevip', //样式类名
+//            closeBtn: 0, //不显示关闭按钮
+            area: ['800px', '600px'],
+            anim: 2,
+            shadeClose: true, //开启遮罩关闭
+            title:'成为VIP用户',
+            content: '<div style="width: 100%;height: 300px;float: left;"><div style="width: 50%;height:300px;margin: auto;"><img src="../static/images/zhifub.jpg" style="width: 50%;margin-left: 23%"></div></div>'
+            +' <div class="main-right-title"> <span class="spaceLine"></span><img src="../static/images/shoppingcar.png" style="width: 30px;height: 30px;"> <span class="spaceLine"></span></div>'
+            +'<form class="layui-form" action="">' +
+            '<div style="width: 50%;height: 200px;margin-top: 280px;margin-left: 23%"> <div class="layui-form-item"> <label class="layui-form-label">用户名</label> ' +
+            '<div class="layui-input-block"> ' +
+            '<input type="text" name="title" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input"> ' +
+            '</div> </div>' +
+        '<div class="layui-form-item"> <label class="layui-form-label">转账的支付宝</label> ' +
+        '<div class="layui-input-block"> ' +
+        '<input type="text" name="title" required  lay-verify="required" placeholder="请输入转账的支付宝" autocomplete="off" class="layui-input"> ' +
+        '</div> </div>' +
+            '<div class="layui-form-item"> <label class="layui-form-label">支付宝订单号</label> ' +
+            '<div class="layui-input-block"> ' +
+            '<input type="text" name="title" required  lay-verify="required" placeholder="请输入支付宝订单号" autocomplete="off" class="layui-input"> ' +
+            '</div> </div>' +
+            ' <div class="layui-form-item">' +
+            ' <div class="layui-input-block"> ' +
+            '<button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button> ' +
+            '<button type="reset" class="layui-btn layui-btn-primary">重置</button> ' +
+            '</div> </div></div> </form>'
+        });
+    })
+</script>
+{% endblock %}

@@ -104,4 +104,6 @@ urlpatterns = [
     url(r'^login/', views.login, name = "login"),
     url(r'^logout/', views.logout, name = "logout"),
     url(r'^register/', views.register, name = "register"),
+    #注册会员
+    url(r'^bevip/', views.bevip, name = "bevip"),
 ]

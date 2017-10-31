@@ -375,3 +375,9 @@ def register(request):
             return render_to_response("register.html", {"loginUser":loginUser})
         else:
             return render_to_response("register.html")
+#成为Vip
+@auth_user(webName = "bevip.html")
+def bevip(request):
+    pass
+
+
