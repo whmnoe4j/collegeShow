@@ -58,9 +58,26 @@ def auth_isStatus(func):
             #临时用户
             return func(request, *args, **kwargs)
     return inner
+#判断用户是否VIP
+def auth_isVip(func):
+    def inner(request, *args, **kwargs):
+        #判断是否是登录用户
+        loginUser = request.session.get("loginUser", "none")
+        if loginUser != 'none':
+            if loginUser.type < 1:
+                #print u'该账号被冻结'
+                #del request.session['loginUser']
+                #return render_to_response("bevip.html", {'loginUser':loginUser})
+                return redirect(bevip)
+            else:
+                return func(request, *args, **kwargs)
+        else:
+            #临时用户
+            #return func(request, *args, **kwargs)
+            return redirect(register)
+    return inner
 
-
-@auth_isStatus
+@auth_isVip
 def reportedCollege(request):
     loginUser = request.session.get("loginUser", "none")
     if loginUser != 'none':

@@ -22,7 +22,7 @@ from collegePage import adminViews
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.index, name = 'index'),
-   
+    url(r'^index/', views.index, name = 'index'),
     url(r'^dataSearch/', views.dataSearch, name = 'dataSearch'),
     url(r'^reportedCollege/', views.reportedCollege, name = 'reportedCollege'),
     url(r'^collegescoreline/', views.collegescoreline, name = 'collegescoreline'),
