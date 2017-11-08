@@ -30,6 +30,8 @@ def adminIndex(request):
     
     loginUser = request.session.get("loginUser", "none")
     users = Users.objects.order_by('-id')[0:10]
+    orders = Order.objects.order_by('-id')
+    
     adminUserCount = Users.objects.filter(type = 2).count()
     vipUserCount = Users.objects.filter(type = 1).count()
     #冻结用户
@@ -47,7 +49,9 @@ def adminIndex(request):
     counts['professionCount'] = professionCount
     counts['collegeCount'] = collegeCount
     counts['jianxiCount'] = jianxiCount
-    return render_to_response("admins/index.html", {"users":users, 'adminUser':loginUser, 'counts':counts})
+    
+    
+    return render_to_response("admins/index.html", {"users":users, "orders":orders, 'adminUser':loginUser, 'counts':counts})
 
 #跳转至所有用户管理
 @auth_admin

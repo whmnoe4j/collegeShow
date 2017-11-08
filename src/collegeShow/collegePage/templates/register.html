@@ -3,6 +3,12 @@
 {% block content %}
 <link rel="stylesheet" href="../static/css/register.css" />
 <link rel="stylesheet" href="../static/css/register_layout.css"/>
+<style type="text/css">
+    
+    a{
+        text-decoration:none;
+    }
+</style>
 <script src="../static/js/jquery.min.js"></script>
     <script> 
         //显示提示框，目前三个参数(txt：要显示的文本；time：自动关闭的时间（不设置的话默认1500毫秒）；status：默认0为错误提示，1为正确提示；)
@@ -55,8 +61,32 @@
                     }else if(passwd.length<6){
                         showTips('密码必须大于6位数~');
                     }else{
-                        showTips('提交成功~ 即将进入下一步',1500,1);
+                        
                         //此处省略 ajax 提交表单 代码...
+                        // $.post("/validregister",{suggest:txt},function(result){
+                        	// showTips(result);
+						 // });
+                        
+                         // $.ajax({  
+                         //     type : "POST",  
+                         //     url : "/validregister/",  
+                         //     data : {  
+                         //         username : username,  
+                         //         email : email
+                         //     },  
+                         //     dataType: "text",  
+                         //     success : function(data) {            
+                         //         //TODO  
+                         //         showTips('提交成功~ 即将进入下一步',1500,1);
+                         //    	 var i = $(this).attr('step');
+                         //         $('.processorBox li').removeClass('current').eq(i).addClass('current');
+                         //         $('.step').fadeOut(300).eq(i).fadeIn(500);
+                         //     },        
+                         //     error: function(data) {            
+                         //    	 showTips(data);
+                         //     }  
+                         // });  
+                        showTips('提交成功~ 即将进入下一步',1500,1);
                         var i = $(this).attr('step');
                         $('.processorBox li').removeClass('current').eq(i).addClass('current');
                         $('.step').fadeOut(300).eq(i).fadeIn(500);

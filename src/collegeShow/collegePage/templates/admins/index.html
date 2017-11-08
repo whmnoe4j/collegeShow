@@ -128,7 +128,48 @@
     </div>
    
 </div>
+<!-- ===========================订单表 -->
+<div class="row-fluid">
+    <div class="block span6" style="width:990px;">
+        <a href="#tablewidget" class="block-heading" data-toggle="collapse">Order<span class="label label-warning">+10</span></a>
+        <div id="tablewidget" class="block-body collapse in">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>订单编号</th>
+                  <th>用户ID</th>
+                  <th>用户名</th>
+                  <th>支付宝名</th>
+                  <th>支付订单号</th>
+                  <th>下单时间</th>
+                  <th>金额</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%if orders%}
+                   {%for order in orders%}
+                        <tr>
+                          
+                          <td>{{order.id}}</td>
+                          <td>{{order.user_id}}</td>
+                          <td><a href="/adminUser/?id={{order.user_id}}">{{order.username}}</a></td>
+                          <td>{{order.zhifu_name}}</td>
+                          <td>{{order.zhifu_order}}</td>
+                          <td>{{order.createtime}}</td>
+                          <td>{{order.count}}</td>
+                        </tr>
 
+                   {%endfor%}
+                {%endif%}
+                
+              </tbody>
+            </table>
+            <p><a href="/adminUsers">More...</a></p>
+        </div>
+    </div>
+   
+</div>
+<!-- ============================end -->
 
                     
                     <footer>

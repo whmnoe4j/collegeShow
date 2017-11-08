@@ -106,4 +106,12 @@ urlpatterns = [
     url(r'^register/', views.register, name = "register"),
     #注册会员
     url(r'^bevip/', views.bevip, name = "bevip"),
+    #提交订单
+    url(r'^order/', views.order, name = "order"),
+    #注册验证
+    url(r'^validregister/', views.validregister, name = "validregister"),
+    #模糊查询
+    url(r'^likesearch/', views.likesearch, name = "likesearch"),
+    
+    
 ]

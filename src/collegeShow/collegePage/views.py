@@ -5,6 +5,7 @@ from models import *
 from django.http.response import HttpResponse
 import json
 import time
+import datetime
 
 #带参数的装饰器 登录用户和临时用户的验证
 def auth_user(webName = None):
@@ -77,11 +78,10 @@ def auth_isVip(func):
             return redirect(register)
     return inner
 
-@auth_isVip
+#@auth_isVip
 def reportedCollege(request):
     loginUser = request.session.get("loginUser", "none")
-    if loginUser != 'none':
-        return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
+
     if request.method == 'POST':
         tempUser = {}
         #学校名称
@@ -89,15 +89,23 @@ def reportedCollege(request):
         tempUser['stuType'] = request.POST.get("stuType")
         tempUser['score'] = request.POST.get("score", '0')
         tempUser['rank'] = request.POST.get("rank", '0')
-        
         if tempUser['score'] == "":
             tempUser['score'] = "0"
         if tempUser['rank'] == "":
             tempUser['rank'] = "0"
-        #保存临时的用户成绩分数
-        request.session["tempUser"] = tempUser
-        return render_to_response("reportedCollege.html", {'tempUser':tempUser})
+        if loginUser != 'none':
+            loginUser.score = tempUser['score']
+            loginUser.stuType = tempUser['stuType']
+            loginUser.rank = tempUser['rank']
+            loginUser.stuProvince = tempUser['stuProvince']
+            return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
+        else:
+            #保存临时的用户成绩分数
+            request.session["tempUser"] = tempUser
+            return render_to_response("reportedCollege.html", {'tempUser':tempUser})
     else:
+        if loginUser != 'none':
+            return render_to_response("reportedCollege.html", { 'loginUser':loginUser})
         tempUser = request.session.get("tempUser", "none")
         if tempUser == "none":
             return render_to_response("reportedCollege.html")
@@ -378,6 +386,9 @@ def register(request):
             user = Users.objects.get(email = email)
             if user:
                 return HttpResponse("注册失败,该邮箱已经注册,请重新注册！")
+            user_name = Users.objects.get(username = username)
+            if user_name:
+                return HttpResponse("注册失败,该用户名已存在,请重新注册！<a href='/register'>返回</a>")
         except:
             regression_date = time.strftime("%Y-%m-%d %X", time.localtime(time.time()))
             user = Users(email = email, username = username, password = password, stuprovince = stuProvince, stutype = stuType, sex = sex, score = stuScore, tel = tel, real_name = realname, rank = 0, status = 1, type = 0, schooladdress = '', regression_date = regression_date)
@@ -396,5 +407,77 @@ def register(request):
 @auth_user(webName = "bevip.html")
 def bevip(request):
     pass
+@auth_user(webName = "success.html")
+def success(request):
+    pass
+#订单
+def order(request):
+    loginUser = request.session.get("loginUser", "none")
+    
+    if request.method == "POST":
+        
+        username = request.POST.get("username")
+        zhifu_name = request.POST.get("zhifu_name")
+        zhifu_order = request.POST.get("zhifu_order")
+        date = datetime.datetime.now()
+        order = Order()
+        if loginUser != "none":
+            order.user = loginUser
+        else:
+            loginUser = Users(email = "test@qq.com", username = username, password = "123123", stuprovince = "江西", stutype = "理科", sex = "男", score = 0, tel = "", real_name = "", rank = 0, status = 1, type = 0, schooladdress = '', regression_date = date)
+            loginUser.save()
+            order.user = loginUser
+            request.session["loginUser"] = loginUser
+        order.username = loginUser.username
+        order.zhifu_name = zhifu_name
+        order.zhifu_order = zhifu_order
+        order.count = 9.9
+        order.createtime = date
+        order.save()
+        return render_to_response("success.html", {"loginUser":loginUser})
+    else:
+        loginUser = request.session.get("loginUser", "none")
+        request.session["loginUser"] = loginUser
+        #return render_to_response("success.html", {"loginUser":loginUser})
+        return redirect(success)
 
+#注册验证
+def validregister(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        message = {'status': "error", 'message': '注册失败,该邮箱已经注册,请重新注册！'}
+        email = request.POST.get("email")
+        try:  
+            user_email = Users.objects.get(email = email)
+            print user_email 
+            message["message"] = '注册失败,该邮箱已经注册,请重新注册！'
+            return HttpResponse('注册失败,该邮箱已经注册,请重新注册！')
+        except: 
+            return HttpResponse('注册失败,该邮箱已经注册,请重新注册！')
+            pass
+#        try:  
+#            user_username = Users.objects.get(username = username)
+#            print user_username 
+#            message["message"] = "注册失败,该用户名已存在,请重新注册！<a href='/register'>返回</a>"
+#            return HttpResponse("注册失败,该用户名已存在,请重新注册！<a href='/register'>返回</a>")
+#        except: 
+#            pass
+#        return None
+    else:
+        return redirect(register)
+
+#模糊查询
+def likesearch(request):
+    if request.method == 'POST':
+        input_text = request.POST.get("input_text", "江西师范大学")
+        SchoolList = CollegeDetailEwt.objects.filter(schoolname__contains = input_text)[1:10]
+        data = []
+        if SchoolList is [] or input_text is "" or input_text is None:
+            return HttpResponse(json.dumps(data))
+        for school in SchoolList:
+            data.append(school.schoolname)
+        return HttpResponse(json.dumps(data))
+    else:
+        data = ['error']
+        return HttpResponse(data)
 

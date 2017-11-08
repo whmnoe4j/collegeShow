@@ -70,7 +70,7 @@ function SaveInfo() {
         dataType: "html",
         success: function(data, status, xml) {
             data = JSON.parse(data);
-            alert(data.Msg);
+            //alert(data.Msg);
             var userInfo_name = $("#userInfo_name");
             userInfo_name.html(name);
             var userInfo_sex = $("#userInfo_sex");

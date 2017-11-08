@@ -7,6 +7,7 @@
   position: fixed;
   background: white;
 }
+
 .lpointer{
 	cursor: pointer;
 }
@@ -110,6 +111,7 @@ li {
   background:white !important;
   line-height: 20px;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 .drop dt a:hover{
 

@@ -442,3 +442,14 @@ class Collection(models.Model):
         managed = False
         db_table = 'collection'
         
+class Order(models.Model):
+    user = models.ForeignKey('Users', models.DO_NOTHING)
+    username = models.CharField(max_length = 100, blank = True, null = True)
+    zhifu_name = models.CharField(max_length = 100, blank = True, null = True)
+    zhifu_order = models.CharField(max_length = 100, blank = True, null = True)
+    createtime = models.DateField(blank = True, null = True)
+    count = models.FloatField(blank = True, null = True)
+
+    class Meta:
+        managed = False
+        db_table = 'order'
