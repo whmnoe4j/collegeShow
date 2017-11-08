@@ -175,7 +175,7 @@
                         <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">温馨提示：</p>
                         <p>适用于普通类非提前批的文理科考生，</p>
                         <p>仅限江西考生可使用</p>
-                        <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">会员有效期:<span><span style="color: orangered;font-size: 20px;">1</span>年</span></p>
+                        <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">会员有效期:<span><span style="color: orangered;font-size: 20px;">永久</span></span></p>
                     </div>
                     <div style="margin-left: 65px;width: 200px;float: left;">
                         <p style="height: 30px;line-height: 30px;font-size: 14px;font-weight: 800;color: #333;">会员特价：</p>
@@ -184,7 +184,16 @@
                         <p>仅售<label style="font-size: 20px;color: orangered">9.9</label>元噢!</p>
                     </div>
                     <div class="buySubmit">
+                    
+                        {%if loginUser%}
+                            {%if loginUser.type >= 1%}
+                            <p style="color:red;font-size:16px;font-weight:600;">您已经是VIP会员哦!</p>
+                            {%else%}
+                            <input type="button" class="submit_vip pointer" value="立即开通">
+                            {%endif%}
+                        {%else%}
                         <input type="button" class="submit_vip pointer" value="立即开通">
+                        {%endif%}
                     </div>
                 </div>
             </div>

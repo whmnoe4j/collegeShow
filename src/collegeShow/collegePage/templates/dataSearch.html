@@ -43,7 +43,7 @@
 	    display: block;
 	    /* float: left; */
 	    /* position: relative; */
-	    /* margin-left: 35px; */
+	     margin-left: 15px; 
 	    /* width: 65px; */
 	    height: 60px;
 	    background: url(../static/images/star_b.png) no-repeat 25px center;
@@ -169,6 +169,16 @@
 		}
 
 
+		Array.prototype.contains = function (obj) {  
+		    var i = this.length;  
+		    while (i--) {  
+		        if (this[i] === obj) {  
+		            return true;  
+		        }  
+		    }  
+		    return false;  
+		} 
+
 		 //大学分数线
 		// ajax 传数据获取院校数据
 		function ajax_data(url){
@@ -176,7 +186,6 @@
 			$('.data_table').append('<tbody class="data-tbody"></tbody>')
 			$(document.body).mLoading("show");//显示loading组件
 				$.getJSON(url,function(data){
-				
 
 				// alert()
 				if (data.Data.length!=0){
@@ -188,10 +197,22 @@
 							//alert(data.Data[i][0])
 							//alert(data.Data.SchoolName)
 							//console.log(data.Data[i].SchoolName)
+
+							var collectId = {{ collectId |safe }}
+							pre_common='<a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'" class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td>'
+
+							pre_mid=''
+							if(collectId.contains(data.Data[i].id)){
+								pre_mid='<td class="pointer">已收藏</td></tr>'
+							}else{
+								pre_mid='<td class="collectBox collect pointer" collegeId="'+data.Data[i].id+'"></td></tr>'
+							}
                             if(i%2==0){
-                            	$('.data-tbody').append('<tr><td class="collegeId" ><a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'"class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" collegeId="'+data.Data[i].id+'"></td></tr>')  
+								pre_head='<tr><td class="collegeId">'+pre_common
+                            	$('.data-tbody').append(pre_head+pre_mid)  
                             }else{
-                            	$('.data-tbody').append('<tr style="background:#EBFBFF;"><td class="collegeId"><a  href="/schoolinfo?schoolName='+data.Data[i].SchoolName+'"class="collegeLink pointer tst3">'+data.Data[i].SchoolName+'</a></td><td>'+data.Data[i].f985+'</td><td>'+data.Data[i].f211+'</td><td>'+data.Data[i].fyan+'</td><td>'+data.Data[i].character+'</td><td>'+data.Data[i].Rank+'</td><td>'+data.Data[i].attach_to+'</td><td class="collectBox collect pointer" collegeId="'+data.Data[i].id+'"></td></tr>')
+                            	pre_head='<tr style="background:#EBFBFF;"><td class="collegeId">'+pre_common
+                            	$('.data-tbody').append(pre_head+pre_mid)  
                             }
 								
 						}
@@ -336,7 +357,7 @@
 		                  dataType: "html",
 		                  success: function(auc, statues, xml){
 		                     
-		                    alert("收藏成功");
+		                    location.reload();
 		                  },
 		                  error: function(){
 		                     alert("收藏失败");

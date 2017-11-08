@@ -11,13 +11,11 @@ import datetime
 def auth_user(webName = None):
     def decorator(func):
         def inner(request, *args, **kwargs):
-            #print '=============='
-            #print webName
             if request.META.has_key('HTTP_X_FORWARDED_FOR'):  
                 ip = request.META['HTTP_X_FORWARDED_FOR']  
             else:  
                 ip = request.META['REMOTE_ADDR']
-            #print ip 
+        
             #判断是否是登录用户
             loginUser = request.session.get("loginUser", "none")
             if loginUser != 'none':
@@ -123,9 +121,26 @@ def index(request):
      
     pass
    
-@auth_user(webName = "dataSearch.html")
+@auth_isStatus
 def dataSearch(request):
-    pass
+    webName = "dataSearch.html"
+    #判断是否是登录用户
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != 'none':
+        #将收藏结果返回
+        collections = Collection.objects.filter(user = loginUser)
+        collectId = [collect.college.id  for collect in collections]
+        if collectId is [] or len(collectId) == 0:
+            return render_to_response(webName, {'loginUser':loginUser, "collectId":json.dumps([])})
+        else:
+            return render_to_response(webName, {'loginUser':loginUser, "collectId":json.dumps(collectId)})
+    else:
+        #临时用户
+        tempUser = request.session.get("tempUser", "none")
+        if tempUser == "none":
+            return render_to_response(webName, { "collectId":json.dumps([])})
+        else:
+            return render_to_response(webName, {'tempUser':tempUser})
 
 @auth_user(webName = "user.html")
 def user(request):
@@ -162,7 +177,17 @@ def schoolinfo(request):
     loginUser = request.session.get("loginUser", "none")
     if loginUser != "none":
         SchoolData = getSchoolInfo(request)
-        return render_to_response("school_info.html", {'schoolinfo':SchoolData, 'loginUser':loginUser})
+        collections = Collection.objects.filter(user = loginUser)
+        collectId = [collect.college.id  for collect in collections]
+        
+        
+#        for collect in collections:
+#            print collect.colle
+#            SchoolData = {}
+#            #print collect.college.schoolname 
+#            SchoolData["SchoolName"] = collect.college.schoolname 
+#            collectId.append(SchoolData)
+        return render_to_response("school_info.html", {'schoolinfo':SchoolData, 'loginUser':loginUser, 'collectId':collectId})
     else:
         SchoolData = getSchoolInfo(request)
         return render_to_response("school_info.html", {'schoolinfo':SchoolData})
@@ -435,11 +460,12 @@ def order(request):
         order.createtime = date
         order.save()
         return render_to_response("success.html", {"loginUser":loginUser})
+        #return redirect(success)
     else:
         loginUser = request.session.get("loginUser", "none")
         request.session["loginUser"] = loginUser
-        #return render_to_response("success.html", {"loginUser":loginUser})
-        return redirect(success)
+        return render_to_response("success.html", {"loginUser":loginUser})
+        #return redirect(success)
 
 #注册验证
 def validregister(request):
@@ -449,12 +475,11 @@ def validregister(request):
         email = request.POST.get("email")
         try:  
             user_email = Users.objects.get(email = email)
-            print user_email 
+            #print user_email 
             message["message"] = '注册失败,该邮箱已经注册,请重新注册！'
             return HttpResponse('注册失败,该邮箱已经注册,请重新注册！')
         except: 
             return HttpResponse('注册失败,该邮箱已经注册,请重新注册！')
-            pass
 #        try:  
 #            user_username = Users.objects.get(username = username)
 #            print user_username 
