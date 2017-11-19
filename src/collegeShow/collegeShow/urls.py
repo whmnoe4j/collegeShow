@@ -113,5 +113,7 @@ urlpatterns = [
     #模糊查询
     url(r'^likesearch/', views.likesearch, name = "likesearch"),
     
+    #修改密码
+    url(r'^editpasswd/', views.editpasswd, name = "editpasswd"),
     
 ]

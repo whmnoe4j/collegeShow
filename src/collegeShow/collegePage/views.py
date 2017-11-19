@@ -506,3 +506,32 @@ def likesearch(request):
         data = ['error']
         return HttpResponse(data)
 
+#修改密码
+def editpasswd(request):
+    result = {}
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser == "none":
+        return redirect(index)
+    if request.method == 'POST':
+        oldpasswd = request.POST.get("oldpasswd")
+        newpasswd = request.POST.get("newpasswd")
+        newpasswd2 = request.POST.get("newpasswd2")
+        if newpasswd2 == "" or newpasswd == ""  or oldpasswd == "":
+            result["message"] = '密码框不能为空'
+            return render_to_response("editpasswd.html", {"loginUser":loginUser, "result":result})
+        try:
+            user = Users.objects.get(username = loginUser.username, password = oldpasswd)
+        except:
+            result["message"] = '原密码错误' 
+            return render_to_response("editpasswd.html", {"loginUser":loginUser, "result":result})
+        if user: #原密码正确 
+            if newpasswd == newpasswd2:#两次新密码一致 
+                user.password = newpasswd # 修改
+                user.save() 
+                result["message"] = '修改成功' 
+                return render_to_response("editpasswd.html", {"loginUser":loginUser, "result":result})     
+            else:#两次新密码不一致 
+                result["message"] = '两次密码不一致，请重新输入'   
+                return render_to_response("editpasswd.html", {"loginUser":loginUser, "result":result})  
+    else:
+        return render_to_response("editpasswd.html", {"loginUser":loginUser})

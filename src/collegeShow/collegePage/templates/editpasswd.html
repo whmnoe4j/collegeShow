@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}成为VIP{% endblock %}
+{% block content %}
+
+ <div class="head_height"></div>
+ <div style="height:800px;">
+    <h1>修改密码</h1>
+    <form action="/editpasswd/" method="post">
+        原密码：<input name="oldpasswd" type="text"/></br>
+   新密码：     <input name="newpasswd" type="text"/></br>
+     确认密码：   <input name="newpasswd2" type="text"/></br>
+     <input type="submit"/>
+    </form>
+    {% if result %}
+	<span>{{result.message}}</span>
+	{%endif%}
+ </div>
+
+{% endblock %}
