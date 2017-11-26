@@ -63,7 +63,7 @@ li {
 
 .changeNav_school, .changeNav_major {
     height: 46px;
-    color: #00BFED;
+    color: #F1923D;
     font-size: 16px;
     clear: both;
 }
@@ -96,13 +96,13 @@ li {
     cursor: pointer;
 }
 .mySelected {
-    background: #EBFBFF!important;
+    background: #FFE6D9!important;
 }
 .lFrame .mySelected:before {
     content: '';
     width: 4px;
     height: 48px;
-    background: #00BFED;
+    background: #F1923D;
     position: absolute;
     left: 0;
 }
@@ -162,13 +162,13 @@ li {
 
 }
 .userInfo span {
-    color: #00BFED;
+    color: #F1923D;
     margin: 0px 3px;
     font-size: 14px;
 }
 
 .partLine_top {
-    border-top: 4px solid #00BFED;
+    border-top: 4px solid #F1923D;
 }
 .rFrame [id^="row_"] {
     padding: 10px 0;
@@ -195,7 +195,7 @@ li {
     margin-bottom: 0;
 }
 .mySelected {
-    background: #EBFBFF!important;
+    background: #FFE6D9!important;
 }
 .pull-left {
     float: left!important;
@@ -220,7 +220,7 @@ li {
     padding: 0 26px;
 }
 .rFrame .mySelected {
-    background: #00BFED!important;
+    background: #F1923D!important;
     color: #fff!important;
 }
 
@@ -246,7 +246,7 @@ li {
     padding: 0 26px;
 }
 .rFrame .mySelected {
-    background: #00BFED!important;
+    background: #F1923D!important;
     color: #fff!important;
 }
 .rFrame .select_items {
@@ -255,7 +255,7 @@ li {
     background: #fff;
 }
 .partLine_top {
-    border-top: 4px solid #00BFED;
+    border-top: 4px solid #F1923D;
 }
 .boxHeader {
     padding: 10px 0;
@@ -265,7 +265,7 @@ li {
     /* margin: 0 -15px 0 15px; */
 }
 .partLine_bottom {
-    border-bottom: 4px solid #00BFED;
+    border-bottom: 4px solid #F1923D;
 }
 .headTitle {
     width: 80px;
@@ -310,8 +310,8 @@ li {
     color: #fff;
     font-weight: 600;
     text-align: center;
-    background: #00bfed;
-    border: 1px solid #00bfed;
+    background: #F1923D;
+    border: 1px solid #F1923D;
 }
 div > .headTab:before {
     content: '';
@@ -328,7 +328,7 @@ div > .headTab:before {
     margin-right: 5px;
 }
 .sortBar {
-    background-color: #EBFBFF;
+    background-color: #FFE6D9;
     width: 100%;
     height: 56px;
     /* border: solid 1px #DBEEFF; */
@@ -445,7 +445,7 @@ div > .headTab:before {
 .btn_tran {
     font-size: 18px;
     color: #fff;
-    background: #00BFED;
+    background: #F1923D;
     -webkit-transition: background .3s;
     -moz-transition: background .3s;
     -ms-transition: background .3s;
@@ -454,7 +454,7 @@ div > .headTab:before {
 }
 
 .iptfocus{
-    border:1px solid #00BFED;
+    border:1px solid #F1923D;
 }
 
 
@@ -464,7 +464,7 @@ thead {
     border-color: inherit;
 }
 .data_table thead tr {
-    border-bottom: 3px solid #CFF5FF;
+    border-bottom: 3px solid #F1923D;
 }
 
 .data-tbody tr{
@@ -501,12 +501,10 @@ td {
     content: "收藏";
     position: absolute;
     line-height: 60px;
-
-    /* left: 20px; */
     width: 50px;
     height: 60px;
     font-size: 14px;
-    color: #00BFEC;
+    color: #F1923D;
     text-align: center;
 }
 :after, :before {
@@ -557,14 +555,14 @@ td {
     background: red;
 }
 .lable_key{
-    color: #00BFED;
+    color: #F1923D;
 }
 .table_head:first-child
 { 
 	width: 210px;
 }
 .collegeId a:hover{
-	color: #00BFED;
+	color: #F1923D;
 }
 .data_conts{
 	margin-bottom: 30px;

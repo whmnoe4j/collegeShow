@@ -336,7 +336,7 @@ a {
     font-size: 85px;
     
     text-align: center;
-    background: #00BFED;
+    background: #F1923D;
 }
 .fr{
     float: right;
@@ -344,11 +344,11 @@ a {
 .item-ul{
     /*background: red;*/
     /*margin-top: 18px;*/
-    /*border-left:1px solid #00BFED;*/
+    /*border-left:1px solid #F1923D;*/
 }
 .item-info{
     padding: 20px;
-    border-bottom: 3px solid #00BFED;
+    border-bottom: 3px solid #F1923D;
     margin: 10px;
 }
 

@@ -10,11 +10,12 @@ function hideMask() {
     $(".register").css('display', 'none');
 }
 
-function show_login() {
-    showMask();
-    $(".register").css('display', 'none');
-    $(".login").css('display', 'block');
-}
+//function show_login() {
+//    showMask();
+//    $(".register").css('display', 'none');
+//    $(".login").css('display', 'block');
+//}
+
 
 
 

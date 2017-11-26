@@ -133,9 +133,8 @@ label {
     float: left;
     font-size: 16px;
 }
-
 .mySelected{
-	color: #00BFEC;
+	color: #F1923D;
 }
 .district {
     width: 146px;
@@ -168,7 +167,7 @@ input, select, textarea {
 	cursor: pointer;
 	 width: 312px;
     height: 50px;
-    background-color: #52ca7a;
+    background-color: #F1923D;
     display: inline-block;
     line-height: 40px;
     text-align: center;
@@ -207,7 +206,7 @@ input, select, textarea {
 	width:200px;
 }
 .btn_status {
-    background: #00BFED;
+    background: #F1923D;
     color: #fff;
     -webkit-transition: background 0.3s;
     -moz-transition: background 0.3s;
@@ -364,8 +363,37 @@ p {
     text-align: left;
 }
 .hc:hover{
-	color:#00BFEC;
+	color:#F1923D;
 }
 .data_introduce:hover{
 	color:#333;
+}
+/*动画插件和介绍*/
+.totaltitle{
+    width: 100%;height: 100%;
+}
+.totaltitle h2{
+    text-align: center;font-weight: 400;font-size: 1.7em;line-height: 40px;padding-top: 30px;
+}
+.totaltitle hr{
+    border: 1px solid #f0f0f0;
+}
+.innercontent p{
+    width: 300px;height: 100px;font-size: 14px;color: #919191;line-height: 25px;
+}
+.innercontent span{
+    color:#25ADC1;
+}
+.innercontent h3{font-size: 2em;}
+/* 动画插件 */
+.col-md-6-left{
+	width:40%;
+	margin-left:10%;
+	float:left;
+}
+.col-md-6-right{
+	margin-right:10%;
+}
+.innercontent{
+	padding-top:5%;
 }

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}高考填报志愿{% endblock %}
 {% block content %}
-
+<script type="text/javascript" src="../static/js/scrollReveal.js"></script>
 <link rel="stylesheet" type="text/css" href="../static/css/index.css">
 <script>window.jQuery || document.write('<script src="../static/js/jquery-1.11.0.min.js"><\/script>')</script>
 	<script type="text/javascript" src="../static/js/jquery.flexslider-min.js"></script>
@@ -12,7 +12,13 @@
 				directionNav: true,
 				pauseOnAction: false
 			});
-
+            //动画插件
+            $(document).ready(function(){
+                (function() {
+                    'use strict';
+                    window.scrollReveal = new scrollReveal({ reset: true, move: '300px' });
+                })();
+            });
 			// 输入高考分数和排名的js控制
 			$('.gkscores').addClass('mySelected');	
 			$('.year_rank').css('display','none');
@@ -30,35 +36,9 @@
 				$('.gkscores').removeClass('mySelected');
 				$('.year_rank').css('display','block');	
 				$('.year_score').val()
-				$('.year_score').css('display','none');
-				
+				$('.year_score').css('display','none');			
 			})
-
-
-			
-			// div跳动效果
-       		//  $(".moveTop").hover(function(){
-
-		       //   $(this).animate({top:"40px"},250);
-		       //  },function(){
-		       //    $(this).animate({top:"150px"},250);
-		       // });
-
-		       //改用form表单提交
-		      //智能推荐
-		 //      $('.goform_bottom').click(function(){
-			// 		var sel_stuProvince=$('#district option:selected').text().substring(2),
-			// 		sel_stuType=$('#category input:checked').val(),
-			// 		sel_stuScore=$('.scores_all input').val()
-			// 		sel_stuRank=$('.year_rank input').val()
-			// 		;
-			// 		postUrl= "/recommendschool/?stuProvince="+sel_stuProvince+"&stuType="+sel_stuType+"&score="+sel_stuScore;
-
-			// 		$('#recommendForm').attr('action',postUrl)
-					
-			// })
-		      
-				
+		
 	});
 
 
@@ -66,13 +46,11 @@ function check(){
 	var rank=$('.year_rank input').val()
 	var score=$('.year_score input').val()
 	if (rank!=""&&rank!=null||score!="" &&score!=null){
-		
 		return true
 	}
 	else{
 		alert('排名和分数不能都为空')
 		return false
-		
 	}
 }	
 </script>
@@ -85,7 +63,6 @@ function check(){
 		.flex-control-nav li{display:inline-block;width:14px;height:14px;margin:0 5px;*display:inline;zoom:1;}
 		.flex-control-nav a{display:inline-block;width:14px;height:14px;line-height:40px;overflow:hidden;background:url(../static/images/dot.png) right 0 no-repeat;cursor:pointer;}
 		.flex-control-nav .flex-active{background-position:0 0;}
-
 		.flex-direction-nav{position:absolute;z-index:3;width:100%;top:45%;}
 		.flex-direction-nav li a{display:block;width:50px;height:50px;overflow:hidden;cursor:pointer;position:absolute;}
 		.flex-direction-nav li a.flex-prev{left:40px;background:url(../static/images/prev.png) center center no-repeat;}
@@ -186,56 +163,61 @@ function check(){
 
         </div>
         {# 高考数据查询导航功能=================== #}
-        <div class="width-container">
-	        <div class="indexmain school_key mb90">
-
-			    <div class="school_probability fl">
-			        <div class="index_yxtj">
-			            <div class="data_logo"><img class="datasearch_dxlqgl" src="../static/images/index_icon1.png" alt=""></div>
-			                <p class="data_title">大学录取概率</p>
-			                <p class="data_text">大学心仪已久，却不知道能否被录取？输入理想大学和你的高考成绩，发现你与梦想的距离。</p>
-			            <div class="start_use">
-			                <p class="btn_status pointer" onclick="document.location='/index';">立刻体验</p>
-			                </div>
-			        </div>
-			    </div>
-
-			    <div class="school_probability fl">
-			        <div class="index_yxtj">
-			            <div class="data_logo"><img class="datasearch_zyppcp" src="../static/images/index_icon2.png" alt=""></div>
-			            <p class="data_title">专业匹配测评</p>
-			            <p class="data_text">适合自己的才是最好的专业，从这里开始，发现内心的渴望与选择，让未来充满激情与乐趣。</p>
-			            <div class="start_use">
-			                    <p class="btn_status pointer" onclick="document.location='/index';">立刻体验</p>
-			                </div>
-			        </div>
-			    </div>
-
-			    <div class="school_probability fl">
-			        <div class="index_yxtj">
-			            <div class="data_logo"><img class="datasearch_tfksqx" src="../static/images/index_icon3.png" alt=""></div>
-			            <p class="data_title">同分考生去向</p>
-			            <p class="data_text">同分学长、学姐们都读了那些大学和专业？输入你的成绩，探索他们的填报经验与志愿选择。</p>
-			                <div class="start_use">
-			                    <p class="btn_status pointer" onclick="document.location='/index';">立刻体验</p>
-			                </div>
-			        </div>
-			    </div>
-
-			    <div class="school_probability right_probability fl">
-			        <div class="index_yxtj">
-			            <div class="data_logo"><img class="datasearch_mnzytb" src="../static/images/index_icon4.png" alt=""></div>
-			            <p class="data_title">模拟志愿填报</p>
-			            <p class="data_text">如何快速完成一份靠谱志愿表？30秒，易高考帮你处理千万招录数据，找到最优志愿组合。</p>
-			            <!--<a href="" class="pointer">-->
-			            <div class="start_use">
-			                    <p class="btn_status pointer" onclick="document.location='/index';">立刻体验</p>
-			                </div>
-			            <!--</a>-->
-			        </div>
-			    </div>
-			</div>	
-			 </div>
+        <!--动画效果展示-->
+<div class="totaltitle aminition">
+            <h2>[高考志愿填报，不容小觑]</h2>
+</div>
+<div class="container">
+    <hr>
+    <div class="row">
+        <div class="col-md-6-left">
+            <div class="innercontent">
+                <h3><span>大学</span>录取概率</h3>
+                <p>大学心仪已久，却不知道能否被录取？输入理想大学和你的高考成绩，发现你与梦想的距离</p>
+            </div>
+        </div>
+        <div class="col-md-6-right">
+            <div class="text1" data-scroll-reveal="enter right over 1s and move 100px"><img style="float: right" src="../static/images/ppp.png"></div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6-left">
+            <div class="text1" data-scroll-reveal="enter left over 1s and move 100px"><img style="float: left" src="../static/images/ggg.png"></div>
+        </div>
+        <div class="col-md-6-right">
+            <div class="innercontent" style="margin-left: 70%">
+                <h3><span>专业</span>匹配测评</h3>
+                <p>适合自己的才是最好的专业，从这里开始，发现内心的渴望与选择，让未来充满激情与乐趣。</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6-left">
+            <div class="innercontent">
+                <h3><span>同分</span>考生去向</h3>
+                <p>同分学长、学姐们都读了那些大学和专业？输入你的成绩，探索他们的填报经验与志愿选择。</p>
+            </div>
+        </div>
+        <div class="col-md-6-right">
+            <div class="text1" data-scroll-reveal="enter right over 1s and move 100px"><img style="float: right" src="../static/images/services-scheme-2.jpg"></div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-6-left">
+            <div class="text1" data-scroll-reveal="enter left over 1s and move 100px"><img style="float: left" src="../static/images/hhh.png"></div>
+        </div>
+        <div class="col-md-6-right">
+            <div class="innercontent" style="margin-left: 70%">
+                <h3><span>模拟</span>志愿填报</h3>
+                <p>如何快速完成一份靠谱志愿表？30秒，我们帮你处理千万招录数据，找到最优志愿组合。</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+</div>
 			<div class="cls"></div>
 
 			{#数据查询，院校推荐=================  #}

@@ -36,7 +36,7 @@
 <div class="common-box sk-event-box creat-cy-box team-view por-h-p-set">
     <div class="sk-tab-box">
         <a href="javascript:;" class="tab-con active">个人信息</a>
-       {#  <a href="/s/as" class="tab-con">账号安全</a> #}
+       <a href="/editpasswd" class="tab-con">修改密码</a>
         {# <a href="/wallet" class="tab-con">我的钱包</a> #}
     </div>
     <div class="sk-user-info-set-box" id="userInfoSetBox">
@@ -48,11 +48,12 @@
                 <span class="public cy-info-line"></span>
                 <span class="set-btn-box">
                   <button class="set-btn edit js_edit_btn">编辑</button>
+                  <!--<a href="/editpasswd" style="padding-left:10px;color:#22bfa7">修改密码</a>  -->
                 </span>
             </div>
             <div class="sk-user-basic-info-box clearfix" id="user_info">
                 <a href="#" class="fl item-img-box"><span class="showName">{{loginUser.username}}</span></a>
-                <ul class="fl item-ul" style="">
+                <ul class="fl item-ul">
                     <!-- <li title="左阿康">昵称：左阿康</li> -->
                     <li title="{{loginUser.username}}">用户名：{{loginUser.username}}</li>
                     <li>性别：{{loginUser.sex}} </li>
@@ -71,8 +72,7 @@
                     {%endifequal%}
                     {% ifequal loginUser.type 2%}
                     <li id="userInfo_stuProvince" style="color:red">用户类型: 管理员</li>
-                    {%endifequal%}
-                    <li><a href="/editpasswd">修改密码</a></li>
+                    {%endifequal%}                 
                 </ul>
                 
             </div>

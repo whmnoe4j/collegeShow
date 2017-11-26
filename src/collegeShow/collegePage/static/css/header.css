@@ -67,7 +67,7 @@ float: left;
 }
 #head-main li a:hover{
 
-  color: #00BFED;
+  color: #F1923D;
 }
 
 li {
@@ -115,12 +115,12 @@ li {
 }
 .drop dt a:hover{
 
-  color: #00BFEC;
+  color: #F1923D;
 }
 #marker {
   background: red;
   height: 4px;
-  background: #00BFEC !important;
+  background: #F1923D !important;
   position: absolute;
   bottom: 0;
   left: 0px;
@@ -208,7 +208,7 @@ input[type=text]:focus,
 input{outline:none}   
 textarea:focus {  
 
-    color: #00BFEC;  
+    color: #F1923D;  
      
 }  
 #search {  
@@ -258,7 +258,7 @@ textarea:focus {
 
 #branding #search:focus, #nav-bottom-menu #search:focus {  
     /*background-color: #f9f9f9;  */
-    border-color:  #00BFEC;
+    border-color:  #F1923D;
     width: 160px;  
 }  
 #branding #searchsubmit, #nav-bottom-menu #searchsubmit {  
@@ -275,7 +275,7 @@ textarea:focus {
   }
 
 .btn-color{
-  background: #06CBF5;
+  background: #F1923D;
 }
 .btn-login ,.btn-register{
       cursor: pointer;

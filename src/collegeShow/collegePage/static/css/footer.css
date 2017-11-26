@@ -1,119 +1,19 @@
-.footer {
-    width: 100%;
-    height: 300px;
-    color: #fff;
-    /* margin-top: 80px; */
-    border-top: 1px solid #ECECEC;
-    border-bottom: 1px solid #ECECEC;
-    text-align: center;
-}
-.footer_tab {
-    width: 100%;
-    height: 300px;
-    color: #000;
-}
-.friendlink {
-    width: 1140px;
-    height: 220px;
-    margin: 0 auto;
-    padding-top: 40px;
-}
-.footer-botton {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 50px;
-    line-height: 50px;
-    text-align: center;
-    position: relative;
-    color: #A9A9A9;
-    font-size: 12px;
-}
-.footer .cf dl a {
-    color: #818181;
-    font-size: 14px;
-}
-.active dt a, .active dd a {
-    display: block;
-    height: 34px;
-    line-height: 34px;
-}
-.footer dl dd {
-    color: #818181;
-}
-
-dd {
-    margin-left: 0;
-}
-dd, dt {
-    line-height: 1.42857143;
-}
-.footer_title {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 20px;
-    font-weight: 400;
-}
-.active_width {
-    width: 138px;
-}
-.fl {
+/*尾部样式*/
+#footer{  width: 100%;height: 250px;background-color: #333;}
+.column{
+    width: 200px;
     float: left;
+    margin-left: 100px;
 }
-.footer dl dd {
-    color: #818181;
-}
-.touch_us dd {
-    height: 30px;
-}
-dd {
-    margin-left: 0;
-}
-dd, dt {
-    line-height: 1.42857143;
-}
-.touch_us dd .footer_details {
-    display: inline-block;
-    text-indent: 10px;
-}
-.touch_us dd .footer_img {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-}
-.iconfont {
-    font-family: "iconfont" !important;
+.column h4{
     font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
-.icon-dingwei, .icon-xinfeng {
-    font-size: 20px!important;
-}
-.icon-dingwei:before {
-    content: "\e604";
-}
-:after, :before {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
-.icon-dianhua:before {
-    content: "\e622";
-}
-
-.touch_us dd .footer_details {
-    display: inline-block;
-    text-indent: 10px;
-}
-
-
-.footer a:hover {
-    color: #2D95D7!important;
-}
-.active dt a, .active dd a {
+.column p{
     display: block;
-    height: 34px;
-    line-height: 34px;
+    padding-bottom: 15px;
+}
+.column a:hover{
+    text-decoration: none;
 }

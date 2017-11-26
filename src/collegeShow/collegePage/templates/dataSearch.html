@@ -46,7 +46,8 @@
 	     margin-left: 15px; 
 	    /* width: 65px; */
 	    height: 60px;
-	    background: url(../static/images/star_b.png) no-repeat 25px center;
+	    background: url(../static/images/star_b.png) no-repeat center;
+	    background-size:20px 20px;
 	    /* background-size: auto 100%; */
 	}
 	.hidden{
@@ -211,7 +212,7 @@
 								pre_head='<tr><td class="collegeId">'+pre_common
                             	$('.data-tbody').append(pre_head+pre_mid)  
                             }else{
-                            	pre_head='<tr style="background:#EBFBFF;"><td class="collegeId">'+pre_common
+                            	pre_head='<tr style="background:#FFE6D9;"><td class="collegeId">'+pre_common
                             	$('.data-tbody').append(pre_head+pre_mid)  
                             }
 								
@@ -387,7 +388,7 @@
 		    </div>
 
 		    <div>
-		        <div class="changeNav_school"><i class="icon iconfont icon-xueshimao"></i>院校数据</div>
+		        <div class="changeNav_school"><img style="width:25px;height:25px;padding-right:8px;" src="../static/images/colleagedata.png">院校数据</div>
 		        <ul class="changeNav">
 
 		            <a href="/dataSearch"><li class="lpointer mySelected">院校大全</li></a>
@@ -398,7 +399,7 @@
 		    </div>
 
 		    <div>
-		        <div class="changeNav_major"><i class="icon iconfont icon-shu"></i>专业数据</div>
+		        <div class="changeNav_major"><img style="width:25px;height:25px;padding-right:8px;" src="../static/images/professiondata.png"></i>专业数据</div>
 		        <ul class="changeNav">
 		            <a href="/professiongroup"><li class="lpointer ">专业大全</li></a>
 		            <a href="/professionscore"><li class="lpointer ">专业分数线</li></a>
@@ -411,7 +412,7 @@
 	        {% include 'tempuser.html' %}
    <div class="partLine">
 
-   		 <div id="row_collegeNature" style="border-top:4px #00BFED solid;">
+   		 <div id="row_collegeNature" style="border-top:4px #F1923D solid;">
             <div class="select_title fl">
                 <div class="select_inputDom">院校层次：</div>
             </div>

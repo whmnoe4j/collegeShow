@@ -30,6 +30,7 @@ window.scrollReveal = (function (window) {
 
   // generator (increments) for the next scroll-reveal-id
   var nextId = 1;
+
   /**
    * RequestAnimationFrame polyfill
    * @function
