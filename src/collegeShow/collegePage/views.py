@@ -140,7 +140,7 @@ def dataSearch(request):
         if tempUser == "none":
             return render_to_response(webName, { "collectId":json.dumps([])})
         else:
-            return render_to_response(webName, {'tempUser':tempUser})
+            return render_to_response(webName, {'tempUser':tempUser, "collectId":json.dumps([])})
 
 @auth_user(webName = "user.html")
 def user(request):

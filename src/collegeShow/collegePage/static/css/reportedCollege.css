@@ -97,7 +97,7 @@ li {
     cursor: pointer;
 }
 .mySelected {
-    background: #FFE6D9!important;
+    background: #f1d4b9!important;
 }
 .lFrame .mySelected:before {
     content: '';
@@ -193,7 +193,7 @@ li {
     margin-bottom: 0;
 }
 .mySelected {
-    background: #FFE6D9!important;
+    background: #f1d4b9!important;
 }
 .pull-left {
     float: left!important;
@@ -334,7 +334,7 @@ div > .headTab:before {
     margin-right: 5px;
 }
 .sortBar {
-    background-color: #FFE6D9;
+    background-color: #f1d4b9;
     width: 100%;
     height: 56px;
     /* border: solid 1px #DBEEFF; */

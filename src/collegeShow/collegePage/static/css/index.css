@@ -240,9 +240,7 @@ input, select, textarea {
     line-height: 25px;
 }
 
-p {
-    margin: 0 0 10px;
-}
+
 .data_title {
     font-size: 22px;
     /* font-weight: 700; */
@@ -321,13 +319,7 @@ p {
 	width: 340px;
 }
 
-p {
-    display: block;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-}
+
 
 
 .datasearch_dxlqgl{

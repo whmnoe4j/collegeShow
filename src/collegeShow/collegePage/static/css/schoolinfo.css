@@ -18,7 +18,7 @@
     position: absolute;
 }
 .left-item.current {
-    background-color: #00A0E9;
+    background-color: #F1923D;
     color: #fff;
 }
 .left-item {
@@ -176,9 +176,7 @@ ul {
     padding-top: 30px;
 
 }
-p {
-    text-indent: 2em;
-}
+
 .right-intro-intro>div {
     padding: 0 10px 10px;
     overflow: hidden;
