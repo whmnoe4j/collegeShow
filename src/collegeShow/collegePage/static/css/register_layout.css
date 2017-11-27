@@ -29,9 +29,9 @@
 .step_inner {color: #FFFFFF;text-align: center;width: 100px;margin: 0 auto;}
 .step_line {width: 720px;background-color: #9E9F9F;height: 6px;position: absolute;top: 50%;left: 50%;margin: -18px auto auto -360px;z-index: 1;}
 .processorBox li .icon_step {width: 36px;height: 36px;line-height: 36px;display: inline-block;border-radius: 50%;-webkit-border-radius: 50%;-moz-border-radius: 50%;color: #fff;font-size: 18px;text-align: center;background-color: #A4A4A4;position: relative;z-index: 2;}
-.processorBox li.current .icon_step {background-color: #00BFEC;}
+.processorBox li.current .icon_step {background-color: #F1923D;}
 .processorBox h4 {color: #fff;margin-top: 5px;}
-.processorBox li.current h4 {color: #00BFEC;}
+.processorBox li.current h4 {color: #F1923D;}
 .content {background-color: #ffffff;padding: 45px 50px;}
 .frm_control_group {padding-bottom:25px;}
 .frm_label {width: 6em;float: left;margin-right: 1em;line-height: 35px;}
@@ -44,7 +44,7 @@
 .changeVerifyCode {color: #4677BD;margin-left: 3px;}
 .toolBar {margin-top: 15px;padding: 25px 0 0 98px;border-top: 1px solid #D2D2D2;box-shadow: 0 1px 0 #FBFBFB inset;-webkit-box-shadow: 0 1px 0 #FBFBFB inset;}
 .btn {border-radius: 5px;-webkit-border-radius: 5px;-moz-border-radius: 5px;cursor: pointer;display: inline-block;font-size: 14px;height: 35px;line-height: 35px;overflow: visible;padding: 0 36px;text-align: center;text-decoration: none;vertical-align: middle;}
-.btn_primary {background-color: #00BFEC;color: #FFFFFF;border: 1px solid #00BFEC;}
+.btn_primary {background-color: #F1923D;color: #FFFFFF;border: 1px solid #F1923D;}
 .btn_default {background-color: #F1F1F1;color: #000000;border: 1px solid #D1D1D1;}
 .btn:hover {text-decoration: none;}
 .phoneYzm {width: 145px;}
