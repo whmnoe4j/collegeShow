@@ -449,7 +449,7 @@ class Order(models.Model):
     zhifu_order = models.CharField(max_length = 100, blank = True, null = True)
     createtime = models.DateTimeField(blank = True, null = True)
     count = models.FloatField(blank = True, null = True)
-
+    status = models.IntegerField(blank = True, null = True)
     class Meta:
         managed = False
         db_table = 'order'

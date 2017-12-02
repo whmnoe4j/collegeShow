@@ -9,7 +9,9 @@
         var subnavs = nav.getElementsByTagName("div");
         var paddingbottom = 0;
         var defaultHeight = 0;
-
+        var  pageurl= window.location.pathname;
+        
+        $('#logout').attr("href","/logout?next_page="+pageurl); 
         function drop(obj, ivalue) {
             var a = obj.offsetHeight;
             var speed = (ivalue - obj.offsetHeight) / 3;
@@ -215,8 +217,7 @@
                     {%else%}
                     <span class="btn-login btn-color" onclick="location='/userInfo/'">{{loginUser.username}}</span>
                     {%endifequal%}
-                    
-                    <a href="/logout"><span class="btn-register">登出</span></a>
+                    <a href="/logout" id="logout"><span class="btn-register">登出</span></a>
                 </form>
             </div>
             {% else %}

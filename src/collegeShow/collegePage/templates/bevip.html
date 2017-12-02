@@ -137,9 +137,22 @@
             margin-top: -60px;
 
         }
-
+        .tip-btn{
+            font-size: 16px;
+             width: 230px;
+            height: 44px;
+            line-height: 44px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 22px;
+            background: #F1923D;
+            color: red;
+            border: 0px;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
     </style>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     
      $(document).ready(function(){
 
@@ -149,7 +162,7 @@
     		 alert("您已经是VIP会员，无需重复开通")
     	 }
      })
-</script>
+</script> -->
     <!-- 图片展示部分-->
         <div style="width: 100%;">
             <img id="bottom_img" src="../static/images/VIP_bj.jpg">
@@ -186,11 +199,15 @@
                     <div class="buySubmit">
                     
                         {%if loginUser%}
-                            {%if loginUser.type >= 1%}
-                            <p style="color:red;font-size:16px;font-weight:600;">您已经是VIP会员哦!</p>
-                            {%else%}
-                            <input type="button" class="submit_vip pointer" value="立即开通">
-                            {%endif%}
+                                {%if order_status == 0%}
+                                    <p class="tip-btn">会员审核中</p>
+                                    {%elif order_status == 1 or loginUser.type >= 1%}
+                                        <p class="tip-btn">您已经是VIP会员哦!</p>
+                                    {%else%}
+                                        <input type="button" class="submit_vip pointer" value="立即开通">
+                                {%endif%}
+
+                                
                         {%else%}
                         <input type="button" class="submit_vip pointer" value="立即开通">
                         {%endif%}
@@ -282,6 +299,12 @@
         $(".vipball").eq(index).show().siblings().hide();
     });
     $(".submit_vip").click(function(){
+        var user_type = "{{ loginUser.type }}";
+         if (user_type==""){
+             
+             alert("您还没有登录呢,请登录后再开通会员哦")
+             return
+         }
         layer.open({
             type: 1,
             skin: 'tobevip', //样式类名

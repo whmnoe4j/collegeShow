@@ -102,7 +102,7 @@ urlpatterns = [
     
     #登录注册
     url(r'^login/', views.login, name = "login"),
-    url(r'^logout/', views.logout, name = "logout"),
+    url(r'^logout/$', views.logout, name = "logout"),
     url(r'^register/', views.register, name = "register"),
     #注册会员
     url(r'^bevip/', views.bevip, name = "bevip"),
@@ -115,5 +115,9 @@ urlpatterns = [
     
     #修改密码
     url(r'^editpasswd/', views.editpasswd, name = "editpasswd"),
+    #修改订单
+    url(r'^update_order/$', adminViews.update_order, name = "update_order"),
+    url(r'^delete_order/$', adminViews.delete_order, name = "delete_order"),
+    #删除订单
     
 ]

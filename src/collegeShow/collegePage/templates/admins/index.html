@@ -143,6 +143,8 @@
                   <th>支付订单号</th>
                   <th>下单时间</th>
                   <th>金额</th>
+                  <th>订单状态</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody>
@@ -157,6 +159,19 @@
                           <td>{{order.zhifu_order}}</td>
                           <td>{{order.createtime}}</td>
                           <td>{{order.count}}</td>
+                          {%if order.status == 0%}
+                          <td style="color:red">订单处理中</td>
+                          {%else%}
+                          <td style="color:#22bfa7">订单已处理</td>
+                          {%endif%}
+                          {%if order.status == 0%}
+                          <td style="color:#22bfa7"><a href="/update_order?userid={{order.user_id}}&orderid={{order.id}}">通过</a>
+
+                          {%else%}
+                          <td style="color:#22bfa7">已通过</a>
+                          {%endif%}
+                          <a href="/delete_order?orderid={{order.id}}" onClick="return confirm('确定删除?');">删除</a>
+                          </td>
                         </tr>
 
                    {%endfor%}
@@ -164,7 +179,7 @@
                 
               </tbody>
             </table>
-            <p><a href="/adminUsers">More...</a></p>
+            <!-- <p><a href="/adminUsers">More...</a></p> -->
         </div>
     </div>
    

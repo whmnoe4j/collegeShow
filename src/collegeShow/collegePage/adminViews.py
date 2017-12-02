@@ -229,3 +229,28 @@ def addUser(request):
     else:
         return redirect("/sign_in")
     
+#更新订单
+@auth_admin 
+def update_order(request):
+    
+    if request.method == "GET":
+        userid = int(request.GET.get("userid"))
+        orderid = int(request.GET.get("orderid"))
+        Order.objects.filter(user_id = userid, id = orderid).update(status = 1)
+        user = Users.objects.filter(id = userid)
+        Users.objects.filter(id = userid).update(type = 1)
+        print user[0].username
+        return redirect('/adminIndex')
+    
+#删除订单
+@auth_admin
+def delete_order(request):
+    if request.method == "GET":
+        orderid = int(request.GET.get("orderid"))
+        order = Order.objects.filter(id = orderid)
+        if order == 0:
+            pass
+        else:
+            Order.objects.get(id = order).delete()
+            return redirect("/adminIndex")
+    

@@ -43,7 +43,7 @@
                     var verifyCode = $('.verifyCode').val();
                     var tel = $('.tel').val();
 
-                    var usernameReg = /^[a-zA-Z]{1,30}$/;
+                    var usernameReg = /^[a-zA-Z]{1,10}[0-9]{0,10}$/;
                     var EmailReg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/; //邮件正则
                     var TelRegex = /^1[3|4|5|8][0-9]\d{4,8}$/;
                     if(email == ''){
@@ -101,7 +101,7 @@
                 var tel = $('.tel').val();
                 var TelRegex = /^1[3|4|5|8][0-9]\d{4,8}$/;
                 if(!realnameReg.test(realname)){
-                        showTips('请输入正确的名字~');
+                        showTips('请输入含有中文的名字~');
                 }else if(!TelRegex.test(tel)){
                         showTips('请输入正确的手机号码~');
                  }else if(realname==""|| realname==null){

@@ -251,11 +251,14 @@ def schoolmajor(request):
         SchoolData["specialtyname"] = school.specialtyname 
         SchoolData["level"] = school.level 
         SchoolMajors.append(SchoolData)
-    if loginUser != "none":
-        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo, 'loginUser':loginUser})
-    else:
         
-        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo})
+    if loginUser != "none":
+        #将收藏结果返回
+        collections = Collection.objects.filter(user = loginUser)
+        collectId = [collect.college.id  for collect in collections]
+        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo, 'loginUser':loginUser, 'collectId':collectId})
+    else:
+        return render_to_response("school_major.html", {'schoolMajors':SchoolMajors, 'schoolinfo':SchoolInfo, "collectId":json.dumps([])})
 #历年分数线
 @auth_isStatus
 def schoolenrol(request):
@@ -270,7 +273,10 @@ def schoolenrol(request):
     proidInfo['stuType'] = stuType
     #print loginUser
     if loginUser != "none":
-        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser})
+        #将收藏结果返回
+        collections = Collection.objects.filter(user = loginUser)
+        collectId = [collect.college.id  for collect in collections]
+        return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo, 'loginUser':loginUser, "collectId":collectId})
     else:
         
         return render_to_response("schoolenrol.html", {'schoolinfo':SchoolData, 'proidInfo':proidInfo})
@@ -387,8 +393,12 @@ def login(request):
                     return HttpResponse(json.dumps({"result":False, "errorMsg":"密码错误"}))
 def logout(request):
     try: 
+        next_page = request.GET.get("next_page", "none")
         del request.session["loginUser"]  #删除session
-        return redirect("index")
+        if next_page == "none" or next_page == "":
+            return redirect("index")
+        else:
+            return redirect(next_page)
     except:
         return redirect("index")
 @auth_isStatus
@@ -429,9 +439,19 @@ def register(request):
         else:
             return render_to_response("register.html")
 #成为Vip
-@auth_user(webName = "bevip.html")
+#@auth_user(webName = "bevip.html")
 def bevip(request):
-    pass
+    loginUser = request.session.get("loginUser", "none")
+    if loginUser != "none":
+        order = Order.objects.filter(user_id = loginUser.id)
+        print len(order) 
+        if len(order) > 0:
+            print order[0].status
+            return render_to_response("bevip.html", {"loginUser":loginUser, "order_status":order[0].status})
+        else:
+            return render_to_response("bevip.html", {"loginUser":loginUser})
+    else:
+        return render_to_response("bevip.html")
 @auth_user(webName = "success.html")
 def success(request):
     pass
@@ -457,6 +477,7 @@ def order(request):
         order.zhifu_name = zhifu_name
         order.zhifu_order = zhifu_order
         order.count = 9.9
+        order.status = 0
         order.createtime = date
         order.save()
         return render_to_response("success.html", {"loginUser":loginUser})
@@ -535,3 +556,5 @@ def editpasswd(request):
                 return render_to_response("editpasswd.html", {"loginUser":loginUser, "result":result})  
     else:
         return render_to_response("editpasswd.html", {"loginUser":loginUser})
+
+

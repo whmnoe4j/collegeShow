@@ -14,6 +14,7 @@
         width: 130px;
         float: left;
         padding-left: 10px;
+        border-left: 3px #F1923D solid;
     }
     .right-major .up-block .upper-listItems {
         float: left;
@@ -50,12 +51,14 @@
 </style>
 <script type="text/javascript">
     $(document).ready(function(){
+        $(document.body).mLoading("show");//显示loading组件
        //导航换肤
         $('.left-item').each(function(){
             $(this).removeClass('current')
            
         })
         $('.left-item:eq(1)').addClass('current')
+        $(document.body).mLoading("hide");//显示loading组件
     })
 </script>
 <div class="right-wrap">

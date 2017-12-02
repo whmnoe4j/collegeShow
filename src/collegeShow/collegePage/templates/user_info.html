@@ -4,11 +4,9 @@
 </style>
 <link rel="stylesheet" href="../static/css/userBase.css">
 <script type="text/javascript">
-    window.onload = function() {
         // 生成头像
-       
-
-        $('.cancle').click(function(){
+    $(function(){
+         $('.cancle').click(function(){
             $("#edit_user_info").addClass('hide')
             $('#user_info').removeClass('hide')
 
@@ -21,14 +19,12 @@
             
         })
       $('.js_edit_btn').click(function(){
-
             $("#edit_user_info").removeClass('hide')
             $('#user_info').addClass('hide')
-        
       
         })
-            
-    }
+    })
+       
 </script>
 
 <div class="head_height"></div>
@@ -65,7 +61,7 @@
 
 
                     {% ifequal loginUser.type 0%}
-                    <li id="userInfo_stuProvince">用户类型: 普通用户</li>
+                    <li id="userInfo_stuProvince">用户类型: 普通用户(如果已经开通会员请重新登录)</li>
                     {%endifequal%}
                     {% ifequal loginUser.type 1%}
                     <li id="userInfo_stuProvince" style="color:red">用户类型: Vip用户</li>
